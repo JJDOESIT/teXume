@@ -1,0 +1,168 @@
+\documentclass[letterpaper,11pt]{article}
+
+\usepackage{latexsym}
+\usepackage[empty]{fullpage}
+\usepackage{titlesec}
+\usepackage{marvosym}
+\usepackage[usenames,dvipsnames]{color}
+\usepackage{verbatim}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+\usepackage{fancyhdr}
+\usepackage[english]{babel}
+\usepackage{tabularx}
+\input{glyphtounicode}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyfoot{}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+
+\addtolength{\oddsidemargin}{-0.5in}
+\addtolength{\evensidemargin}{-0.5in}
+\addtolength{\textwidth}{1in}
+\addtolength{\topmargin}{-.5in}
+\addtolength{\textheight}{1.0in}
+
+\urlstyle{same}
+
+\raggedbottom
+\raggedright
+\setlength{\tabcolsep}{0in}
+
+\titleformat{\section}{
+  \vspace{-4pt}\scshape\raggedright\large
+}{}{0em}{}[\color{black}\titlerule \vspace{-5pt}]
+
+\pdfgentounicode=1
+
+\newcommand{\resumeItem}[1]{
+  \item\small{
+    {#1 \vspace{-2pt}}
+  }
+}
+
+\newcommand{\resumeSubheading}[4]{
+  \vspace{-2pt}\item
+    \begin{tabular*}{0.97\textwidth}[t]{l@{\extracolsep{\fill}}r}
+      \textbf{#1} & #2 \\
+      \textit{\small#3} & \textit{\small #4} \\
+    \end{tabular*}\vspace{-7pt}
+}
+
+\newcommand{\resumeSubSubheading}[2]{
+    \item
+    \begin{tabular*}{0.97\textwidth}{l@{\extracolsep{\fill}}r}
+      \textit{\small#1} & \textit{\small #2} \\
+    \end{tabular*}\vspace{-7pt}
+}
+
+\newcommand{\resumeProjectHeading}[2]{
+    \item
+    \begin{tabular*}{0.97\textwidth}{l@{\extracolsep{\fill}}r}
+      \small#1 & #2 \\
+    \end{tabular*}\vspace{-7pt}
+}
+
+\newcommand{\resumeSubItem}[1]{\resumeItem{#1}\vspace{-4pt}}
+
+\renewcommand\labelitemii{$\vcenter{\hbox{\tiny$\bullet$}}$}
+
+\newcommand{\resumeSubHeadingListStart}{\begin{itemize}[leftmargin=0.15in, label={}]}
+\newcommand{\resumeSubHeadingListEnd}{\end{itemize}}
+\newcommand{\resumeItemListStart}{\begin{itemize}}
+\newcommand{\resumeItemListEnd}{\end{itemize}\vspace{-5pt}}
+
+\begin{document}
+
+\begin{center}
+    %section-name-start
+    \textbf{\Huge \scshape 
+    %name
+    } \\ \vspace{1pt}
+    %section-name-end
+    \small 
+    %phone
+     $|$ \href{mailto:x@x.com}{\underline{
+      %email
+      }} $|$ 
+    \href{https://linkedin.com/in/...}{\underline{linkedin.com/in/jake}} $|$
+    \href{https://github.com/...}{\underline{github.com/jake}}
+\end{center}
+
+%section-education-start
+\section{Education}
+  \resumeSubHeadingListStart
+    %loop-education-start
+    \resumeSubheading{
+      %name
+      }{
+      %location
+      }{
+      %degree
+      }{
+      %date
+      }
+    %loop-education-end
+  \resumeSubHeadingListEnd
+%section-education-end
+
+\section{Experience}
+  \resumeSubHeadingListStart
+    %loop-experience-start
+    \resumeSubheading{
+    %title
+    }{
+    %date
+    }{
+    %company
+    }{
+    %location
+    }
+      \resumeItemListStart
+        %loop-description-start
+        \resumeItem{
+          %point
+        }
+        %loop-description-end
+      \resumeItemListEnd
+    %loop-experience-end
+  \resumeSubHeadingListEnd
+
+\section{Projects}
+    \resumeSubHeadingListStart
+      %loop-project-start
+      \resumeProjectHeading
+          {\textbf{Gitlytics} $|$ \emph{
+            %tools
+            }}{
+              %date
+              }
+          \resumeItemListStart
+            %loop-description-start
+            \resumeItem{
+              %point
+              }
+            %%loop-description-end
+          \resumeItemListEnd
+      %loop-project-end
+    \resumeSubHeadingListEnd
+
+\section{Technical Skills}
+ \begin{itemize}[leftmargin=0.15in, label={}]
+    \small{\item{
+     \textbf{Languages}{: 
+     %loop-language-start
+        %language-delimited-,
+     %loop-language-end
+     } \\
+     \textbf{Frameworks/Technologies}{: 
+     %loop-technology-start
+        %technology-delimited-,
+     %loop-technology-end
+     } \\
+    }}
+ \end{itemize}
+
+\end{document}
