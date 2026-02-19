@@ -1,5 +1,5 @@
 \documentclass[a4paper,11pt]{article}
-\usepackage[bottom=0.8in,top=0.8in, left=0.8in,right=0.8in]{geometry}
+\usepackage[bottom=0.8in,top=0.8in,left=0.8in,right=0.8in]{geometry}
 
 \pagestyle{empty} 
 
@@ -7,13 +7,19 @@
 \usepackage{newtxmath,newtxtext}
 
 \usepackage{parskip}
-\usepackage{titlesec}	
+\usepackage{titlesec}    
 \usepackage{multirow}
 \usepackage{graphicx}
 \usepackage[usenames,dvipsnames]{xcolor}
 \usepackage{hyperref}
+
 \definecolor{linkcolour}{rgb}{0,0.2,0.6}
-\hypersetup{colorlinks,breaklinks,urlcolor={linkcolour!90}, linkcolor={linkcolour!90}}
+\hypersetup{
+    colorlinks,
+    breaklinks,
+    urlcolor={linkcolour!90},
+    linkcolor={linkcolour!90}
+}
 
 \linespread{1.1}
 
@@ -37,19 +43,21 @@
 %section-header-start
 \begin{minipage}{\textwidth}
     \vspace{7ex}
-        \par{
+    \par{
         \centering
         \vspace{-0.9in}
-            \textcolor{linkcolour}{\Large 
+        \textcolor{linkcolour}{\Large 
             %name
-            }
-        \par}
+        }
+        \par
+    }
 \end{minipage}
 \begin{center}
- \href{mailto:email@address.com}{
-    %email
-    } \,$\cdot$\, \href{}{
-    %phone
+    \href{mailto:email@address.com}{
+        %email
+    } \,$\cdot$\, 
+    \href{}{
+        %phone
     }
 \end{center}
 %section-header-end
@@ -60,10 +68,10 @@
 \par\noindent
 \textBF{
     %category
-    } --- 
-    %loop-description-start
-        %point-delimited-,
-    %loop-description-end
+} --- 
+%loop-description-start
+    %point-delimited-,
+%loop-description-end
 %loop-skills-end
 %section-skills-end
 
@@ -73,8 +81,8 @@
 \par\noindent
 \textBF{
     %title
-    } --- 
-    %description
+} --- 
+%description
 %loop-achievements-end
 %section-achievements-end
 
@@ -85,16 +93,16 @@
 \textBF{
     %title
 } --- 
-    %company
+%company
 \hfill
-    %startDate 
+%startDate 
 --- 
-    %endDate
+%endDate
 \par
 \begin{itemize}
 %loop-description-start
     \item{
-    %point
+        %point
     }
 %loop-description-end
 \end{itemize}
@@ -108,16 +116,16 @@
 \textBF{
     %degree
 } --- 
-    %school
+%school
 \hfill
-    %startDate 
+%startDate 
 --- 
-    %endDate
+%endDate
 \par
 \begin{itemize}
 %loop-description-start
     \item{
-    %point
+        %point
     }
 %loop-description-end
 \end{itemize}

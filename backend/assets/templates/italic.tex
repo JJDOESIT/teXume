@@ -19,18 +19,18 @@
 \definecolor{navyblue}{RGB}{0,54,123}
 
 \newcommand\sbullet[1][.5]{%
-  \mathbin{\ThisStyle{\vcenter{\hbox{\scalebox{#1}{$\SavedStyle\bullet$}}}}}
+  \mathbin{\ThisStyle{\vcenter{\hbox{\scalebox{#1}{$\SavedStyle\bullet$}}}}}%
 }
 
 \newcommand{\namesize}{\huge}
 
 \makeatletter
 \newcommand{\name}[1]{\def\@name{#1}}
-\newcommand{\printname}{
+\newcommand{\printname}{%
   \begin{center}
     {\namesize\bfseries\textit{\@name}}
   \end{center}
-  \vspace{0.5cm}
+  \vspace{0.5cm}%
 }
 \makeatother
 
@@ -51,7 +51,7 @@
   {\color{navyblue}\hrule}
   \begin{list}{}{\leftmargin=1.5em}
   \item[]
-}{
+}{%
   \end{list}
 }
 
@@ -62,19 +62,19 @@
   }
   \begin{list}{}{\leftmargin=0em}
   \itemsep -0.7em
-}{
+}{%
   \end{list}
 }
 
 \newenvironment{rSubsection}[4]{%
   {\bfseries #1}\hfill{\textit{#2}}\par
   \ifthenelse{\equal{#3}{}}{}{%
-    \textit{#3} \hfill \textit{#4}
+    \textit{#3} \hfill \textit{#4}%
   }
   \smallskip
   \begin{list}{$\sbullet[.65]$}{\leftmargin=2em}
   \itemsep -0.5em
-}{
+}{%
   \end{list}\vspace{0em}
 }
 
@@ -101,13 +101,17 @@
   %name
 }
 \printname
+
 \printPersonalInfo{
-  \personalInfo{\tag{E-mail}\info{
-    %email
+  \personalInfo{
+    \tag{E-mail}\info{
+      %email
     }
-    \infoSeparator\tag{Phone}\info{
-    %phone
-    }}
+    \infoSeparator
+    \tag{Phone}\info{
+      %phone
+    }
+  }
 }
 %section-header-end
 
@@ -115,19 +119,19 @@
 \begin{rSection}{Education}
 %loop-educations-start
 \begin{rSubsectionNoBullet}{
-    %degree
-    }{
-    %startDate
-    --
-    %endDate
-    }{
-    %school
-    }{}
-    %loop-description-start
-    \italicitem{
-        %point
-    }
-    %loop-description-end
+  %degree
+}{
+  %startDate
+  --
+  %endDate
+}{
+  %school
+}{}
+%loop-description-start
+\italicitem{
+  %point
+}
+%loop-description-end
 \end{rSubsectionNoBullet}
 %loop-educations-end
 \end{rSection}
@@ -137,21 +141,21 @@
 \begin{rSection}{Work Experience}
 %loop-experiences-start
 \begin{rSubsection}{
-    %company
-    }{
-    %startDate
-    --
-    %endDate
-    }{
-    %title
-    }{
-    %location
-    }
-    %loop-description-start
-        \item{
-        %point
-        }
-    %loop-description-end
+  %company
+}{
+  %startDate
+  --
+  %endDate
+}{
+  %title
+}{
+  %location
+}
+%loop-description-start
+\item{
+  %point
+}
+%loop-description-end
 \end{rSubsection}
 %loop-experiences-end
 \end{rSection}
@@ -161,15 +165,15 @@
 \begin{rSection}{Projects}
 %loop-projects-start
 \begin{rSubsection}{
-    %title
-    }{
-    %date
-    }{}{}
-    %loop-description-start
-        \item{
-        %point
-        }
-    %loop-description-end
+  %title
+}{
+  %date
+}{}{ }
+%loop-description-start
+\item{
+  %point
+}
+%loop-description-end
 \end{rSubsection}
 %loop-projects-end
 \end{rSection}
@@ -177,16 +181,16 @@
 
 %section-skills-start
 \tableEnv{Skills}{
-    %loop-skills-start
-    \entry{
-        %category
-        :
-    }{
-        %loop-description-start
-          %point-delimited-,
-        %loop-description-end
-    }
-    %loop-skills-end
+%loop-skills-start
+\entry{
+  %category
+  :
+}{
+%loop-description-start
+  %point-delimited-,
+%loop-description-end
+}
+%loop-skills-end
 }
 %section-skills-end
 

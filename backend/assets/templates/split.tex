@@ -8,6 +8,7 @@
 \usepackage{tabularx}
 \usepackage{titlesec}
 \usepackage{fontawesome5}
+\usepackage{multicol}
 
 \geometry{hmargin=1.75cm, vmargin=2.5cm}
 \pagestyle{empty}
@@ -16,7 +17,7 @@
 \titlespacing{\section}{0pt}{12pt plus 2pt minus 2pt}{6pt plus 2pt minus 2pt}
 
 \newcommand{\entry}[4]{
-    \textbf{#1} \hfill #4\\
+    \item{\bfseries #1} \hfill #4\\
     \textit{#2} \hfill \textit{#3}
 }
 
@@ -39,70 +40,66 @@
 \header{
     %name
 }{
-    \faPhone~
+    \faPhone~ 
     %phone
     \quad
-    \faEnvelope~
+    \faEnvelope~ 
     %email
 }
 
-\noindent
-\begin{minipage}[t]{0.65\linewidth}
+\begin{multicols}{2}
 
-    %section-educations-start
-    \section{Education}
-    %loop-educations-start
-    \entry{
-        %school
-    }{
-        %degree
-    }{
-        %location
-    }{
-        %startDate
-        --
-        %endDate
+%section-educations-start
+\section{Education}
+%loop-educations-start
+\entry{
+    %school
+}{
+    %degree
+}{
+    %location
+}{
+    %startDate 
+    -- 
+    %endDate
+}
+\begin{myitemize}
+    %loop-description-start
+    \item{
+        %point
     }
-    \begin{myitemize}
-        %loop-description-start
-        \item{
-            %point
-        }
-        %loop-description-end
-    \end{myitemize}
-    %loop-educations-end
-    %section-educations-end
+    %loop-description-end
+\end{myitemize}
+%loop-educations-end
+%section-educations-end
 
-    %section-experiences-start
-    \section{Experience}
-    %loop-experiences-start
-    \entry{
-        %company
-    }{
-        %title
-    }{
-        %location
-    }{
-        %startDate
-        --
-        %endDate
+%section-experiences-start
+\section{Experience}
+%loop-experiences-start
+\entry{
+    %company
+}{
+    %title
+}{
+    %location
+}{
+    %startDate 
+    -- 
+    %endDate
+}
+\begin{myitemize}
+    %loop-description-start
+    \item{
+        %point
     }
-    \begin{myitemize}
-        %loop-description-start
-        \item{
-            %point
-        }
-        %loop-description-end
-    \end{myitemize}
-    %loop-experiences-end
-    %section-experiences-end
+    %loop-description-end
+\end{myitemize}
+%loop-experiences-end
+%section-experiences-end
 
-\end{minipage}%
-\hfill
-\begin{minipage}[t]{0.30\linewidth}
-
-    %section-skills-start
-    \section{Skills}
+%section-skills-start
+\section{Skills}
+\begin{myitemize}
     %loop-skills-start
     \item{\bfseries{
         %category
@@ -111,34 +108,35 @@
         %point-delimited-,
     %loop-description-end
     %loop-skills-end
-    %section-skills-end
+\end{myitemize}
+%section-skills-end
 
-    %section-projects-start
-    \section{Projects}
-    %loop-projects-start
-    \item{\bfseries{
-        %title
-    }}
-    \begin{itemize}
-        %loop-description-start
-        \item{
-            %point
-        }
-        %loop-description-end
-    \end{itemize}
-    %loop-projects-end
-    %section-projects-end
+%section-projects-start
+\section{Projects}
+%loop-projects-start
+\item{\bfseries{
+    %title
+}}
+\begin{myitemize}
+    %loop-description-start
+    \item{
+        %point
+    }
+    %loop-description-end
+\end{myitemize}
+%loop-projects-end
+%section-projects-end
 
-    %section-achievements-start
-    \section{Achievements}
-    %loop-achievements-start
-    \item{\bfseries{
-        %title
-    }}---
-    %description
-    %loop-achievements-end
-    %section-achievements-end
+%section-achievements-start
+\section{Achievements}
+%loop-achievements-start
+\item{\bfseries{
+    %title
+}}---
+%description
+%loop-achievements-end
+%section-achievements-end
 
-\end{minipage}
+\end{multicols}
 
 \end{document}

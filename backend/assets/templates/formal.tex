@@ -11,6 +11,7 @@
 \usepackage{fancyhdr}
 \usepackage[english]{babel}
 \usepackage{tabularx}
+
 \input{glyphtounicode}
 
 \pagestyle{fancy}
@@ -80,100 +81,99 @@
 \begin{center}
     \textbf{\Huge \scshape 
     %name
-    } \\ \vspace{1pt}
+    } \\ 
+    \vspace{1pt}
     \small 
     %phone
-    $|$ \href{mailto:x@x.com}{\underline{
+    $|$ 
+    \href{mailto:x@x.com}{
     %email
-    }}
+    }
 \end{center}
 %section-header-end
 
 %section-educations-start
 \section{Education}
-  \resumeSubHeadingListStart
-    %loop-educations-start
-    \resumeSubheading
-        {
-        %school
-        }{
-        %location
-        }
-        {
-        %degree
-        }{
-        %startDate
-        --
-        %endDate
-        }
-    %loop-educations-end
-  \resumeSubHeadingListEnd
+\resumeSubHeadingListStart
+%loop-educations-start
+\resumeSubheading{
+  %school
+}{
+  %location
+}{
+  %degree
+}{
+  %startDate
+  --
+  %endDate
+}
+%loop-educations-end
+\resumeSubHeadingListEnd
 %section-educations-end
 
 %section-experiences-start
 \section{Experience}
-  \resumeSubHeadingListStart
-    %loop-experiences-start
-    \resumeSubheading
-        {
-        %title
-        }{
-        %startDate
-        --
-        %endDate
-        }
-        {
-        %company
-        }{
-        %location
-        }
-        \resumeItemListStart
-        %loop-description-start
-          \resumeItem{
-            %point
-          }
-        %loop-description-end
-        \resumeItemListEnd
-    %loop-experiences-end
-  \resumeSubHeadingListEnd
+\resumeSubHeadingListStart
+%loop-experiences-start
+\resumeSubheading{
+  %title
+}{
+  %startDate
+  --
+  %endDate
+}{
+  %company
+}{
+  %location
+}
+\resumeItemListStart
+%loop-description-start
+\resumeItem{
+  %point
+}
+%loop-description-end
+\resumeItemListEnd
+%loop-experiences-end
+\resumeSubHeadingListEnd
 %section-experiences-end
 
 %section-projects-start
 \section{Projects}
-    \resumeSubHeadingListStart
-    %loop-projects-start
-      \resumeProjectHeading
-          {\textbf{
-            %title
-            }}{
-            %date
-            }
-            \resumeItemListStart
-            %loop-description-start
-                \resumeItem{
-                %point 
-                }
-            %loop-description-end
-            \resumeItemListEnd
-    %loop-projects-end
-    \resumeSubHeadingListEnd
+\resumeSubHeadingListStart
+%loop-projects-start
+\resumeProjectHeading{
+  \textbf{
+    %title
+  }
+}{
+  %date
+}
+\resumeItemListStart
+%loop-description-start
+\resumeItem{
+  %point 
+}
+%loop-description-end
+\resumeItemListEnd
+%loop-projects-end
+\resumeSubHeadingListEnd
 %section-projects-end
 
 %section-skills-start
 \section{Skills}
- \begin{itemize}[leftmargin=0.15in, label={}]
-    \small{\item{
+\begin{itemize}[leftmargin=0.15in, label={}]
+  \small{\item{
     %loop-skills-start
     \textbf{
-        %category
+      %category
     }{: 
-        %loop-description-start
-          %point-delimited-,
-        %loop-description-end
+      %loop-description-start
+        %point-delimited-,
+      %loop-description-end
     } \\
     %loop-skills-end
-    }}
- \end{itemize}
+  }}
+\end{itemize}
 %section-skills-end
 
 \end{document}

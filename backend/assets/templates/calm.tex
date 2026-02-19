@@ -46,35 +46,35 @@
 \newcommand{\resumeItemListStart}{\begin{itemize}[rightmargin=0.11in]}
 \newcommand{\resumeItemListEnd}{\end{itemize}}
 
-\newcommand{\resumeSectionType}[2]{%
+\newcommand{\resumeSectionType}[2]{
   \item \textbf{#1:} #2
 }
 
 \newcommand{\resumeTrioHeading}[3]{
-  \item\small{
+  \item\small{%
     \begin{tabular*}{0.96\textwidth}[t]{l@{\extracolsep{\fill}}c@{\extracolsep{\fill}}r}
       \textbf{#1} & \textit{#2} & #3
-    \end{tabular*}
+    \end{tabular*}%
   }
 }
 
-\newcommand{\resumeQuadHeading}[4]{
+\newcommand{\resumeQuadHeading}[4]{%
   \item
-  \begin{tabular*}{0.96\textwidth}[t]{l@{\extracolsep{\fill}}r}
+  \begin{tabular*}{\textwidth}[t]{@{}l@{\extracolsep{\fill}}r@{}}
     \textbf{#1} & {\color{ResumeGray}#2} \\
-    \textit{\small#3} & \textit{\small #4} \\
+    \textit{\small #3} & \textit{\small #4} \\
   \end{tabular*}
 }
 
-\newcommand{\resumeQuadHeadingChild}[2]{
+\newcommand{\resumeQuadHeadingChild}[2]{%
   \item
   \begin{tabular*}{0.96\textwidth}[t]{l@{\extracolsep{\fill}}r}
     \textbf{\small#1} & {\color{ResumeGray}\small#2} \\
-  \end{tabular*}
+  \end{tabular*}%
 }
 
-\newcommand{\resumeHeadingListStart}{
-  \begin{itemize}[leftmargin=0.15in, label={}]
+\newcommand{\resumeHeadingListStart}{%
+  \begin{itemize}[leftmargin=0.15in, label={}]%
 }
 \newcommand{\resumeHeadingListEnd}{\end{itemize}}
 
@@ -100,43 +100,41 @@
 %loop-experiences-start  
 \resumeQuadHeading{
     %title
-    }{
+}{
     %startDate
     --
     %endDate
-    }
-    {
+}{
     %company
-    }{
+}{
     %location
-    }
-    \resumeItemListStart{}
-    %loop-description-start
-      \resumeItem{
-        %point
-        }
-    %loop-description-end
-    \resumeItemListEnd{}
+}
+\resumeItemListStart{}
+%loop-description-start
+\resumeItem{
+    %point
+}
+%loop-description-end
+\resumeItemListEnd{}
 %loop-experiences-end
 \resumeHeadingListEnd{}
 %section-experiences-end
 
 %section-educations-start
 \section{Education}
+\resumeHeadingListStart{}
 %loop-educations-start
-  \resumeHeadingListStart{}
-    \resumeQuadHeading{
+\resumeQuadHeading{
     %school
-    }{
+}{
     %location
-    }
-    {
-    %location
-    }{
+}{
+    %degree
+}{
     %startDate
     --
     %endDate
-    }
+}
 %loop-educations-end
 \resumeHeadingListEnd{}
 %section-educations-end
@@ -145,33 +143,33 @@
 \section{Projects}
 \resumeHeadingListStart{}
 %loop-projects-start
-    \resumeTrioHeading{
-        %title
-        }{}{
-        %date
-        }
-      \resumeItemListStart{}
-        %loop-description-start
-        \resumeItem{
-            %point
-            }
-        %loop-description-end
-      \resumeItemListEnd{} 
+\resumeTrioHeading{
+    %title
+}{}{
+    %date
+}
+\resumeItemListStart{}
+%loop-description-start
+\resumeItem{
+    %point
+}
+%loop-description-end
+\resumeItemListEnd{}
 %loop-projects-end 
 \resumeHeadingListEnd{}
 %section-projects-end
 
 %section-achievements-start
 \section{Achievements}
-  \resumeItemListStart{}
-    %loop-achievements-start
-    \resumeItem{\textbf{
-        %title
-    }:}{
-        %description
-    }
-    %loop-achievements-end
-  \resumeItemListEnd{}
+\resumeItemListStart{}
+%loop-achievements-start
+\resumeItem{\textbf{
+    %title
+}:}{
+    %description
+}
+%loop-achievements-end
+\resumeItemListEnd{}
 %section-achievements-end
 
 \end{document}
