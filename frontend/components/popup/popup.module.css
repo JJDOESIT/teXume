@@ -1,0 +1,32 @@
+.container{
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    left: 0;
+    top: 0;
+    background-color: rgba(244, 244, 244, 0.8);
+}
+
+.childContainer{
+    display: flex;
+    flex: 15;
+    width: 100%;
+    min-height: 0;
+}
+
+.xIcon{
+    display: flex;
+    justify-content: end;
+    padding-right: 20px;
+    padding-top: 20px;
+    flex: 1;
+    min-height: 0;
+}
+
+.xIcon > svg{
+    height: 100%;
+    fill: var(--gray-70);
+}
+

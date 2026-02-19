@@ -1,0 +1,193 @@
+\documentclass[11pt,letterpaper]{article}
+
+\usepackage[usenames,dvipsnames]{xcolor}
+\usepackage[parfill]{parskip}
+\usepackage{array}
+\usepackage{ifthen}
+\usepackage{graphicx}     
+\usepackage{stackengine} 
+\usepackage{scalerel}
+\usepackage{bbding,pifont}
+\usepackage[left=0.75in,top=0.6in,right=0.75in,bottom=0.6in]{geometry}
+\usepackage{hyperref}
+\usepackage{footnote}
+\usepackage{changepage}
+\usepackage{tabularx}
+
+\pagestyle{empty}
+
+\definecolor{navyblue}{RGB}{0,54,123}
+
+\newcommand\sbullet[1][.5]{%
+  \mathbin{\ThisStyle{\vcenter{\hbox{\scalebox{#1}{$\SavedStyle\bullet$}}}}}
+}
+
+\newcommand{\namesize}{\huge}
+
+\makeatletter
+\newcommand{\name}[1]{\def\@name{#1}}
+\newcommand{\printname}{
+  \begin{center}
+    {\namesize\bfseries\textit{\@name}}
+  \end{center}
+  \vspace{0.5cm}
+}
+\makeatother
+
+\name{}
+
+\newcommand{\tag}[1]{\textcolor{navyblue}{\textit{#1: }}}
+\newcommand{\info}[1]{#1}
+\newcommand{\infoSeparator}{\textcolor{navyblue}{\ding{92}}\hspace{0.1cm}}
+\newcommand{\personalInfo}[1]{\centerline{#1}\smallskip}
+\newcommand{\printPersonalInfo}[1]{\begin{center}#1\end{center}\vspace{-1cm}}
+
+\newcommand{\sectionskip}{\medskip}
+\newcommand{\sectionlineskip}{\medskip}
+
+\newenvironment{rSection}[1]{%
+  \sectionskip
+  {\color{navyblue}\bfseries\textit{#1}}\sectionlineskip
+  {\color{navyblue}\hrule}
+  \begin{list}{}{\leftmargin=1.5em}
+  \item[]
+}{
+  \end{list}
+}
+
+\newenvironment{rSubsectionNoBullet}[4]{%
+  {\bfseries #1}\hfill{\textit{#2}}\par
+  \ifthenelse{\equal{#3}{}}{}{%
+    \textit{#3}\ifthenelse{\equal{#4}{}}{}{ \hfill \textit{#4}}%
+  }
+  \begin{list}{}{\leftmargin=0em}
+  \itemsep -0.7em
+}{
+  \end{list}
+}
+
+\newenvironment{rSubsection}[4]{%
+  {\bfseries #1}\hfill{\textit{#2}}\par
+  \ifthenelse{\equal{#3}{}}{}{%
+    \textit{#3} \hfill \textit{#4}
+  }
+  \smallskip
+  \begin{list}{$\sbullet[.65]$}{\leftmargin=2em}
+  \itemsep -0.5em
+}{
+  \end{list}\vspace{0em}
+}
+
+\newcommand{\italicitem}[1]{\item \textit{#1}}
+\newcommand{\bolditem}[1]{\item \textbf{#1}}
+\newcommand{\plainitem}[1]{\item #1}
+
+\newcommand{\entry}[2]{#1 & #2 \\}
+
+\newcommand{\tableEnv}[2]{%
+  \begin{rSection}{#1}
+  \begin{adjustwidth}{0in}{0.1in}
+  \begin{tabularx}{\linewidth}{@{}>{\bfseries}l X@{}}
+    #2
+  \end{tabularx}
+  \end{adjustwidth}
+  \end{rSection}
+}
+
+\begin{document}
+
+%section-header-start
+\name{\color{navyblue}
+  %name
+}
+\printname
+\printPersonalInfo{
+  \personalInfo{\tag{E-mail}\info{
+    %email
+    }
+    \infoSeparator\tag{Phone}\info{
+    %phone
+    }}
+}
+%section-header-end
+
+%section-educations-start
+\begin{rSection}{Education}
+%loop-educations-start
+\begin{rSubsectionNoBullet}{
+    %degree
+    }{
+    %startDate
+    --
+    %endDate
+    }{
+    %school
+    }{}
+    %loop-description-start
+    \italicitem{
+        %point
+    }
+    %loop-description-end
+\end{rSubsectionNoBullet}
+%loop-educations-end
+\end{rSection}
+%section-educations-end
+
+%section-experiences-start
+\begin{rSection}{Work Experience}
+%loop-experiences-start
+\begin{rSubsection}{
+    %company
+    }{
+    %startDate
+    --
+    %endDate
+    }{
+    %title
+    }{
+    %location
+    }
+    %loop-description-start
+        \item{
+        %point
+        }
+    %loop-description-end
+\end{rSubsection}
+%loop-experiences-end
+\end{rSection}
+%section-experiences-end
+
+%section-projects-start
+\begin{rSection}{Projects}
+%loop-projects-start
+\begin{rSubsection}{
+    %title
+    }{
+    %date
+    }{}{}
+    %loop-description-start
+        \item{
+        %point
+        }
+    %loop-description-end
+\end{rSubsection}
+%loop-projects-end
+\end{rSection}
+%section-projects-end
+
+%section-skills-start
+\tableEnv{Skills}{
+    %loop-skills-start
+    \entry{
+        %category
+        :
+    }{
+        %loop-description-start
+          %point-delimited-,
+        %loop-description-end
+    }
+    %loop-skills-end
+}
+%section-skills-end
+
+\end{document}

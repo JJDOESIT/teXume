@@ -1,5 +1,6 @@
 package ResumeBuilder.backend.Repositories;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
@@ -28,5 +29,9 @@ public class TemplateRepository {
 
     public Optional<TemplateModel> findByName(String name) {
         return _templateInterface.findByName(name);
+    }
+
+    public List<TemplateModel> findAll() {
+        return _templateInterface.findAll();
     }
 }

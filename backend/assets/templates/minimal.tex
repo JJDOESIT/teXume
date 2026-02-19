@@ -1,0 +1,127 @@
+\documentclass[a4paper,11pt]{article}
+\usepackage[bottom=0.8in,top=0.8in, left=0.8in,right=0.8in]{geometry}
+
+\pagestyle{empty} 
+
+\usepackage[T1]{fontenc}
+\usepackage{newtxmath,newtxtext}
+
+\usepackage{parskip}
+\usepackage{titlesec}	
+\usepackage{multirow}
+\usepackage{graphicx}
+\usepackage[usenames,dvipsnames]{xcolor}
+\usepackage{hyperref}
+\definecolor{linkcolour}{rgb}{0,0.2,0.6}
+\hypersetup{colorlinks,breaklinks,urlcolor={linkcolour!90}, linkcolor={linkcolour!90}}
+
+\linespread{1.1}
+
+\titleformat{\section}{\color{black} \large}{}{0em}{}[\color{black}]
+\titlespacing{\section}{0pt}{3pt}{3pt}
+
+\newcommand{\sectitle}[1]{
+    \vspace{1.5ex}
+    \section{#1}
+    \vspace{-3ex}
+    \noindent\rule{\textwidth}{0.7pt}
+    \vspace{-4ex}
+}
+
+\newsavebox\CBox
+\def\textBF#1{\sbox\CBox{#1}\resizebox{\wd\CBox}{\ht\CBox}{\textcolor{linkcolour}{{#1}}}}
+\parindent=0pt
+
+\begin{document}
+
+%section-header-start
+\begin{minipage}{\textwidth}
+    \vspace{7ex}
+        \par{
+        \centering
+        \vspace{-0.9in}
+            \textcolor{linkcolour}{\Large 
+            %name
+            }
+        \par}
+\end{minipage}
+\begin{center}
+ \href{mailto:email@address.com}{
+    %email
+    } \,$\cdot$\, \href{}{
+    %phone
+    }
+\end{center}
+%section-header-end
+
+%section-skills-start
+\sectitle{Skills}
+%loop-skills-start
+\par\noindent
+\textBF{
+    %category
+    } --- 
+    %loop-description-start
+        %point-delimited-,
+    %loop-description-end
+%loop-skills-end
+%section-skills-end
+
+%section-achievements-start
+\sectitle{Achievements}
+%loop-achievements-start
+\par\noindent
+\textBF{
+    %title
+    } --- 
+    %description
+%loop-achievements-end
+%section-achievements-end
+
+%section-experiences-start
+\sectitle{Experience}
+%loop-experiences-start
+\par\noindent
+\textBF{
+    %title
+} --- 
+    %company
+\hfill
+    %startDate 
+--- 
+    %endDate
+\par
+\begin{itemize}
+%loop-description-start
+    \item{
+    %point
+    }
+%loop-description-end
+\end{itemize}
+%loop-experiences-end
+%section-experiences-end
+
+%section-educations-start
+\sectitle{Education}
+%loop-educations-start
+\par\noindent
+\textBF{
+    %degree
+} --- 
+    %school
+\hfill
+    %startDate 
+--- 
+    %endDate
+\par
+\begin{itemize}
+%loop-description-start
+    \item{
+    %point
+    }
+%loop-description-end
+\end{itemize}
+%loop-educations-end
+%section-educations-end
+
+\end{document}

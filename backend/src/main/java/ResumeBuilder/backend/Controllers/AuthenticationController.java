@@ -6,6 +6,8 @@ import java.util.UUID;
 
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import ResumeBuilder.backend.Models.ApiModels.Authentication.LoginModel;
 import ResumeBuilder.backend.Models.ApiModels.Authentication.SignUpGuestModel;
 import ResumeBuilder.backend.Models.ApiModels.Authentication.SignUpModel;
+import ResumeBuilder.backend.Models.AuthenticationModels.AuthenticationPrincipalModel;
 import ResumeBuilder.backend.Models.DatabaseModels.GuestAccountModel;
 import ResumeBuilder.backend.Models.DatabaseModels.UserAccountModel;
 import ResumeBuilder.backend.Models.DatabaseModels.UserInfoModel;
@@ -72,6 +75,7 @@ public class AuthenticationController {
             UserAccountModel userAccountModel = new UserAccountModel();
             userAccountModel.username = signUpModel.username;
             userAccountModel.password = _BCryptUtility.encode(signUpModel.password);
+            userAccountModel.admin = false;
             userAccountModel.userInfoModel = new UserInfoModel();
             userAccountModel.userInfoModel.firstName = signUpModel.firstName;
             userAccountModel.userInfoModel.lastName = signUpModel.lastName;
@@ -91,6 +95,7 @@ public class AuthenticationController {
     public ResponseEntity<Map<String, String>> signUpGuest(@RequestBody SignUpGuestModel signUpGuestModel) {
         try {
             UserAccountModel userAccountModel = new UserAccountModel();
+            userAccountModel.admin = false;
             userAccountModel.userInfoModel = signUpGuestModel.userInfoModel;
 
             GuestAccountModel guestAccountModel = new GuestAccountModel();
@@ -109,6 +114,21 @@ public class AuthenticationController {
                 }
             }
             return ResponseEntity.status(500).build();
+        } catch (Exception error) {
+            return ResponseEntity.status(500).build();
+        }
+    }
+
+    // Return whether the user is logged in or not
+    @GetMapping("/is-logged-in")
+    public ResponseEntity<Boolean> isLoggedIn(Authentication authentication) {
+        try {
+            AuthenticationPrincipalModel authenticationPrincipalModel = (AuthenticationPrincipalModel) authentication
+                    .getPrincipal();
+            if (authenticationPrincipalModel.isSession) {
+                return ResponseEntity.ok().body(false);
+            }
+            return ResponseEntity.ok().body(true);
         } catch (Exception error) {
             return ResponseEntity.status(500).build();
         }

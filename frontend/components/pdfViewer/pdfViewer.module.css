@@ -1,0 +1,31 @@
+.pdfContainer{
+    height: 100%;
+    position: relative;
+}
+
+.pdfContainer div{
+    height: 100%;
+    background-color: transparent !important;
+}
+
+.pdfContainer > div:first-child{
+    overflow-y: auto;
+}
+
+.pdfContainer canvas{
+    max-width: 100%;
+    max-height: 100%;
+    width: auto !important;
+    height: auto !important;
+    border-radius: 10px;
+    border: 1px solid var(--gray-40);
+    border-top-width: 4px;
+}
+
+.loadingNewPdf{
+    position: absolute;
+    box-shadow: none;
+    top: 0;
+    left: 0;
+    opacity: 0;
+}

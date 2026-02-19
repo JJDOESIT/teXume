@@ -1,0 +1,155 @@
+\documentclass[letter,10pt]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{CJKutf8}
+\usepackage[12pt]{moresize}
+\usepackage{anyfontsize}
+\usepackage{csquotes}
+
+\usepackage[margin=.9in, top=.9in]{geometry}
+\raggedright
+\raggedbottom
+\pagenumbering{gobble}
+
+\usepackage{tabularx}
+\usepackage{array}
+\setlength{\tabcolsep}{0in}
+
+\usepackage{xcolor}
+\definecolor{highlight}{RGB}{61, 90, 128}
+
+\usepackage{hyperref}
+\hypersetup{
+  colorlinks=true,
+  urlcolor=highlight
+}
+
+\usepackage[inline]{enumitem}
+\setlist[itemize]{leftmargin=3em}
+
+\newenvironment{zitemize}{
+  \begin{itemize}
+    \itemsep 0pt
+    \parskip 0pt
+    \parsep 1pt
+}{
+  \end{itemize}\vspace{-.5em}
+}
+
+\usepackage[nostruts]{titlesec}
+\titlespacing*{\section}{0em}{0.5em}{0em}
+\titleformat{\section}{\scshape\raggedright\large}{}{0em}{}[\vspace{0em}]
+
+\titlespacing*{\subsection}{0em}{0em}{0em}
+\titleformat{\subsection}{\bfseries}{}{0em}{}[]
+
+\newcommand{\skills}[1]{{\bfseries #1}}
+\newcommand{\subtext}[1]{\textit{#1}\par\vspace{0em}}
+
+\begin{document}
+
+%section-header-start
+\def\phone{
+    %phone
+}
+\def\email{
+    %email
+}
+\begin{center}
+    {\Huge \textbf{
+        %name
+    }} \\
+    \vspace{4pt}
+    \city \\
+    {\email} \;|\;
+    \phone
+\end{center}
+%section-header-end
+
+\vspace{10pt}
+
+%section-educations-start
+\section{Education}
+%loop-educations-start
+\subsection{
+    %school
+}
+\subtext{
+    %degree
+     \hfill 
+     %startDate
+     --
+     %endDate
+     }
+\begin{zitemize}
+    %loop-description-start
+    \item{
+        %point
+    }
+    %loop-description-end
+\end{zitemize}
+%loop-educations-end
+%section-educations-end
+
+\vspace{10pt}
+
+%section-experiences-start
+\section{Work Experience}
+%loop-experiences-start
+\subsection{
+    %company
+    }
+\subtext{
+    %title
+     \hfill 
+    %startDate
+    --
+    %endDate
+    }
+\begin{zitemize}
+    %loop-description-start
+    \item{
+        %point
+    }
+    %loop-description-end
+\end{zitemize}
+%loop-experiences-end
+%section-experiences-end
+
+\vspace{10pt}
+
+%section-projects-start
+\section{Projects}
+%loop-projects-start
+\subtext{\textbf{
+    %title
+    } \hfill 
+    %date
+    }
+\begin{zitemize}
+  %loop-description-start
+    \item{
+        %point
+    }
+    %loop-description-end
+\end{zitemize}
+%loop-projects-end
+%section-projects-end
+
+\vspace{10pt}
+
+%section-skills-start
+\section{Skills}
+%loop-skills-start
+\skills{
+    %category
+    :} 
+    %loop-description-start
+        %point-delimited-,
+    %loop-description-end
+    \\
+%loop-skills-end
+%section-skills-end
+
+\end{document}

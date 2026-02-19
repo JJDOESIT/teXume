@@ -1,0 +1,20 @@
+.container{
+    padding: 10px;
+    overflow-y: scroll;
+}
+
+.dragging{
+    opacity: 0.01;
+}
+
+.draggable:not(.draggable:first-child){
+    margin-top: 20px;
+}
+
+.draggable:hover{
+    cursor: grab;
+}
+
+.addNewProject{
+    margin-top: 20px
+}

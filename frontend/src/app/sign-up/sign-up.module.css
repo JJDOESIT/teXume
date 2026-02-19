@@ -1,0 +1,92 @@
+.container{
+    width: 100%;
+    height: 100%;
+    min-height: 0;
+    overflow-y: scroll;
+}
+
+.wrapper{
+    display: flex;
+    justify-self: center;
+    flex-direction: column;
+    padding: 20px;
+    margin-top: 50px;
+    width: 425px;
+}
+
+.titleText {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.titleText > p{
+    font-size: 2.8rem;
+    font-weight: bold;
+}
+
+.welcomeText{
+    display: flex;
+    justify-content: center;
+    font-size: 1.1rem;
+    margin-bottom: 30px;
+}
+
+.welcomeText > p{
+    color: var(--gray-50);
+    text-align: center;
+}
+
+.lineSpacer{
+    height: 1px;
+    min-height: 1px;
+    background-color: var(--gray-20);
+    margin-bottom: 20px;
+}
+
+.firstRow{
+    display: flex;
+    gap: 20px;
+    margin-bottom: 10px;
+}
+
+.secondRow{
+    margin-bottom: 10px;
+}
+
+.thirdRow{
+    margin-bottom: 20px;
+}
+
+.submit{
+    width: 100%;
+    margin-bottom: 40px;
+    padding: 10px 0;
+}
+
+.hasAccountText{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+    gap: 5px;
+}
+
+.hasAccountText > p{
+    font-size: 1.1rem;
+    color: var(--gray-50);
+}
+
+.hasAccountText > a{
+    font-size: 1.1rem;
+    color: var(--emerald-60);
+}
+
+.hasAccountText > a:hover{
+    cursor: pointer;
+}
+
+@media only screen and (max-width: 700px) {
+    .wrapper{
+        width: 100%;
+    }
+}

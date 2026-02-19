@@ -20,11 +20,14 @@ public class UserAccountModel {
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     public int id;
 
-    @Column(unique = true, nullable = false)
+    @Column(unique = true)
     public String username;
 
-    @Column(nullable = false)
+    @Column
     public String password;
+
+    @Column(nullable = false)
+    public boolean admin;
 
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "user_info_id", nullable = false)

@@ -52,6 +52,10 @@ public class UserInfoModel implements IWriter {
     @JoinColumn(name = "user_info_id")
     public List<SkillModel> skills = new ArrayList<>();
 
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "user_info_id")
+    public List<AchievementModel> achievements = new ArrayList<>();
+
     public Object get(String key) {
         if (key.equals("name")) {
             return firstName + " " + lastName;
@@ -67,6 +71,8 @@ public class UserInfoModel implements IWriter {
             return projects;
         } else if (key.equals("skills")) {
             return skills;
+        } else if (key.equals("achievements")) {
+            return achievements;
         }
         return null;
     }

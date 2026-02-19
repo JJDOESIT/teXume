@@ -14,7 +14,7 @@
 \input{glyphtounicode}
 
 \pagestyle{fancy}
-\fancyhf{}
+\fancyhf{} 
 \fancyfoot{}
 \renewcommand{\headrulewidth}{0pt}
 \renewcommand{\footrulewidth}{0pt}
@@ -76,93 +76,104 @@
 
 \begin{document}
 
+%section-header-start
 \begin{center}
-    %section-name-start
     \textbf{\Huge \scshape 
     %name
     } \\ \vspace{1pt}
-    %section-name-end
     \small 
     %phone
-     $|$ \href{mailto:x@x.com}{\underline{
-      %email
-      }} $|$ 
-    \href{https://linkedin.com/in/...}{\underline{linkedin.com/in/jake}} $|$
-    \href{https://github.com/...}{\underline{github.com/jake}}
+    $|$ \href{mailto:x@x.com}{\underline{
+    %email
+    }}
 \end{center}
+%section-header-end
 
-%section-education-start
+%section-educations-start
 \section{Education}
   \resumeSubHeadingListStart
-    %loop-education-start
-    \resumeSubheading{
-      %name
-      }{
-      %location
-      }{
-      %degree
-      }{
-      %date
-      }
-    %loop-education-end
+    %loop-educations-start
+    \resumeSubheading
+        {
+        %school
+        }{
+        %location
+        }
+        {
+        %degree
+        }{
+        %startDate
+        --
+        %endDate
+        }
+    %loop-educations-end
   \resumeSubHeadingListEnd
-%section-education-end
+%section-educations-end
 
+%section-experiences-start
 \section{Experience}
   \resumeSubHeadingListStart
-    %loop-experience-start
-    \resumeSubheading{
-    %title
-    }{
-    %date
-    }{
-    %company
-    }{
-    %location
-    }
-      \resumeItemListStart
-        %loop-description-start
-        \resumeItem{
-          %point
+    %loop-experiences-start
+    \resumeSubheading
+        {
+        %title
+        }{
+        %startDate
+        --
+        %endDate
         }
+        {
+        %company
+        }{
+        %location
+        }
+        \resumeItemListStart
+        %loop-description-start
+          \resumeItem{
+            %point
+          }
         %loop-description-end
-      \resumeItemListEnd
-    %loop-experience-end
+        \resumeItemListEnd
+    %loop-experiences-end
   \resumeSubHeadingListEnd
+%section-experiences-end
 
+%section-projects-start
 \section{Projects}
     \resumeSubHeadingListStart
-      %loop-project-start
+    %loop-projects-start
       \resumeProjectHeading
-          {\textbf{Gitlytics} $|$ \emph{
-            %tools
+          {\textbf{
+            %title
             }}{
-              %date
-              }
-          \resumeItemListStart
+            %date
+            }
+            \resumeItemListStart
             %loop-description-start
-            \resumeItem{
-              %point
-              }
-            %%loop-description-end
-          \resumeItemListEnd
-      %loop-project-end
+                \resumeItem{
+                %point 
+                }
+            %loop-description-end
+            \resumeItemListEnd
+    %loop-projects-end
     \resumeSubHeadingListEnd
+%section-projects-end
 
-\section{Technical Skills}
+%section-skills-start
+\section{Skills}
  \begin{itemize}[leftmargin=0.15in, label={}]
     \small{\item{
-     \textbf{Languages}{: 
-     %loop-language-start
-        %language-delimited-,
-     %loop-language-end
-     } \\
-     \textbf{Frameworks/Technologies}{: 
-     %loop-technology-start
-        %technology-delimited-,
-     %loop-technology-end
-     } \\
+    %loop-skills-start
+    \textbf{
+        %category
+    }{: 
+        %loop-description-start
+          %point-delimited-,
+        %loop-description-end
+    } \\
+    %loop-skills-end
     }}
  \end{itemize}
+%section-skills-end
 
 \end{document}

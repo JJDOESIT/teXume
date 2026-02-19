@@ -1,6 +1,11 @@
 package ResumeBuilder.backend.Controllers;
 
+import org.apache.pdfbox.Loader;
+import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.rendering.PDFRenderer;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,24 +17,32 @@ import ResumeBuilder.backend.Models.ApiModels.Template.HideSectionModel;
 import ResumeBuilder.backend.Models.ApiModels.Template.InitializeTemplateModel;
 import ResumeBuilder.backend.Models.ApiModels.Template.ModifyTemplateModel;
 import ResumeBuilder.backend.Models.ApiModels.Template.SwapMultipleSectionsModel;
+import ResumeBuilder.backend.Models.AuthenticationModels.AuthenticationPrincipalModel;
 import ResumeBuilder.backend.Models.DatabaseModels.LineModel;
 import ResumeBuilder.backend.Models.DatabaseModels.SectionModel;
 import ResumeBuilder.backend.Models.DatabaseModels.TemplateModel;
+import ResumeBuilder.backend.Models.DatabaseModels.UserAccountModel;
 import ResumeBuilder.backend.Models.DatabaseModels.UserInfoModel;
 import ResumeBuilder.backend.Repositories.SectionTypeRepository;
 import ResumeBuilder.backend.Repositories.TemplateRepository;
+import ResumeBuilder.backend.Repositories.UserAccountRepository;
 import ResumeBuilder.backend.Utilities.TemplateCacheUtility;
 
+import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.ByteArrayOutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
+
+import javax.imageio.ImageIO;
 
 @RestController
 @RequestMapping("/api/template")
@@ -38,26 +51,66 @@ public class TemplateController {
     private final TemplateCacheUtility _templateCacheUtility;
     private final SectionTypeRepository _sectionTypeRepository;
     private final TemplateRepository _templateRepository;
+    private final UserAccountRepository _userAccountRepository;
 
     public TemplateController(TemplateLogic templateLogic, TemplateCacheUtility templateCacheUtility,
-            SectionTypeRepository sectionTypeRepository, TemplateRepository templateRepository) {
+            SectionTypeRepository sectionTypeRepository, TemplateRepository templateRepository,
+            UserAccountRepository userAccountRepository) {
         _templateLogic = templateLogic;
         _templateCacheUtility = templateCacheUtility;
         _sectionTypeRepository = sectionTypeRepository;
         _templateRepository = templateRepository;
+        _userAccountRepository = userAccountRepository;
+
     }
 
     // Add a latex template to the database
-    @PostMapping("/addTemplate")
-    public ResponseEntity<Void> addTemplate(@RequestBody AddTemplateModel addTemplateModel) {
+    @PostMapping("/add")
+    public ResponseEntity<Void> add(@RequestBody AddTemplateModel addTemplateModel, Authentication authentication) {
         try {
-            Path pdfPath = Paths.get("./backend/assets/templates/" + addTemplateModel.name +
-                    ".tex");
-            byte[] bytes = Files.readAllBytes(pdfPath);
+            if (authentication == null) {
+                return ResponseEntity.status(403).build();
+            }
+            AuthenticationPrincipalModel authenticationPrincipalModel = (AuthenticationPrincipalModel) authentication
+                    .getPrincipal();
+            if (authenticationPrincipalModel.isSession) {
+                return ResponseEntity.status(403).build();
+            }
+            UserAccountModel userAccountModel = _userAccountRepository
+                    .findByUsername(authenticationPrincipalModel.identity).get();
+            if (!userAccountModel.admin) {
+                return ResponseEntity.status(403).build();
+            }
+
+            Path path = Paths.get("./backend/assets/templates/template2" + ".tex");
+            byte[] file = Files.readAllBytes(path);
+            ArrayList<LineModel> lines = new ArrayList<>();
+            String line;
+            BufferedReader reader = Files.newBufferedReader(path);
+            while ((line = reader.readLine()) != null) {
+                LineModel lineModel = new LineModel(line);
+                lines.add(lineModel);
+            }
+            reader.close();
+            String session = UUID.randomUUID().toString();
+            _templateCacheUtility.put(session, lines);
+
+            ModifyTemplateModel modifyTemplateModel = new ModifyTemplateModel();
+            modifyTemplateModel.session = session;
+            modifyTemplateModel.userInfoModel = userAccountModel.userInfoModel;
+            byte[] pdf = compile(modifyTemplateModel).getBody();
+
+            PDDocument document = Loader.loadPDF(pdf);
+            PDFRenderer renderer = new PDFRenderer(document);
+            BufferedImage image = renderer.renderImage(0);
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            ImageIO.write(image, "png", baos);
+            byte[] png = baos.toByteArray();
 
             TemplateModel templateModel = new TemplateModel();
             templateModel.name = addTemplateModel.name;
-            templateModel.file = bytes;
+            templateModel.file = file;
+            templateModel.preview = png;
 
             for (int index = 0; index < addTemplateModel.sections.size(); index++) {
                 SectionModel sectionModel = new SectionModel();
@@ -70,13 +123,25 @@ public class TemplateController {
             return ResponseEntity.ok().build();
         } catch (Exception error) {
             System.out.println(error.getMessage());
-            return ResponseEntity.badRequest().build();
+            return ResponseEntity.status(500).build();
+        }
+    }
+
+    // Get all templates
+    @GetMapping("/get-all")
+    public ResponseEntity<List<TemplateModel>> getAll() {
+        try {
+            List<TemplateModel> templates = _templateRepository.findAll();
+            return ResponseEntity.ok().body(templates);
+        } catch (Exception error) {
+            System.out.println(error.getMessage());
+            return ResponseEntity.status(500).build();
         }
     }
 
     // Initialize a template session
-    @PostMapping("/initializeTemplate")
-    public ResponseEntity<Map<String, String>> initializeTemplate(
+    @PostMapping("/initialize")
+    public ResponseEntity<Map<String, String>> initialize(
             @RequestBody InitializeTemplateModel initializeTemplateModel) {
         try {
             ArrayList<LineModel> lines = new ArrayList<>();
@@ -96,14 +161,16 @@ public class TemplateController {
                 return ResponseEntity.status(500).build();
             }
 
-            Optional<TemplateModel> optionalTemplateModel = _templateRepository
-                    .findByName(initializeTemplateModel.name);
-            TemplateModel templateModel = optionalTemplateModel.get();
+            // Optional<TemplateModel> optionalTemplateModel = _templateRepository
+            // .findByName(initializeTemplateModel.name);
+            // TemplateModel templateModel = optionalTemplateModel.get();
 
-            byte[] file = templateModel.file;
+            // byte[] file = templateModel.file;
 
-            Path path = Paths.get("./backend/assets/temp/" + session + ".tex");
-            Files.write(path, file);
+            // Path path = Paths.get("./backend/assets/temp/" + session + ".tex");
+            // Files.write(path, file);
+
+            Path path = Paths.get("./backend/assets/templates/" + initializeTemplateModel.name + ".tex");
 
             BufferedReader reader = Files.newBufferedReader(path);
 
@@ -113,7 +180,7 @@ public class TemplateController {
             }
 
             reader.close();
-            Files.delete(path);
+            // Files.delete(path);
 
             _templateCacheUtility.put(session, lines);
             return ResponseEntity.ok().body(Map.of("session", session));
@@ -124,8 +191,8 @@ public class TemplateController {
     }
 
     // Compile a template given user info and an existing template session
-    @PostMapping("/compileTemplate")
-    public ResponseEntity<byte[]> compileTemplate(@RequestBody ModifyTemplateModel modifyTemplateModel) {
+    @PostMapping("/compile")
+    public ResponseEntity<byte[]> compile(@RequestBody ModifyTemplateModel modifyTemplateModel) {
         try {
             ArrayList<LineModel> lines = _templateCacheUtility.get(modifyTemplateModel.session);
             if (lines == null) {
@@ -156,18 +223,21 @@ public class TemplateController {
             String formattedBase = base.toString().replace("\\", "/");
             ProcessBuilder builder = new ProcessBuilder("pdflatex", "--output-directory=./backend/assets/outputs",
                     "-interaction=nonstopmode", formattedBase + ".tex");
-            builder.inheritIO();
+
+            builder.redirectOutput(ProcessBuilder.Redirect.DISCARD);
+            builder.redirectError(ProcessBuilder.Redirect.DISCARD);
+
             Process process = builder.start();
             process.waitFor();
 
             Path pdfPath = Paths.get(base + ".pdf");
             byte[] pdfBytes = Files.readAllBytes(pdfPath);
 
-            Files.delete(Paths.get(base + ".tex"));
-            Files.delete(Paths.get(base + ".out"));
-            Files.delete(Paths.get(base + ".log"));
-            Files.delete(Paths.get(base + ".aux"));
-            Files.delete(Paths.get(base + ".pdf"));
+            Files.deleteIfExists(Paths.get(base + ".tex"));
+            Files.deleteIfExists(Paths.get(base + ".out"));
+            Files.deleteIfExists(Paths.get(base + ".log"));
+            Files.deleteIfExists(Paths.get(base + ".aux"));
+            Files.deleteIfExists(Paths.get(base + ".pdf"));
 
             return ResponseEntity.ok().body(pdfBytes);
         } catch (Exception error) {
@@ -177,7 +247,7 @@ public class TemplateController {
     }
 
     // Hide a given section of a template session
-    @PostMapping("/hideSection")
+    @PostMapping("/hide-section")
     public ResponseEntity<Void> hideSection(@RequestBody HideSectionModel hideSectionModel) {
         try {
             ArrayList<LineModel> lines = _templateCacheUtility.get(hideSectionModel.session);
@@ -193,7 +263,7 @@ public class TemplateController {
     }
 
     // Perform multiple swaps of a given section and a list of targets
-    @PostMapping("/swapMultipleSections")
+    @PostMapping("/swap-multiple-sections")
     public ResponseEntity<Void> swapMultipleSections(@RequestBody SwapMultipleSectionsModel swapMultipleSectionsModel) {
         try {
             ArrayList<LineModel> lines = _templateCacheUtility.get(swapMultipleSectionsModel.session);

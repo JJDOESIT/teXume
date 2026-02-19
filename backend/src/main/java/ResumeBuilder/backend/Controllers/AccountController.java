@@ -19,34 +19,18 @@ import ResumeBuilder.backend.Repositories.GuestAccountRepository;
 import ResumeBuilder.backend.Repositories.UserAccountRepository;
 
 @RestController
-@RequestMapping("/api/user-account")
-public class UserAccountController {
+@RequestMapping("/api/account")
+public class AccountController {
     private final UserAccountRepository _userAccountRepository;
     private final GuestAccountRepository _guestAccountRepository;
 
-    public UserAccountController(UserAccountRepository userAccountRepository,
+    public AccountController(UserAccountRepository userAccountRepository,
             GuestAccountRepository guestAccountRepository) {
         _userAccountRepository = userAccountRepository;
         _guestAccountRepository = guestAccountRepository;
     }
 
-    @GetMapping("/get-user-account")
-    public ResponseEntity<Map<String, UserAccountModel>> getUserAccount(Authentication authentication) {
-        AuthenticationPrincipalModel authenticationPrincipalModel = (AuthenticationPrincipalModel) authentication
-                .getPrincipal();
-
-        if (!authenticationPrincipalModel.isSession) {
-            Optional<UserAccountModel> userAccountModel = _userAccountRepository
-                    .findByUsername(authenticationPrincipalModel.identity);
-            return ResponseEntity.ok().body(Map.of("userInfo", userAccountModel.get()));
-        } else {
-            Optional<GuestAccountModel> optionalGuestAccountModel = _guestAccountRepository
-                    .findBySession(authenticationPrincipalModel.identity);
-            GuestAccountModel guestAccountModel = optionalGuestAccountModel.orElse(null);
-            return ResponseEntity.ok().body(Map.of("userInfo", guestAccountModel.userAccountModel));
-        }
-    }
-
+    // Get user info
     @GetMapping("/get-user-info")
     public ResponseEntity<Map<String, UserInfoModel>> getUserInfo(Authentication authentication) {
         try {
@@ -60,7 +44,7 @@ public class UserAccountController {
             } else {
                 Optional<GuestAccountModel> optionalGuestAccountModel = _guestAccountRepository
                         .findBySession(authenticationPrincipalModel.identity);
-                GuestAccountModel guestAccountModel = optionalGuestAccountModel.orElse(null);
+                GuestAccountModel guestAccountModel = optionalGuestAccountModel.get();
                 return ResponseEntity.ok().body(Map.of("userInfo", guestAccountModel.userAccountModel.userInfoModel));
             }
         } catch (Exception error) {
@@ -68,6 +52,7 @@ public class UserAccountController {
         }
     }
 
+    // Update user info
     @PostMapping("/update-user-info")
     public ResponseEntity<Void> updateUserInfo(@RequestBody UserInfoModel userInfoModel,
             Authentication authentication) {
@@ -84,7 +69,7 @@ public class UserAccountController {
             } else {
                 Optional<GuestAccountModel> optionalGuestAccountModel = _guestAccountRepository
                         .findBySession(authenticationPrincipalModel.identity);
-                GuestAccountModel guestAccountModel = optionalGuestAccountModel.orElse(null);
+                GuestAccountModel guestAccountModel = optionalGuestAccountModel.get();
                 guestAccountModel.userAccountModel.userInfoModel = userInfoModel;
                 _guestAccountRepository.save(guestAccountModel);
             }

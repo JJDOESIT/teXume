@@ -1,0 +1,135 @@
+.container{
+    position: relative;
+    width: 100%;
+    background-color: white;
+    display: flex;
+    padding: 10px;   
+}
+
+.container p{
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+.titleWrapper{
+    display: flex;
+    flex: 1;
+    justify-content: center;
+    align-items: center;
+}
+
+.titleWrapper > img{
+    height: 50px;
+}
+
+.linkContainer{
+    display: flex;
+    flex: 2;
+    justify-content: center;
+}
+
+.linkWrapper{
+    display: flex;
+    align-items: center;
+    gap: 50px;
+}
+
+.resumeLink{
+    background-color: var(--emerald-60);
+    border-radius: 3rem;
+    padding: 7px 14px;
+    box-shadow: 1px 5px 20px var(--emerald-opaque-20);
+    transition: all 200ms ease-in;
+}
+
+.resumeLink:hover{
+    background-color: var(--emerald-70);
+    cursor: pointer;
+}
+
+.resumeLink > p{
+    color: white;
+    text-align: center;
+    font-size: 0.9rem;
+}
+
+.browseLink:hover, .loginLink:hover, .accountLink:hover{
+    color: var(--emerald-60);
+    cursor: pointer;
+}
+
+.menuIconWrapper{
+    margin-right: 30px;
+}
+
+.menuIconWrapper > svg{
+    height: 100%;
+}
+
+.menuContainer{
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    height: calc(100vh - 100%);
+    width: 100%;
+    background-color: white;
+    padding: 30px;
+    z-index: 999;
+}
+
+.menuTitle{
+    color: var(--gray-40);
+    font-size: 1.5rem !important;
+    margin-bottom: 10px;
+}
+
+.menuBrowseLink, .menuLoginLink, .menuAccountLink{
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--gray-20);
+    align-items: center;
+    padding-bottom: 10px;
+}
+
+.menuBrowseLink > svg, .menuLoginLink > svg, .menuAccountLink > svg{
+    height: 20px;
+    color: var(--gray-30);
+}
+
+.menuResumeLink{
+    background-color: var(--emerald-60);
+    border-radius: 3rem;
+    padding: 10px 20px;
+    box-shadow: 1px 5px 20px var(--emerald-opaque-20);
+    margin-top: 20px;
+    transition: all 200ms ease-in;
+}
+
+.menuResumeLink:hover{
+    background-color: var(--emerald-70);
+    cursor: pointer;
+}
+
+.menuResumeLink > p{
+    color: white;
+    text-align: center;
+}
+
+.menuBody{
+    flex: 1;
+}
+
+.menuFooter{
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    flex: 1;
+}
+
+@media only screen and (max-width: 700px) {
+    .linkContainer{
+        justify-content: end;
+    }
+}

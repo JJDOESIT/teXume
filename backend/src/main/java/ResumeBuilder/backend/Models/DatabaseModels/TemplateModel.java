@@ -29,6 +29,9 @@ public class TemplateModel {
     @Column(nullable = false)
     public byte[] file;
 
+    @Column(nullable = false)
+    public byte[] preview;
+
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "template_id")
     public List<SectionModel> sections = new ArrayList<>();

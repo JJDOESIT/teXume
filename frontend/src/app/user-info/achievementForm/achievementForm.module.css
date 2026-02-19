@@ -1,0 +1,65 @@
+.container{
+    display: flex;
+    box-shadow: 0 0 15px var(--gray-40);
+    border-radius: 10px;
+    padding: 20px;
+}
+
+.formContainer{
+    flex: 15;
+    min-width: 0;
+}
+
+.firstRow, .secondRow{
+    display: flex;
+    gap: 20px;
+}
+
+.previewContainer{
+    flex: 15;
+    display: flex;
+    align-items: center;
+}
+
+.previewContainer p{
+    font-size: 0.8rem;
+    font-style: italic;
+    word-break: break-word;
+}
+
+.draggableIcon, .trashIcon, .chevronIcon{
+    flex: 1;
+    height: fit-content;
+}
+
+.draggableIcon{
+    margin-right: 20px;
+}
+
+.chevronIcon{
+    margin-left: 20px;
+}
+
+.trashIcon{
+    margin-left: 10px;
+}
+
+.trashIcon:hover, .chevronIcon:hover{
+    cursor: pointer;
+}
+
+.trashIcon:hover{
+    color: var(--delete);
+}
+
+@media only screen and (max-width: 700px) {
+    .firstRow{
+        flex-direction: column;
+        gap: 0;
+    }
+
+    .secondRow{
+        flex-direction: column;
+        gap: 0;
+    }
+}
