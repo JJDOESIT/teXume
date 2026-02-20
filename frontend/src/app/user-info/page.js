@@ -203,7 +203,7 @@ export default function UserInfo() {
 
   // Initialize template
   async function initializeTemplate() {
-    const response = await initialize("split");
+    const response = await initialize("italic");
 
     if (!response.ok) {
       showNavbarAlert(

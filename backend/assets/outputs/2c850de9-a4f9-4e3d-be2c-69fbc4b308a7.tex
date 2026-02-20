@@ -1,0 +1,249 @@
+\documentclass[a4paper,11pt]{article}
+
+\usepackage{verbatim}
+\usepackage{titlesec}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{tabularx}
+\usepackage{latexsym}
+\usepackage{marvosym}
+\usepackage[empty]{fullpage}
+\usepackage[normalem]{ulem}
+\usepackage[english]{babel}
+
+\input glyphtounicode
+\pdfgentounicode=1
+
+\usepackage[default]{sourcesanspro}
+
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0in}
+\renewcommand{\footrulewidth}{0in}
+\setlength{\tabcolsep}{0in}
+
+\addtolength{\oddsidemargin}{-0.5in}
+\addtolength{\topmargin}{-0.5in}
+\addtolength{\textwidth}{1.0in}
+\addtolength{\textheight}{1.0in}
+
+\raggedbottom{}
+\raggedright{}
+
+\definecolor{ResumeBlue}{HTML}{1F618D}
+\definecolor{ResumeGray}{HTML}{4D5656}
+\definecolor{ResumeLink}{HTML}{117A65}
+
+\titleformat{\section}
+{\scshape\large\color{ResumeBlue}}{}
+{0em}{}[\color{ResumeBlue}\titlerule\vspace{0pt}]
+
+\renewcommand\labelitemii{$\vcenter{\hbox{\tiny$\bullet$}}$}
+\renewcommand{\ULdepth}{2pt}
+
+\newcommand{\resumeItem}[1]{\item\small{#1}}
+\newcommand{\resumeItemListStart}{\begin{itemize}[rightmargin=0.11in]}
+\newcommand{\resumeItemListEnd}{\end{itemize}}
+
+\newcommand{\resumeSectionType}[2]{
+\item \textbf{#1:} #2
+}
+
+\newcommand{\resumeTrioHeading}[3]{
+\item\small{%
+\begin{tabular*}{0.96\textwidth}[t]{l@{\extracolsep{\fill}}c@{\extracolsep{\fill}}r}
+\textbf{#1} & \textit{#2} & #3
+\end{tabular*}%
+}
+}
+
+\newcommand{\resumeQuadHeading}[4]{%
+\item
+\begin{tabular*}{\textwidth}[t]{@{}l@{\extracolsep{\fill}}r@{}}
+\textbf{#1} & {\color{ResumeGray}#2} \\
+\textit{\small #3} & \textit{\small #4} \\
+\end{tabular*}
+}
+
+\newcommand{\resumeQuadHeadingChild}[2]{%
+\item
+\begin{tabular*}{0.96\textwidth}[t]{l@{\extracolsep{\fill}}r}
+\textbf{\small#1} & {\color{ResumeGray}\small#2} \\
+\end{tabular*}%
+}
+
+\newcommand{\resumeHeadingListStart}{%
+\begin{itemize}[leftmargin=0.15in, label={}]%
+}
+\newcommand{\resumeHeadingListEnd}{\end{itemize}}
+
+\begin{document}
+
+%section-header-start
+\begin{tabular*}{\textwidth}{l@{\extracolsep{\fill}}r}
+\textbf{\Huge
+John Doe
+\vspace{2pt}} &
+Email: {\color{ResumeLink}{
+johndoe@gmail.com
+}} $|$
+Phone:
+(123) 456-7890
+\\
+\end{tabular*}
+%section-header-end
+
+%section-educations-start
+\section{Education}
+\resumeHeadingListStart{}
+\resumeQuadHeading{
+Harvard University
+}{
+Boston, MA
+}{
+B.S. in Computer Science
+}{
+Aug. 2017
+--
+May 2022
+}
+\resumeQuadHeading{
+Ohio State University
+}{
+Columbus, OH
+}{
+M.S. in Computer Science
+}{
+May 2023
+--
+Dec. 2024
+}
+\resumeHeadingListEnd{}
+%section-educations-end
+
+%section-experiences-start
+\section{Experience}
+\resumeHeadingListStart{}
+\resumeQuadHeading{
+Software Engineer
+}{
+May 2022
+--
+Present
+}{
+Microsoft
+}{
+Reston, VA
+}
+\resumeItemListStart{}
+\resumeItem{
+Improved application performance and reliability by optimizing database queries, refactoring legacy code, and introducing automated testing
+}
+\resumeItem{
+Worked cross-functionally with product and design teams to translate requirements into robust, maintainable software solutions
+}
+\resumeItem{
+Designed, developed, and maintained scalable backend services and APIs to support high-traffic applications
+}
+\resumeItemListEnd{}
+\resumeQuadHeading{
+Software Engineer Intern
+}{
+May 2021
+--
+Aug. 2021
+}{
+MetLife
+}{
+Cary, NC
+}
+\resumeItemListStart{}
+\resumeItem{
+Collaborated with a small engineering team to design and implement new features using modern JavaScript frameworks and REST APIs
+}
+\resumeItem{
+Assisted in debugging and improving existing code by writing unit tests and fixing performance and reliability issues
+}
+\resumeItem{
+Gained hands-on experience with version control, code reviews, and agile development workflows in a production environment
+}
+\resumeItemListEnd{}
+\resumeQuadHeading{
+Software Engineer Intern
+}{
+May 2020
+--
+Aug. 2020
+}{
+State Farm
+}{
+Atlanta, GA
+}
+\resumeItemListStart{}
+\resumeItem{
+Built and maintained full-stack features using JavaScript and React, collaborating with senior engineers to ship production-ready code
+}
+\resumeItem{
+Wrote unit tests and participated in code reviews to improve code quality, reliability, and team development standards
+}
+\resumeItemListEnd{}
+\resumeHeadingListEnd{}
+%section-experiences-end
+
+%section-projects-start
+\section{Projects}
+\resumeHeadingListStart{}
+\resumeTrioHeading{
+2D Physics Engine
+}{}{
+Feb. 2024
+}
+\resumeItemListStart{}
+\resumeItem{
+Designed 2D physics engine supporting both rigid and soft bodies with customizable properties
+}
+\resumeItem{
+Achieved precise collision detection using Separating Axis Theorem (SAT) and optimized performance using advanced techniques including spatial partitioning (Quadtrees) for scalable collision handling
+}
+\resumeItemListEnd{}
+\resumeTrioHeading{
+Chess Engine
+}{}{
+Jun. 2024
+}
+\resumeItemListStart{}
+\resumeItem{
+Functional AI opponent
+}
+\resumeItem{
+Features full set-list
+}
+\resumeItemListEnd{}
+\resumeHeadingListEnd{}
+%section-projects-end
+
+%section-skills-start
+\section{Skills}
+\resumeItemListStart{}
+\resumeItem{\textbf{
+\resumeItemListEnd{}
+%section-skills-end
+
+%section-achievements-start
+\section{Achievements}
+\resumeItemListStart{}
+\resumeItem{\textbf{
+Hackathon Winner
+}:}{
+Built a collaborative full-stack application designed for teachers
+}
+\resumeItem{\textbf{
+Published Research
+}:}{
+Published research on graph-neural-networks
+}
+\resumeItemListEnd{}
+%section-achievements-end
+
+\end{document}

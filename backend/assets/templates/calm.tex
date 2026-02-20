@@ -35,6 +35,8 @@
 \definecolor{ResumeGray}{HTML}{4D5656}
 \definecolor{ResumeLink}{HTML}{117A65}
 
+\setlist{nosep}
+
 \titleformat{\section}
   {\scshape\large\color{ResumeBlue}}{}
   {0em}{}[\color{ResumeBlue}\titlerule\vspace{0pt}]
@@ -85,7 +87,7 @@
   \textbf{\Huge 
     %name
   \vspace{2pt}} &
-  Email: {\color{ResumeLink}\uline{
+  Email: {\color{ResumeLink}{
     %email
     }} $|$
   Phone: 
@@ -93,6 +95,32 @@
   \\
 \end{tabular*}
 %section-header-end
+
+%section-educations-start
+\section{Education}
+\resumeHeadingListStart{}
+%loop-educations-start
+\resumeQuadHeading{
+    %school
+}{
+    %location
+}{
+    %degree
+}{
+    %startDate
+    --
+    %endDate
+}
+\resumeItemListStart{}
+%loop-description-start
+\resumeItem{
+    %point
+}
+%loop-description-end
+\resumeItemListEnd{}
+%loop-educations-end
+\resumeHeadingListEnd{}
+%section-educations-end
 
 %section-experiences-start
 \section{Experience}
@@ -120,25 +148,6 @@
 \resumeHeadingListEnd{}
 %section-experiences-end
 
-%section-educations-start
-\section{Education}
-\resumeHeadingListStart{}
-%loop-educations-start
-\resumeQuadHeading{
-    %school
-}{
-    %location
-}{
-    %degree
-}{
-    %startDate
-    --
-    %endDate
-}
-%loop-educations-end
-\resumeHeadingListEnd{}
-%section-educations-end
-
 %section-projects-start
 \section{Projects}
 \resumeHeadingListStart{}
@@ -158,6 +167,21 @@
 %loop-projects-end 
 \resumeHeadingListEnd{}
 %section-projects-end
+
+%section-skills-start
+\section{Skills}
+\resumeItemListStart{}
+%loop-skills-start
+\resumeItem{\textbf{
+    %category
+}:}{
+    %loop-description-start
+      %point-delimited-,
+    %loop-description-end
+}
+%loop-skills-end
+\resumeItemListEnd{}
+%section-skills-end
 
 %section-achievements-start
 \section{Achievements}

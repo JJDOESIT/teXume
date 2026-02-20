@@ -30,7 +30,7 @@
   \begin{center}
     {\namesize\bfseries\textit{\@name}}
   \end{center}
-  \vspace{0.5cm}%
+  \vspace{0.5cm}
 }
 \makeatother
 
@@ -51,30 +51,19 @@
   {\color{navyblue}\hrule}
   \begin{list}{}{\leftmargin=1.5em}
   \item[]
-}{%
+}{
   \end{list}
 }
 
-\newenvironment{rSubsectionNoBullet}[4]{%
+\newenvironment{rSubsection}[4]{
   {\bfseries #1}\hfill{\textit{#2}}\par
-  \ifthenelse{\equal{#3}{}}{}{%
-    \textit{#3}\ifthenelse{\equal{#4}{}}{}{ \hfill \textit{#4}}%
-  }
-  \begin{list}{}{\leftmargin=0em}
-  \itemsep -0.7em
-}{%
-  \end{list}
-}
-
-\newenvironment{rSubsection}[4]{%
-  {\bfseries #1}\hfill{\textit{#2}}\par
-  \ifthenelse{\equal{#3}{}}{}{%
-    \textit{#3} \hfill \textit{#4}%
+  \ifthenelse{\equal{#3}{}}{}{
+    \textit{#3} \hfill \textit{#4}
   }
   \smallskip
   \begin{list}{$\sbullet[.65]$}{\leftmargin=2em}
   \itemsep -0.5em
-}{%
+}{
   \end{list}\vspace{0em}
 }
 
@@ -84,7 +73,7 @@
 
 \newcommand{\entry}[2]{#1 & #2 \\}
 
-\newcommand{\tableEnv}[2]{%
+\newcommand{\tableEnv}[2]{
   \begin{rSection}{#1}
   \begin{adjustwidth}{0in}{0.1in}
   \begin{tabularx}{\linewidth}{@{}>{\bfseries}l X@{}}
@@ -101,13 +90,11 @@
   %name
 }
 \printname
-
 \printPersonalInfo{
   \personalInfo{
     \tag{E-mail}\info{
       %email
     }
-    \infoSeparator
     \tag{Phone}\info{
       %phone
     }
@@ -118,27 +105,27 @@
 %section-educations-start
 \begin{rSection}{Education}
 %loop-educations-start
-\begin{rSubsectionNoBullet}{
-  %degree
+\begin{rSubsection}{
+  %school
 }{
   %startDate
   --
   %endDate
 }{
-  %school
+  %degree
 }{}
 %loop-description-start
-\italicitem{
+\item{
   %point
 }
 %loop-description-end
-\end{rSubsectionNoBullet}
+\end{rSubsection}
 %loop-educations-end
 \end{rSection}
 %section-educations-end
 
 %section-experiences-start
-\begin{rSection}{Work Experience}
+\begin{rSection}{Experience}
 %loop-experiences-start
 \begin{rSubsection}{
   %company
@@ -193,5 +180,18 @@
 %loop-skills-end
 }
 %section-skills-end
+
+%section-achievements-start
+\tableEnv{Achievements}{
+%loop-achievements-start
+\entry{
+  %title
+  :
+}{
+%description
+}
+%loop-achievements-end
+}
+%section-achievements-end
 
 \end{document}

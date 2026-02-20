@@ -107,6 +107,13 @@
   --
   %endDate
 }
+\resumeItemListStart
+%loop-description-start
+\resumeItem{
+  %point
+}
+%loop-description-end
+\resumeItemListEnd
 %loop-educations-end
 \resumeSubHeadingListEnd
 %section-educations-end
@@ -175,5 +182,20 @@
   }}
 \end{itemize}
 %section-skills-end
+
+%section-achievements-start
+\section{Achievements}
+\begin{itemize}[leftmargin=0.15in, label={}]
+  \small{\item{
+    %loop-achievements-start
+    \textbf{
+      %title
+    }{: 
+      %description
+    } \\
+    %loop-achievements-end
+  }}
+\end{itemize}
+%section-achievements-end
 
 \end{document}

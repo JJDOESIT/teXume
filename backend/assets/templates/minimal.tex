@@ -46,45 +46,44 @@
     \par{
         \centering
         \vspace{-0.9in}
-        \textcolor{linkcolour}{\Large 
+        \textcolor{linkcolour}{\Large
             %name
         }
         \par
     }
 \end{minipage}
 \begin{center}
-    \href{mailto:email@address.com}{
+    {
         %email
-    } \,$\cdot$\, 
-    \href{}{
+    } 
+    {
         %phone
     }
 \end{center}
 %section-header-end
 
-%section-skills-start
-\sectitle{Skills}
-%loop-skills-start
+%section-educations-start
+\sectitle{Education}
+%loop-educations-start
 \par\noindent
 \textBF{
-    %category
+    %degree
 } --- 
+%school
+\hfill
+%startDate 
+--- 
+%endDate
+\par
+\begin{itemize}
 %loop-description-start
-    %point-delimited-,
+    \item{
+        %point
+    }
 %loop-description-end
-%loop-skills-end
-%section-skills-end
-
-%section-achievements-start
-\sectitle{Achievements}
-%loop-achievements-start
-\par\noindent
-\textBF{
-    %title
-} --- 
-%description
-%loop-achievements-end
-%section-achievements-end
+\end{itemize}
+%loop-educations-end
+%section-educations-end
 
 %section-experiences-start
 \sectitle{Experience}
@@ -109,18 +108,15 @@
 %loop-experiences-end
 %section-experiences-end
 
-%section-educations-start
-\sectitle{Education}
-%loop-educations-start
+%section-projects-start
+\sectitle{Projects}
+%loop-projects-start
 \par\noindent
 \textBF{
-    %degree
-} --- 
-%school
+    %title
+}
 \hfill
-%startDate 
---- 
-%endDate
+%date
 \par
 \begin{itemize}
 %loop-description-start
@@ -129,7 +125,38 @@
     }
 %loop-description-end
 \end{itemize}
-%loop-educations-end
-%section-educations-end
+%loop-projects-end
+%section-projects-end
+
+%section-skills-start
+\sectitle{Skills}
+%loop-skills-start
+\par\noindent
+\textBF{
+    %category
+} --- 
+%loop-description-start
+    %point-delimited-,
+%loop-description-end
+%loop-skills-end
+%section-skills-end
+
+%section-achievements-start
+\sectitle{Achievements}
+%loop-achievements-start
+\par\noindent
+\textBF{
+    %title
+}
+\hfill
+%date
+\par
+\begin{itemize}
+\item{
+    %description
+}
+\end{itemize}
+%loop-achievements-end
+%section-achievements-end
 
 \end{document}
