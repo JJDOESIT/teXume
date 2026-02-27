@@ -9,12 +9,15 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@dnd-kit/react": "^0.3.2",
+    "@dnd-kit/sortable": "^10.0.0",
     "@heroicons/react": "^2.2.0",
     "next": "16.1.6",
     "react": "19.2.3",
     "react-dom": "19.2.3",
     "react-pdf": "^10.3.0",
-    "react-router-dom": "^7.13.0"
+    "react-router-dom": "^7.13.0",
+    "uuid": "^13.0.0"
   },
   "devDependencies": {
     "eslint": "^9",

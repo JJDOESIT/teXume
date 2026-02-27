@@ -25,6 +25,7 @@ export default function PdfViewer(props) {
               key={i}
               pageNumber={i + 1}
               renderTextLayer={false}
+              loading={null}
               renderAnnotationLayer={false}
               onRenderSuccess={() => setPreviousPdfUrl(props.pdfUrl)}
             />
@@ -47,6 +48,7 @@ export default function PdfViewer(props) {
               key={i}
               pageNumber={i + 1}
               renderTextLayer={false}
+              loading={null}
               renderAnnotationLayer={false}
               onRenderSuccess={() => {
                 setPreviousPages(currentPages);

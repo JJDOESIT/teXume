@@ -106,27 +106,28 @@ export default function SkillForm(props) {
         </section>
       )}
 
-      <div
-        className={styles.chevronIcon}
-        onClick={() => setIsPreview((prev) => !prev)}
-      >
-        {isPreview ? (
-          <ChevronDownIcon></ChevronDownIcon>
-        ) : (
-          <ChevronUpIcon></ChevronUpIcon>
-        )}
-      </div>
-
-      <div className={styles.trashIcon}>
-        <TrashIcon
-          onClick={() => {
-            props.setUserInfo((prev) => {
-              const copy = new UserInfoModel(prev);
-              copy.skills.splice(props.skillIndex, 1);
-              return copy;
-            });
-          }}
-        ></TrashIcon>
+      <div className={styles.rightIcons}>
+        <div
+          className={styles.chevronIcon}
+          onClick={() => setIsPreview((prev) => !prev)}
+        >
+          {isPreview ? (
+            <ChevronDownIcon></ChevronDownIcon>
+          ) : (
+            <ChevronUpIcon></ChevronUpIcon>
+          )}
+        </div>
+        <div className={styles.trashIcon}>
+          <TrashIcon
+            onClick={() => {
+              props.setUserInfo((prev) => {
+                const copy = new UserInfoModel(prev);
+                copy.skills.splice(props.skillIndex, 1);
+                return copy;
+              });
+            }}
+          ></TrashIcon>
+        </div>
       </div>
     </section>
   );

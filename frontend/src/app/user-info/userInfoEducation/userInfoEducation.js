@@ -1,10 +1,10 @@
 import styles from "./userInfoEducation.module.css";
 
-import { useRef, useState } from "react";
-import { PlusIcon } from "@heroicons/react/24/solid";
 import UserInfoModel from "../../../../models/UserInfoModel";
 import EducationModel from "../../../../models/EducationModel";
 import EducationForm from "../educationForm/educationForm";
+import { useRef, useState } from "react";
+import { PlusIcon } from "@heroicons/react/24/solid";
 
 export default function UserInfoEducation(props) {
   const containerRef = useRef(null);
@@ -86,6 +86,9 @@ export default function UserInfoEducation(props) {
 
       <div
         className={`${styles.addNewEducation} primaryGrayAddInput`}
+        style={
+          props.userInfo.educations.length != 0 ? { marginTop: "20px" } : {}
+        }
         onClick={() => {
           props.setUserInfo((prev) => {
             const copy = new UserInfoModel(prev);

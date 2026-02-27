@@ -51,11 +51,11 @@ public class AuthenticationController {
             Optional<UserAccountModel> optionalUserAccountModel = _userAccountRepository
                     .findByUsername(loginModel.username);
 
-            UserAccountModel userAccountModel = optionalUserAccountModel.orElse(null);
-
-            if (userAccountModel == null) {
+            if (!optionalUserAccountModel.isPresent()) {
                 return ResponseEntity.status(400).body(Map.of("message", "Invalid username/password"));
             }
+
+            UserAccountModel userAccountModel = optionalUserAccountModel.get();
 
             if (!_BCryptUtility.matches(loginModel.password, userAccountModel.password)) {
                 return ResponseEntity.status(400).body(Map.of("message", "Invalid username/password"));
@@ -127,6 +127,11 @@ public class AuthenticationController {
                     .getPrincipal();
             if (authenticationPrincipalModel.isSession) {
                 return ResponseEntity.ok().body(false);
+            }
+            Optional<UserAccountModel> optionalUserAccountModel = _userAccountRepository
+                    .findByUsername(authenticationPrincipalModel.identity);
+            if (!optionalUserAccountModel.isPresent()) {
+                return ResponseEntity.status(500).build();
             }
             return ResponseEntity.ok().body(true);
         } catch (Exception error) {

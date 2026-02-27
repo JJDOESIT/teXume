@@ -86,6 +86,7 @@ export default function UserInfoSkills(props) {
 
       <div
         className={`${styles.addNewSkill} primaryGrayAddInput`}
+        style={props.userInfo.skills.length != 0 ? { marginTop: "20px" } : {}}
         onClick={() => {
           props.setUserInfo((prev) => {
             const copy = new UserInfoModel(prev);

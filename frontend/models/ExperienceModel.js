@@ -1,7 +1,8 @@
 import ExperienceBulletPointModel from "./ExperienceBulletPointModel";
+import { v4 as uuid } from "uuid";
 
 export default class ExperienceModel {
-  id = Date.now();
+  id = uuid();
   title = "";
   startDate;
   endDate;

@@ -1,7 +1,8 @@
 import ProjectBulletPointModel from "./ProjectBulletPointModel";
+import { v4 as uuid } from "uuid";
 
 export default class ProjectModel {
-  id = Date.now();
+  id = uuid();
   title = "";
   date;
   description = new Array();

@@ -4,7 +4,7 @@ import UserInfoModel from "../../../../models/UserInfoModel";
 
 export default function UserInfoDetails(props) {
   return (
-    <section>
+    <section className={styles.container}>
       <div className={styles.firstRow}>
         <div className="primaryEmeraldInput">
           <label>First name</label>

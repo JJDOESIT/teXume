@@ -86,6 +86,9 @@ export default function UserInfoExperience(props) {
 
       <div
         className={`${styles.addNewExperience} primaryGrayAddInput`}
+        style={
+          props.userInfo.experiences.length != 0 ? { marginTop: "20px" } : {}
+        }
         onClick={() => {
           props.setUserInfo((prev) => {
             const copy = new UserInfoModel(prev);

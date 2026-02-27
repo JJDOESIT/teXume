@@ -11,12 +11,14 @@ import {
   XMarkIcon,
 } from "@heroicons/react/24/solid";
 import { accountContext } from "../accountProvider/accountProvider";
+import { usePathname } from "next/navigation";
 
 export default function Navbar() {
   const { isLoggedIn } = useContext(accountContext);
   const [navbarLoaded, setNavbarLoaded] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const pathname = usePathname();
 
   // Sets whether the user is on mobile on resize
   function handleResize(mediaQuery) {
@@ -50,15 +52,24 @@ export default function Navbar() {
           <section className={styles.linkContainer}>
             {!isMobile ? (
               <div className={styles.linkWrapper}>
-                <Link className={styles.browseLink} href="/browse">
+                <Link
+                  className={`${styles.browseLink} ${pathname == "/browse" ? styles.active : ""}`}
+                  href="/browse"
+                >
                   <p>Browse Templates</p>
                 </Link>
                 {!isLoggedIn ? (
-                  <Link className={styles.loginLink} href="/login">
+                  <Link
+                    className={`${styles.loginLink} ${pathname == "/login" ? styles.active : ""}`}
+                    href="/login"
+                  >
                     <p>Login</p>
                   </Link>
                 ) : (
-                  <Link className={styles.accountLink} href="/account">
+                  <Link
+                    className={`${styles.accountLink} ${pathname == "/account" ? styles.active : ""}`}
+                    href="/account"
+                  >
                     <p>Account</p>
                   </Link>
                 )}
@@ -83,18 +94,27 @@ export default function Navbar() {
               <div className={styles.menuBody}>
                 <p className={styles.menuTitle}>Menu</p>
 
-                <Link className={styles.menuBrowseLink} href="/browse">
+                <Link
+                  className={`${styles.menuBrowseLink} ${pathname == "/browse" ? styles.active : ""}`}
+                  href="/browse"
+                >
                   <p>Browse Templates</p>
                   <ChevronRightIcon />
                 </Link>
 
                 {!isLoggedIn ? (
-                  <Link className={styles.menuLoginLink} href="/login">
+                  <Link
+                    className={`${styles.menuLoginLink} ${pathname == "/login" ? styles.active : ""}`}
+                    href="/login"
+                  >
                     <p>Login</p>
                     <ChevronRightIcon />
                   </Link>
                 ) : (
-                  <Link className={styles.menuAccountLink} href="/login">
+                  <Link
+                    className={`${styles.menuAccountLink} ${pathname == "/account" ? styles.active : ""}`}
+                    href="/account"
+                  >
                     <p>Account</p>
                     <ChevronRightIcon />
                   </Link>

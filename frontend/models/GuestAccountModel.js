@@ -1,7 +1,8 @@
 import UserAccountModel from "./UserAccountModel";
+import { v4 as uuid } from "uuid";
 
 export default class GuestAccountModel {
-  id = Date.now();
+  id = uuid();
   session = "";
   userAccountModel = new UserAccountModel();
 

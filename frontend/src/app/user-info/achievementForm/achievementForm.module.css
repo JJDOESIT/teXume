@@ -27,21 +27,20 @@
     word-break: break-word;
 }
 
-.draggableIcon, .trashIcon, .chevronIcon{
-    flex: 1;
-    height: fit-content;
+.rightIcons{
+    display: flex;
+}
+
+.draggableIcon > svg, .trashIcon > svg, .chevronIcon > svg{
+    width: 20px;
 }
 
 .draggableIcon{
     margin-right: 20px;
 }
 
-.chevronIcon{
-    margin-left: 20px;
-}
-
 .trashIcon{
-    margin-left: 10px;
+    margin-left: 5px;
 }
 
 .trashIcon:hover, .chevronIcon:hover{
@@ -61,5 +60,13 @@
     .secondRow{
         flex-direction: column;
         gap: 0;
+    }
+
+    .container{
+        padding: 20px 5px;
+    }
+
+    .draggableIcon{
+        margin-right: 5px;
     }
 }

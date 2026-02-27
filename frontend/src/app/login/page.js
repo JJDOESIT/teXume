@@ -1,14 +1,14 @@
 "use client";
 
-import Link from "next/link";
 import styles from "./login.module.css";
+
+import Link from "next/link";
 import { useState, useContext } from "react";
 import { getCookie, setCookie } from "../../../utilities/cookies";
 import { login } from "../../../api/authentication";
 import { navbarAlertContext } from "../../../components/navbarAlertProvider/navbarAlertProvider";
 import { accountContext } from "../../../components/accountProvider/accountProvider";
 import { add } from "../../../api/template";
-import UserInfoModel from "../../../models/UserInfoModel";
 
 export default function Login() {
   const { setIsLoggedIn } = useContext(accountContext);
@@ -46,11 +46,13 @@ export default function Login() {
           onClick={async () => {
             const cookie = await getCookie("token");
             const token = cookie["value"];
-            add(
-              "template3",
-              ["header", "education", "experience", "projects", "skills"],
-              token,
-            );
+            add("Calm", token);
+            add("Formal", token);
+            add("Italic", token);
+            add("Minimal", token);
+            add("Professional", token);
+            add("Split", token);
+            add("Stripped", token);
           }}
         >
           Herro

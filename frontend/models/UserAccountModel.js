@@ -1,7 +1,8 @@
 import UserInfoModel from "./UserInfoModel";
+import { v4 as uuid } from "uuid";
 
 export default class UserAccountModel {
-  id = Date.now();
+  id = uuid();
   username = "";
   password = "";
   userInfoModel = new UserInfoModel();

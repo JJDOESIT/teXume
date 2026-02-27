@@ -10,12 +10,12 @@
     max-height: 100%;
     min-height: 0;
     padding: 30px;
+    gap: 30px;
 }
 
 .sectionProgressContainer{
     flex: 1;
     max-width: fit-content;
-    margin-left: 15px;
     border-radius: 10px;
     box-shadow: 0 0 15px var(--gray-40);
     height: fit-content;
@@ -102,7 +102,6 @@
     max-height: 100%;
     position: relative;
     min-width: 0;
-    margin: 0 20px;
 }
 
 .sectionHeader{

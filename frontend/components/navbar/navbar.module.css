@@ -58,6 +58,10 @@
     cursor: pointer;
 }
 
+.browseLink.active, .loginLink.active, .accountLink.active, .menuBrowseLink.active, .menuLoginLink.active, .menuAccountLink.active{
+    color: var(--emerald-60);
+}
+
 .menuIconWrapper{
     margin-right: 30px;
 }

@@ -19,11 +19,9 @@ import ResumeBuilder.backend.Models.ApiModels.Template.ModifyTemplateModel;
 import ResumeBuilder.backend.Models.ApiModels.Template.SwapMultipleSectionsModel;
 import ResumeBuilder.backend.Models.AuthenticationModels.AuthenticationPrincipalModel;
 import ResumeBuilder.backend.Models.DatabaseModels.LineModel;
-import ResumeBuilder.backend.Models.DatabaseModels.SectionModel;
 import ResumeBuilder.backend.Models.DatabaseModels.TemplateModel;
 import ResumeBuilder.backend.Models.DatabaseModels.UserAccountModel;
 import ResumeBuilder.backend.Models.DatabaseModels.UserInfoModel;
-import ResumeBuilder.backend.Repositories.SectionTypeRepository;
 import ResumeBuilder.backend.Repositories.TemplateRepository;
 import ResumeBuilder.backend.Repositories.UserAccountRepository;
 import ResumeBuilder.backend.Utilities.TemplateCacheUtility;
@@ -39,7 +37,6 @@ import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import java.util.UUID;
 
 import javax.imageio.ImageIO;
@@ -49,16 +46,14 @@ import javax.imageio.ImageIO;
 public class TemplateController {
     private final TemplateLogic _templateLogic;
     private final TemplateCacheUtility _templateCacheUtility;
-    private final SectionTypeRepository _sectionTypeRepository;
     private final TemplateRepository _templateRepository;
     private final UserAccountRepository _userAccountRepository;
 
     public TemplateController(TemplateLogic templateLogic, TemplateCacheUtility templateCacheUtility,
-            SectionTypeRepository sectionTypeRepository, TemplateRepository templateRepository,
+            TemplateRepository templateRepository,
             UserAccountRepository userAccountRepository) {
         _templateLogic = templateLogic;
         _templateCacheUtility = templateCacheUtility;
-        _sectionTypeRepository = sectionTypeRepository;
         _templateRepository = templateRepository;
         _userAccountRepository = userAccountRepository;
 
@@ -82,8 +77,7 @@ public class TemplateController {
                 return ResponseEntity.status(403).build();
             }
 
-            Path path = Paths.get("./backend/assets/templates/template2" + ".tex");
-            byte[] file = Files.readAllBytes(path);
+            Path path = Paths.get("./backend/assets/templates/" + addTemplateModel.name + ".tex");
             ArrayList<LineModel> lines = new ArrayList<>();
             String line;
             BufferedReader reader = Files.newBufferedReader(path);
@@ -109,16 +103,8 @@ public class TemplateController {
 
             TemplateModel templateModel = new TemplateModel();
             templateModel.name = addTemplateModel.name;
-            templateModel.file = file;
             templateModel.preview = png;
 
-            for (int index = 0; index < addTemplateModel.sections.size(); index++) {
-                SectionModel sectionModel = new SectionModel();
-                sectionModel.sectionOrder = index;
-                String section = addTemplateModel.sections.get(index);
-                sectionModel.sectionTypeModel = _sectionTypeRepository.findByType(section).get();
-                templateModel.sections.add(sectionModel);
-            }
             _templateRepository.save(templateModel);
             return ResponseEntity.ok().build();
         } catch (Exception error) {
@@ -161,17 +147,7 @@ public class TemplateController {
                 return ResponseEntity.status(500).build();
             }
 
-            // Optional<TemplateModel> optionalTemplateModel = _templateRepository
-            // .findByName(initializeTemplateModel.name);
-            // TemplateModel templateModel = optionalTemplateModel.get();
-
-            // byte[] file = templateModel.file;
-
-            // Path path = Paths.get("./backend/assets/temp/" + session + ".tex");
-            // Files.write(path, file);
-
             Path path = Paths.get("./backend/assets/templates/" + initializeTemplateModel.name + ".tex");
-
             BufferedReader reader = Files.newBufferedReader(path);
 
             while ((line = reader.readLine()) != null) {
@@ -180,7 +156,6 @@ public class TemplateController {
             }
 
             reader.close();
-            // Files.delete(path);
 
             _templateCacheUtility.put(session, lines);
             return ResponseEntity.ok().body(Map.of("session", session));

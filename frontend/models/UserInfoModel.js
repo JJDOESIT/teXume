@@ -3,9 +3,10 @@ import EducationModel from "./EducationModel";
 import ExperienceModel from "./ExperienceModel";
 import ProjectModel from "./ProjectModel";
 import SkillModel from "./SkillModel";
+import { v4 as uuid } from "uuid";
 
 export default class UserInfoModel {
-  id = Date.now();
+  id = uuid();
   firstName = "";
   lastName = "";
   email = "";

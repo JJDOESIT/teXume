@@ -86,6 +86,7 @@ export default function UserInfoProjects(props) {
 
       <div
         className={`${styles.addNewProject} primaryGrayAddInput`}
+        style={props.userInfo.projects.length != 0 ? { marginTop: "20px" } : {}}
         onClick={() => {
           props.setUserInfo((prev) => {
             const copy = new UserInfoModel(prev);

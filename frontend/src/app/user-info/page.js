@@ -2,7 +2,6 @@
 
 import styles from "./user-info.module.css";
 
-import UserInfoModel from "../../../models/UserInfoModel";
 import dynamic from "next/dynamic";
 import UserInfoEducation from "./userInfoEducation/userInfoEducation";
 import UserInfoDetails from "./userInfoDetails/userInfoDetails";
@@ -15,7 +14,6 @@ import Loading from "../../../components/loading/loading";
 import Popup from "../../../components/popup/popup";
 
 import { useState, useEffect, useMemo, useContext, useRef } from "react";
-import { deleteCookie, getCookie } from "../../../utilities/cookies";
 import {
   AcademicCapIcon,
   BeakerIcon,
@@ -26,9 +24,12 @@ import {
   StarIcon,
 } from "@heroicons/react/24/solid";
 import { navbarAlertContext } from "../../../components/navbarAlertProvider/navbarAlertProvider";
-import { initialize, compile, add } from "../../../api/template";
-import { getUserInfo } from "../../../api/account";
 import { accountContext } from "../../../components/accountProvider/accountProvider";
+import {
+  compileTemplate,
+  fetchUserInfo,
+  initializeTemplate,
+} from "../../../utilities/template";
 
 const PdfViewer = dynamic(
   () => import("../../../components/pdfViewer/pdfViewer"),
@@ -51,6 +52,8 @@ export default function UserInfo() {
   const [popupVisible, setPopupVisible] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [isSaving, setIsSaving] = useState(false);
+  const debounceTime = 500;
+  const defaultTemplate = "formal";
   const sections = [
     {
       name: "Details",
@@ -142,8 +145,8 @@ export default function UserInfo() {
     desktopQuery.addEventListener("change", handleDesktopResize);
     mobileQuery.addEventListener("change", handleMobileResize);
 
-    fetchUserInfo();
-    initializeTemplate();
+    fetchUserInfo(setUserInfo, showNavbarAlert);
+    initializeTemplate(defaultTemplate, setSession, showNavbarAlert);
 
     return () => {
       desktopQuery.removeEventListener("change", handleDesktopResize);
@@ -155,9 +158,16 @@ export default function UserInfo() {
   useEffect(() => {
     const id = setTimeout(() => {
       if (userInfo != null && session != null) {
-        compileTemplate();
+        compileTemplate(
+          userInfo,
+          session,
+          pdfTimestamp,
+          setPdfUrl,
+          checkIfLoggedIn,
+          showNavbarAlert,
+        );
       }
-    }, 500);
+    }, debounceTime);
 
     return () => clearTimeout(id);
   }, [userInfo, session]);
@@ -168,85 +178,6 @@ export default function UserInfo() {
       setIsLoading(false);
     }
   }, [userInfo, session, pdfUrl]);
-
-  // Fetch user info
-  async function fetchUserInfo() {
-    const cookie = await getCookie("token");
-
-    if (cookie == null) {
-      setUserInfo(new UserInfoModel());
-      return;
-    }
-
-    const token = cookie["value"];
-    const response = await getUserInfo(token);
-
-    if (!response.ok) {
-      if (response.status == 403) {
-        await deleteCookie("token");
-        showNavbarAlert(
-          "error",
-          "Oops! Your session expired. Refresh the page or log back in.",
-        );
-      } else {
-        showNavbarAlert(
-          "error",
-          "Something went wrong! Please refresh and try again.",
-        );
-      }
-      return;
-    }
-
-    const data = await response.json();
-    setUserInfo(new UserInfoModel(data.userInfo));
-  }
-
-  // Initialize template
-  async function initializeTemplate() {
-    const response = await initialize("italic");
-
-    if (!response.ok) {
-      showNavbarAlert(
-        "error",
-        "Something went wrong! Please refresh and try again.",
-      );
-      return;
-    }
-
-    const data = await response.json();
-    setSession(data["session"]);
-  }
-
-  // Compile template
-  async function compileTemplate() {
-    checkIfLoggedIn();
-
-    const timestamp = Date.now();
-    const response = await compile(userInfo, session);
-
-    if (!response.ok) {
-      if (response.status == 401) {
-        showNavbarAlert(
-          "warning",
-          "Oops! Your session expired. Refresh the page to pick up where you left off.",
-        );
-      } else {
-        showNavbarAlert(
-          "error",
-          "Something went wrong! Please refresh and try again.",
-        );
-      }
-      return;
-    }
-
-    const blob = await response.blob();
-    const url = URL.createObjectURL(blob);
-
-    if (timestamp >= pdfTimestamp.current) {
-      pdfTimestamp.current = timestamp;
-      setPdfUrl(url);
-    }
-  }
 
   return (
     <section className={styles.container}>

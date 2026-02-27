@@ -1,4 +1,4 @@
-export async function add(name, sections, token) {
+export async function add(name, token) {
   return await fetch("http://localhost:8080/api/template/add", {
     method: "POST",
     headers: {
@@ -7,7 +7,6 @@ export async function add(name, sections, token) {
     },
     body: JSON.stringify({
       name: name,
-      sections: sections,
     }),
   });
 }

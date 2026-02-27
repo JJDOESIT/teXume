@@ -1,7 +1,7 @@
 "use client";
 
 import { createContext, useContext, useEffect, useState } from "react";
-import { getCookie } from "../../utilities/cookies";
+import { deleteCookie, getCookie } from "../../utilities/cookies";
 import { isLoggedIn as isUserLoggedIn } from "../../api/authentication";
 import { usePathname } from "next/navigation";
 import { navbarAlertContext } from "../navbarAlertProvider/navbarAlertProvider";
@@ -27,11 +27,13 @@ export default function AccountProvider({ children }) {
     const response = await isUserLoggedIn(token);
 
     if (!response.ok) {
+      deleteCookie("token");
       setIsLoggedIn(false);
       return;
     }
 
     const data = await response.json();
+
     setIsLoggedIn(data);
     return data;
   }

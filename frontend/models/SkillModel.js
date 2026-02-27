@@ -1,7 +1,8 @@
 import SkillBulletPointModel from "./SkillBulletPointModel";
+import { v4 as uuid } from "uuid";
 
 export default class SkillModel {
-  id = Date.now();
+  id = uuid();
   category = "";
   description = new Array();
 

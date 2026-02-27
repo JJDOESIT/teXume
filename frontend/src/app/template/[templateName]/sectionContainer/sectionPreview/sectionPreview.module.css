@@ -1,8 +1,17 @@
 .container{
-    display: flex;
     box-shadow: 0 0 15px var(--gray-40);
     border-radius: 10px;
     padding: 20px;
+    box-sizing: content-box;
+}
+
+.header{
+    display: flex;
+    width: 100%;
+}
+
+.container.preview{
+    max-height: 50px;
 }
 
 .formContainer{
@@ -10,55 +19,25 @@
     min-width: 0;
 }
 
-.firstRow{
-    display: flex;
-}
-
-.addNewSkill{
-    margin-top: 10px;
-}
-
-.detail{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-}
-
-.detail:hover{
-    cursor: pointer;
-}
-
-.detail > svg{
-    width: 25px;
-    height: 25px;
-}
-
-.xMarkIcon:hover{    
-    color: var(--delete);
-}
-
 .previewContainer{
     flex: 15;
     display: flex;
     align-items: center;
+    gap: 5px;
 }
 
 .previewContainer p{
     font-size: 0.8rem;
-    font-style: italic;
+    font-weight: 600;
     word-break: break-word;
-}
-
-.previewContainer > p:first-child{
-    flex: 1;
 }
 
 .rightIcons{
     display: flex;
 }
 
-.draggableIcon > svg, .trashIcon > svg, .chevronIcon > svg{
-    width: 20px;
+.draggableIcon > svg, .trashIcon > svg, .chevronIcon > svg, .icon > svg{
+    width: 30px;
 }
 
 .draggableIcon{

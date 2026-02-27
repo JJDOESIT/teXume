@@ -86,6 +86,9 @@ export default function UserInfoAchievements(props) {
 
       <div
         className={`${styles.addNewAchievement} primaryGrayAddInput`}
+        style={
+          props.userInfo.achievements.length != 0 ? { marginTop: "20px" } : {}
+        }
         onClick={() => {
           props.setUserInfo((prev) => {
             const copy = new UserInfoModel(prev);

@@ -1,7 +1,8 @@
 import EducationBulletPointModel from "./EducationBulletPointModel";
+import { v4 as uuid } from "uuid";
 
 export default class EducationModel {
-  id = Date.now();
+  id = uuid();
   school = "";
   degree = "";
   location = "";

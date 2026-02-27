@@ -1,5 +1,7 @@
+import { v4 as uuid } from "uuid";
+
 export default class AchievementModel {
-  id = Date.now();
+  id = uuid();
   title = "";
   description = "";
   date;
