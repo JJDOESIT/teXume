@@ -17,6 +17,7 @@ import ResumeBuilder.backend.Models.ApiModels.Template.HideSectionModel;
 import ResumeBuilder.backend.Models.ApiModels.Template.InitializeTemplateModel;
 import ResumeBuilder.backend.Models.ApiModels.Template.ModifyTemplateModel;
 import ResumeBuilder.backend.Models.ApiModels.Template.SwapMultipleSectionsModel;
+import ResumeBuilder.backend.Models.ApiModels.Template.UnhideSectionModel;
 import ResumeBuilder.backend.Models.AuthenticationModels.AuthenticationPrincipalModel;
 import ResumeBuilder.backend.Models.DatabaseModels.LineModel;
 import ResumeBuilder.backend.Models.DatabaseModels.TemplateModel;
@@ -227,13 +228,29 @@ public class TemplateController {
         try {
             ArrayList<LineModel> lines = _templateCacheUtility.get(hideSectionModel.session);
             if (lines == null) {
-                return ResponseEntity.badRequest().build();
+                return ResponseEntity.status(401).build();
             }
             _templateLogic.hideSection(lines, hideSectionModel.section);
             return ResponseEntity.ok().build();
         } catch (Exception error) {
             System.out.println(error.getMessage());
-            return ResponseEntity.badRequest().build();
+            return ResponseEntity.status(500).build();
+        }
+    }
+
+    // Unhide a given section of a template session
+    @PostMapping("/unhide-section")
+    public ResponseEntity<Void> unhideSection(@RequestBody UnhideSectionModel unhideSectionModel) {
+        try {
+            ArrayList<LineModel> lines = _templateCacheUtility.get(unhideSectionModel.session);
+            if (lines == null) {
+                return ResponseEntity.status(401).build();
+            }
+            _templateLogic.unhideSection(lines, unhideSectionModel.section);
+            return ResponseEntity.ok().build();
+        } catch (Exception error) {
+            System.out.println(error.getMessage());
+            return ResponseEntity.status(500).build();
         }
     }
 
@@ -247,8 +264,8 @@ public class TemplateController {
             }
 
             for (String target : swapMultipleSectionsModel.targets) {
-                _templateLogic.swapSections(lines, swapMultipleSectionsModel.section.toLowerCase(),
-                        target.toLowerCase());
+                _templateLogic.swapSections(lines, swapMultipleSectionsModel.section,
+                        target);
             }
             return ResponseEntity.ok().build();
         } catch (Exception error) {

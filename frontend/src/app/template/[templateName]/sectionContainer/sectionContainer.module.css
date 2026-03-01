@@ -1,16 +1,7 @@
 .container{
     padding: 10px;
     height: 100%;
-}
-
-.dragging{
-    opacity: 0.01;
-}
-
-.draggable:not(.draggable:first-child){
-    margin-top: 20px;
-}
-
-.draggable:hover{
-    cursor: grab;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 }

@@ -44,3 +44,46 @@ export async function compile(userInfoModel, session) {
     }),
   });
 }
+
+export async function hideSection(section, session) {
+  return await fetch("http://localhost:8080/api/template/hide-section", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      session: session,
+      section: section,
+    }),
+  });
+}
+
+export async function unhideSection(section, session) {
+  return await fetch("http://localhost:8080/api/template/unhide-section", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      session: session,
+      section: section,
+    }),
+  });
+}
+
+export async function swapMultipleSections(section, targets, session) {
+  return await fetch(
+    "http://localhost:8080/api/template/swap-multiple-sections",
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        session: session,
+        section: section,
+        targets: targets,
+      }),
+    },
+  );
+}

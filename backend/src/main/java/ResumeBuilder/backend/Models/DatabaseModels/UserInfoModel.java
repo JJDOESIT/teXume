@@ -63,9 +63,9 @@ public class UserInfoModel implements IWriter {
             return email;
         } else if (key.equals("phone")) {
             return phone;
-        } else if (key.equals("educations")) {
+        } else if (key.equals("education")) {
             return educations;
-        } else if (key.equals("experiences")) {
+        } else if (key.equals("experience")) {
             return experiences;
         } else if (key.equals("projects")) {
             return projects;

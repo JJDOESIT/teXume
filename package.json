@@ -1,0 +1,9 @@
+{
+  "dependencies": {
+    "@dnd-kit/abstract": "^0.4.0-beta-20260227032529",
+    "@dnd-kit/collision": "^0.4.0-beta-20260227032529",
+    "@dnd-kit/dom": "^0.4.0-beta-20260227032529",
+    "@dnd-kit/helpers": "^0.4.0-beta-20260227032529",
+    "@dnd-kit/react": "^0.4.0-beta-20260227032529"
+  }
+}

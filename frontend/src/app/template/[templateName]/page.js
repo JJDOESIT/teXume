@@ -101,6 +101,7 @@ export default function Template({ params }) {
         <section className={styles.bodyContainer}>
           <div className={styles.sectionContainer}>
             <SectionContainer
+              session={session}
               userInfo={userInfo}
               setUserInfo={setUserInfo}
             ></SectionContainer>

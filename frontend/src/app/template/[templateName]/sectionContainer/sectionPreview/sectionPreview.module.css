@@ -36,24 +36,46 @@
     display: flex;
 }
 
-.draggableIcon > svg, .trashIcon > svg, .chevronIcon > svg, .icon > svg{
+.draggableIcon > svg, .eyeIcon > svg, .chevronIcon > svg, .icon > svg{
     width: 30px;
+}
+
+.editIcon > svg{
+    width: 15px;
+}
+
+.saveIcon > svg{
+    width: 25px;
 }
 
 .draggableIcon{
     margin-right: 20px;
 }
 
-.trashIcon{
+.eyeIcon{
     margin-left: 5px;
 }
 
-.trashIcon:hover, .chevronIcon:hover{
+.eyeIcon:hover, .chevronIcon:hover, .editIcon:hover, .saveIcon:hover{
     cursor: pointer;
 }
 
-.trashIcon:hover{
+.sectionName{
+    flex: none;
+}
+
+.sectionName > input{
+    field-sizing: content;
+    padding: 5px 10px;
+    transition: none;
+}
+
+.eyeIcon:hover, .editIcon:hover{
     color: var(--delete);
+}
+
+.saveIcon:hover{
+    color: var(--emerald-50);
 }
 
 @media only screen and (max-width: 700px) {

@@ -189,16 +189,17 @@ export default function EducationForm(props) {
             <ChevronUpIcon></ChevronUpIcon>
           )}
         </div>
-        <div className={styles.trashIcon}>
-          <TrashIcon
-            onClick={() => {
-              props.setUserInfo((prev) => {
-                const copy = new UserInfoModel(prev);
-                copy.educations.splice(props.educationIndex, 1);
-                return copy;
-              });
-            }}
-          ></TrashIcon>
+        <div
+          className={styles.trashIcon}
+          onClick={() => {
+            props.setUserInfo((prev) => {
+              const copy = new UserInfoModel(prev);
+              copy.educations.splice(props.educationIndex, 1);
+              return copy;
+            });
+          }}
+        >
+          <TrashIcon></TrashIcon>
         </div>
       </div>
     </section>

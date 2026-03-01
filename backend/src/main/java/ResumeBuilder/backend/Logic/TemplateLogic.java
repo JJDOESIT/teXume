@@ -116,13 +116,13 @@ public class TemplateLogic {
         List<LineModel> newLines = new ArrayList<>();
 
         for (LineModel line : lines) {
-            if (line.isSectionStart && line.key.equals(section)) {
+            if (line.isSectionStart && line.key.equalsIgnoreCase(section)) {
                 add = true;
             }
             if (add) {
                 newLines.add(line);
             }
-            if (line.isSectionEnd && line.key.equals(section)) {
+            if (line.isSectionEnd && line.key.equalsIgnoreCase(section)) {
                 break;
             }
         }
@@ -165,7 +165,7 @@ public class TemplateLogic {
     private int fetchSectionStartIndex(List<LineModel> lines, String section) {
         for (int index = 0; index < lines.size(); index++) {
             LineModel line = lines.get(index);
-            if (line.isSectionStart && line.key.equals(section)) {
+            if (line.isSectionStart && line.key.equalsIgnoreCase(section)) {
                 return index;
             }
         }
