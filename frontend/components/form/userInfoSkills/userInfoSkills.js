@@ -1,7 +1,7 @@
 import styles from "./userInfoSkills.module.css";
 
-import UserInfoModel from "../../../../models/UserInfoModel";
-import SkillModel from "../../../../models/SkillModel";
+import UserInfoModel from "../../../models/UserInfoModel";
+import SkillModel from "../../../models/SkillModel";
 import SkillForm from "../skillForm/skillForm";
 import { PlusIcon } from "@heroicons/react/24/solid";
 import { DragDropProvider } from "@dnd-kit/react";
@@ -25,34 +25,33 @@ function DraggableSection({ section, index, setUserInfo }) {
   );
 }
 
-export default function UserInfoSkills(props) {
+export default function UserInfoSkills({ userInfo, setUserInfo }) {
   return (
     <section className={styles.container}>
       <DragDropProvider
         onDragOver={(event) => {
-          const copy = new UserInfoModel(props.userInfo);
+          const copy = new UserInfoModel(userInfo);
           copy.skills = move(copy.skills, event);
-          props.setUserInfo(copy);
+          setUserInfo(copy);
         }}
       >
-        {props.userInfo.skills.map((skill, skillIndex) => {
+        {userInfo.skills.map((skill, skillIndex) => {
           return (
             <DraggableSection
               section={skill}
               index={skillIndex}
               key={skill.id}
-              userInfo={props.userInfo}
-              setUserInfo={props.setUserInfo}
+              userInfo={userInfo}
+              setUserInfo={setUserInfo}
             ></DraggableSection>
           );
         })}
       </DragDropProvider>
 
       <div
-        className={`${styles.addNewSkill} primaryGrayAddInput`}
-        style={props.userInfo.skills.length != 0 ? { marginTop: "20px" } : {}}
+        className="secondaryGrayButton"
         onClick={() => {
-          props.setUserInfo((prev) => {
+          setUserInfo((prev) => {
             const copy = new UserInfoModel(prev);
             copy.skills.push(new SkillModel());
             return copy;

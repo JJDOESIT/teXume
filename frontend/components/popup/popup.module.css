@@ -25,6 +25,10 @@
     min-height: 0;
 }
 
+.xIcon > svg:hover{
+    cursor: pointer;
+}
+
 .xIcon > svg{
     height: 100%;
     fill: var(--gray-70);

@@ -37,7 +37,9 @@ export default function Browse() {
                   href={"/template/" + item["name"]}
                 >
                   <img src={`data:image/png;base64,${item["preview"]}`}></img>
-                  <div className={`${styles.useTemplate} primaryEmeraldButton`}>
+                  <div
+                    className={`${styles.useTemplate} secondaryEmeraldButton`}
+                  >
                     <p>Use this template</p>
                   </div>
                 </Link>

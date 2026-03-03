@@ -1,8 +1,8 @@
 import styles from "./userInfoDetails.module.css";
 
-import UserInfoModel from "../../../../models/UserInfoModel";
+import UserInfoModel from "../../../models/UserInfoModel";
 
-export default function UserInfoDetails(props) {
+export default function UserInfoDetails({ userInfo, setUserInfo }) {
   return (
     <section className={styles.container}>
       <div className={styles.firstRow}>
@@ -11,9 +11,9 @@ export default function UserInfoDetails(props) {
           <input
             type="text"
             placeholder="John"
-            value={props.userInfo.firstName}
+            value={userInfo.firstName}
             onChange={(event) => {
-              props.setUserInfo((prev) => {
+              setUserInfo((prev) => {
                 const copy = new UserInfoModel(prev);
                 copy.firstName = event.target.value;
                 return copy;
@@ -26,9 +26,9 @@ export default function UserInfoDetails(props) {
           <input
             type="text"
             placeholder="Doe"
-            value={props.userInfo.lastName}
+            value={userInfo.lastName}
             onChange={(event) => {
-              props.setUserInfo((prev) => {
+              setUserInfo((prev) => {
                 const copy = new UserInfoModel(prev);
                 copy.lastName = event.target.value;
                 return copy;
@@ -44,9 +44,9 @@ export default function UserInfoDetails(props) {
           <input
             type="email"
             placeholder="johndoe@gmail.com"
-            value={props.userInfo.email}
+            value={userInfo.email}
             onChange={(event) => {
-              props.setUserInfo((prev) => {
+              setUserInfo((prev) => {
                 const copy = new UserInfoModel(prev);
                 copy.email = event.target.value;
                 return copy;
@@ -62,9 +62,9 @@ export default function UserInfoDetails(props) {
           <input
             type="text"
             placeholder="(123) 456-789"
-            value={props.userInfo.phone}
+            value={userInfo.phone}
             onChange={(event) => {
-              props.setUserInfo((prev) => {
+              setUserInfo((prev) => {
                 const digits = event.target.value
                   .replace(/\D/g, "")
                   .slice(0, 10);

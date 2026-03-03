@@ -61,13 +61,21 @@ export async function initializeTemplate(
 // Compile template
 export async function compileTemplate(
   userInfo,
+  setUserInfo,
   session,
   pdfTimestamp,
   setPdfUrl,
+  isLoggedIn,
   checkIfLoggedIn,
   showNavbarAlert,
 ) {
-  checkIfLoggedIn();
+  const loggedInBefore = isLoggedIn;
+  const loggedInAfter = await checkIfLoggedIn();
+
+  if (loggedInBefore && !loggedInAfter) {
+    setUserInfo(new UserInfoModel());
+    return;
+  }
 
   const timestamp = Date.now();
   const response = await compile(userInfo, session);

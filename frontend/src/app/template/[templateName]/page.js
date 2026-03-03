@@ -13,7 +13,7 @@ import {
   fetchUserInfo,
   initializeTemplate,
 } from "../../../../utilities/template";
-
+import Export from "./export/export";
 const PdfViewer = dynamic(
   () => import("../../../../components/pdfViewer/pdfViewer"),
   { ssr: false },
@@ -22,7 +22,7 @@ const PdfViewer = dynamic(
 export default function Template({ params }) {
   const { templateName } = use(params);
   const { showNavbarAlert } = useContext(navbarAlertContext);
-  const { checkIfLoggedIn } = useContext(accountContext);
+  const { isLoggedIn, checkIfLoggedIn } = useContext(accountContext);
   const [userInfo, setUserInfo] = useState(null);
   const [session, setSession] = useState(null);
   const [pdfUrl, setPdfUrl] = useState(null);
@@ -76,9 +76,11 @@ export default function Template({ params }) {
       if (userInfo != null && session != null) {
         compileTemplate(
           userInfo,
+          setUserInfo,
           session,
           pdfTimestamp,
           setPdfUrl,
+          isLoggedIn,
           checkIfLoggedIn,
           showNavbarAlert,
         );
@@ -105,6 +107,7 @@ export default function Template({ params }) {
               userInfo={userInfo}
               setUserInfo={setUserInfo}
             ></SectionContainer>
+            <Export></Export>
           </div>
           {pdfVisible && (
             <div className={styles.previewContainer}>{PdfViewerMemo}</div>

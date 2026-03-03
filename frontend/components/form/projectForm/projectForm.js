@@ -1,5 +1,8 @@
 import styles from "./projectForm.module.css";
 
+import UserInfoModel from "../../../models/UserInfoModel";
+import ProjectBulletPointModel from "../../../models/ProjectBulletPointModel";
+import { useState } from "react";
 import {
   PlusIcon,
   XMarkIcon,
@@ -8,11 +11,8 @@ import {
   ChevronDownIcon,
   ChevronUpIcon,
 } from "@heroicons/react/24/solid";
-import { useState } from "react";
-import UserInfoModel from "../../../../models/UserInfoModel";
-import ProjectBulletPointModel from "../../../../models/ProjectBulletPointModel";
 
-export default function ProjectForm(props) {
+export default function ProjectForm({ project, projectIndex, setUserInfo }) {
   const [isPreview, setIsPreview] = useState(true);
 
   return (
@@ -29,12 +29,11 @@ export default function ProjectForm(props) {
               <input
                 type="text"
                 placeholder="Spritesheet Lab"
-                value={props.project.title}
+                value={project.title}
                 onChange={(event) => {
-                  props.setUserInfo((prev) => {
+                  setUserInfo((prev) => {
                     const copy = new UserInfoModel(prev);
-                    copy.projects[props.projectIndex].title =
-                      event.target.value;
+                    copy.projects[projectIndex].title = event.target.value;
                     return copy;
                   });
                 }}
@@ -45,12 +44,11 @@ export default function ProjectForm(props) {
                 <label>Date</label>
                 <input
                   type="date"
-                  value={props.project.date}
+                  value={project.date}
                   onChange={(event) => {
-                    props.setUserInfo((prev) => {
+                    setUserInfo((prev) => {
                       const copy = new UserInfoModel(prev);
-                      copy.projects[props.projectIndex].date =
-                        event.target.value;
+                      copy.projects[projectIndex].date = event.target.value;
                       return copy;
                     });
                   }}
@@ -62,7 +60,7 @@ export default function ProjectForm(props) {
           <div className={styles.secondRow}>
             <div className="primaryEmeraldInput">
               <label>Details</label>
-              {props.project.description.map((detail, detailIndex) => {
+              {project.description.map((detail, detailIndex) => {
                 return (
                   <div
                     className={`${styles.detail} primaryEmeraldInput`}
@@ -73,9 +71,9 @@ export default function ProjectForm(props) {
                       placeholder="Built a free website for sprites and assets"
                       value={detail.point}
                       onChange={(event) => {
-                        props.setUserInfo((prev) => {
+                        setUserInfo((prev) => {
                           const copy = new UserInfoModel(prev);
-                          copy.projects[props.projectIndex].description[
+                          copy.projects[projectIndex].description[
                             detailIndex
                           ].point = event.target.value;
                           return copy;
@@ -85,9 +83,9 @@ export default function ProjectForm(props) {
                     <XMarkIcon
                       className={styles.xMarkIcon}
                       onClick={() => {
-                        props.setUserInfo((prev) => {
+                        setUserInfo((prev) => {
                           const copy = new UserInfoModel(prev);
-                          copy.projects[props.projectIndex].description.splice(
+                          copy.projects[projectIndex].description.splice(
                             detailIndex,
                             1,
                           );
@@ -99,11 +97,11 @@ export default function ProjectForm(props) {
                 );
               })}
               <div
-                className={`${styles.addNewDetail} primaryGrayAddInput`}
+                className={`${styles.addNewDetail} secondaryGrayButton`}
                 onClick={() => {
-                  props.setUserInfo((prev) => {
+                  setUserInfo((prev) => {
                     const copy = new UserInfoModel(prev);
-                    copy.projects[props.projectIndex].description.push(
+                    copy.projects[projectIndex].description.push(
                       new ProjectBulletPointModel(),
                     );
                     return copy;
@@ -118,7 +116,7 @@ export default function ProjectForm(props) {
         </section>
       ) : (
         <section className={styles.previewContainer}>
-          <p>{props.project.title ? props.project.title : "No title listed"}</p>
+          <p>{project.title ? project.title : "No title listed"}</p>
         </section>
       )}
 
@@ -136,9 +134,9 @@ export default function ProjectForm(props) {
         <div
           className={styles.trashIcon}
           onClick={() => {
-            props.setUserInfo((prev) => {
+            setUserInfo((prev) => {
               const copy = new UserInfoModel(prev);
-              copy.projects.splice(props.projectIndex, 1);
+              copy.projects.splice(projectIndex, 1);
               return copy;
             });
           }}

@@ -45,6 +45,20 @@ export async function compile(userInfoModel, session) {
   });
 }
 
+export async function updateSectionName(section, newSection, session) {
+  return await fetch("http://localhost:8080/api/template/update-section-name", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      session: session,
+      section: section,
+      newSection: newSection,
+    }),
+  });
+}
+
 export async function hideSection(section, session) {
   return await fetch("http://localhost:8080/api/template/hide-section", {
     method: "POST",

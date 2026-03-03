@@ -1,15 +1,19 @@
 import styles from "./achievementForm.module.css";
 
+import UserInfoModel from "../../../models/UserInfoModel";
+import { useState } from "react";
 import {
   Bars2Icon,
   TrashIcon,
   ChevronDownIcon,
   ChevronUpIcon,
 } from "@heroicons/react/24/solid";
-import { useState } from "react";
-import UserInfoModel from "../../../../models/UserInfoModel";
 
-export default function AchievementForm(props) {
+export default function AchievementForm({
+  achievement,
+  achievementIndex,
+  setUserInfo,
+}) {
   const [isPreview, setIsPreview] = useState(true);
 
   return (
@@ -26,11 +30,11 @@ export default function AchievementForm(props) {
               <input
                 type="text"
                 placeholder="Hackathon Winner"
-                value={props.achievement.title}
+                value={achievement.title}
                 onChange={(event) => {
-                  props.setUserInfo((prev) => {
+                  setUserInfo((prev) => {
                     const copy = new UserInfoModel(prev);
-                    copy.achievements[props.achievementIndex].title =
+                    copy.achievements[achievementIndex].title =
                       event.target.value;
                     return copy;
                   });
@@ -41,11 +45,11 @@ export default function AchievementForm(props) {
               <label>Date</label>
               <input
                 type="date"
-                value={props.achievement.date}
+                value={achievement.date}
                 onChange={(event) => {
-                  props.setUserInfo((prev) => {
+                  setUserInfo((prev) => {
                     const copy = new UserInfoModel(prev);
-                    copy.achievements[props.achievementIndex].date =
+                    copy.achievements[achievementIndex].date =
                       event.target.value;
                     return copy;
                   });
@@ -59,11 +63,11 @@ export default function AchievementForm(props) {
               <input
                 type="text"
                 placeholder="Built an interactive study app"
-                value={props.achievement.description}
+                value={achievement.description}
                 onChange={(event) => {
-                  props.setUserInfo((prev) => {
+                  setUserInfo((prev) => {
                     const copy = new UserInfoModel(prev);
-                    copy.achievements[props.achievementIndex].description =
+                    copy.achievements[achievementIndex].description =
                       event.target.value;
                     return copy;
                   });
@@ -74,11 +78,7 @@ export default function AchievementForm(props) {
         </section>
       ) : (
         <section className={styles.previewContainer}>
-          <p>
-            {props.achievement.title
-              ? props.achievement.title
-              : "No title listed"}
-          </p>
+          <p>{achievement.title ? achievement.title : "No title listed"}</p>
         </section>
       )}
 
@@ -96,9 +96,9 @@ export default function AchievementForm(props) {
         <div
           className={styles.trashIcon}
           onClick={() => {
-            props.setUserInfo((prev) => {
+            setUserInfo((prev) => {
               const copy = new UserInfoModel(prev);
-              copy.achievements.splice(props.achievementIndex, 1);
+              copy.achievements.splice(achievementIndex, 1);
               return copy;
             });
           }}

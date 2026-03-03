@@ -13,29 +13,21 @@
 }
 
 .sectionContainer{
+    display: flex;
+    flex-direction: column;
     flex: 1;
+    min-width: 0;
     height: fit-content;
     max-height: 100%;
     box-shadow: 0 0 15px var(--gray-40);
     border-radius: 10px;
     padding: 20px;
-    overflow-y: auto;
+    gap: 20px;
 }
 
 .previewContainer{
     flex: 1;
     height: 100%;
-}
-
-@media only screen and (max-width: 1200px) {
-    .bodyContainer{
-        flex-direction: column;
-        height: fit-content;
-    }
-
-    .sectionContainer{
-        margin: 20px 0 0 0;
-    }
 }
 
 @media only screen and (max-width: 700px) {
@@ -44,6 +36,6 @@
     }
 
     .sectionContainer{
-        padding: 0px;
+        padding: 10px;
     }
 }

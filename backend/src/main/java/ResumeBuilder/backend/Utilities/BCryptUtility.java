@@ -11,10 +11,12 @@ public class BCryptUtility {
         _BCryptPasswordEncoder = new BCryptPasswordEncoder();
     }
 
+    // Hash a given key
     public String encode(String key) {
         return _BCryptPasswordEncoder.encode(key);
     }
 
+    // Determine whether the unhashed key matches the hashed key
     public boolean matches(String key, String hashedKey) {
         return _BCryptPasswordEncoder.matches(key, hashedKey);
     }

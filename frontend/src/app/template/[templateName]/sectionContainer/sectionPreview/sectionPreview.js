@@ -5,7 +5,6 @@ import styles from "./sectionPreview.module.css";
 import UserInfoModel from "../../../../../../models/UserInfoModel";
 import {
   Bars2Icon,
-  CheckCircleIcon,
   CheckIcon,
   ChevronDownIcon,
   ChevronUpIcon,
@@ -14,36 +13,56 @@ import {
   PencilIcon,
 } from "@heroicons/react/24/solid";
 import { useEffect, useState } from "react";
-import { hideSection, unhideSection } from "../../../../../../api/template";
+import {
+  hideSection,
+  unhideSection,
+  updateSectionName,
+} from "../../../../../../api/template";
 
-export default function SectionPreview(props) {
+export default function SectionPreview({
+  visible,
+  setVisibility,
+  section,
+  icon,
+  sectionName,
+  session,
+  userInfo,
+  setUserInfo,
+}) {
   const [isPreview, setIsPreview] = useState(true);
-  const [sectionName, setSectionName] = useState(props.sectionName);
+  const [newSectionName, setNewSectionName] = useState(sectionName);
   const [isEditing, setIsEditing] = useState(false);
 
   // Toggle preview when visibility is false
   useEffect(() => {
-    if (!props.visible) {
+    if (!visible) {
       setIsPreview(true);
+      setIsEditing(false);
     }
-  }, [props.visible]);
+  }, [visible]);
 
   // Hide section
   async function hide() {
-    await hideSection(props.sectionName, props.session);
-    props.setUserInfo(new UserInfoModel(props.userInfo));
+    await hideSection(sectionName, session);
+    setUserInfo(new UserInfoModel(userInfo));
   }
 
   // Unhide section
   async function unhide() {
-    await unhideSection(props.sectionName, props.session);
-    props.setUserInfo(new UserInfoModel(props.userInfo));
+    await unhideSection(sectionName, session);
+    setUserInfo(new UserInfoModel(userInfo));
+  }
+
+  // Update section name
+  async function updateSection() {
+    await updateSectionName(sectionName, newSectionName, session);
+    setUserInfo(new UserInfoModel(userInfo));
   }
 
   return (
     <section
       className={`${styles.container} ${isPreview ? styles.preview : ""}`}
-      style={!props.visible ? { opacity: 0.5 } : {}}
+      style={!visible ? { opacity: 0.5 } : {}}
     >
       <div
         className={styles.header}
@@ -54,46 +73,57 @@ export default function SectionPreview(props) {
         </div>
 
         <section className={styles.previewContainer}>
-          <div className={styles.icon}>{props.icon}</div>
+          <div className={styles.icon}>{icon}</div>
           <div className={`${styles.sectionName} primaryEmeraldInput`}>
             <input
               style={
                 !isEditing ? { border: "none", pointerEvents: "none" } : {}
               }
               type="text"
-              value={sectionName}
+              value={newSectionName}
               onChange={(event) => {
-                setSectionName(event.target.value);
+                setNewSectionName(event.target.value);
+              }}
+              onKeyDown={(event) => {
+                if (event.key == "Enter") {
+                  updateSection();
+                  setIsEditing(false);
+                  event.target.blur();
+                }
               }}
             ></input>
           </div>
-          {!isEditing ? (
-            <div
-              className={styles.editIcon}
-              onClick={() => {
-                setIsEditing((prev) => !prev);
-              }}
-            >
-              <PencilIcon></PencilIcon>
-            </div>
-          ) : (
-            <div
-              className={styles.saveIcon}
-              onClick={() => {
-                setIsEditing((prev) => !prev);
-              }}
-            >
-              <CheckIcon></CheckIcon>
-            </div>
-          )}
+
+          {newSectionName != "Details" &&
+            (!isEditing ? (
+              <div
+                className={styles.editIcon}
+                style={!visible ? { pointerEvents: "none" } : {}}
+                onClick={() => {
+                  setIsEditing(true);
+                }}
+              >
+                <PencilIcon></PencilIcon>
+              </div>
+            ) : (
+              <div
+                className={styles.saveIcon}
+                onClick={() => {
+                  updateSection();
+                  setIsEditing(false);
+                }}
+              >
+                <CheckIcon></CheckIcon>
+              </div>
+            ))}
         </section>
 
         <div className={styles.rightIcons}>
           <div
-            style={!props.visible ? { pointerEvents: "none" } : {}}
+            style={!visible ? { pointerEvents: "none" } : {}}
             className={styles.chevronIcon}
             onClick={() => {
-              if (props.visible) {
+              if (visible) {
                 setIsPreview((prev) => !prev);
               }
             }}
@@ -104,33 +134,29 @@ export default function SectionPreview(props) {
               <ChevronUpIcon></ChevronUpIcon>
             )}
           </div>
-          {props.sectionName != "Details" && (
+          {newSectionName != "Details" && (
             <div
               className={styles.eyeIcon}
               onClick={() => {
-                props.setVisibility((prev) => {
-                  if (prev[props.sectionName]) {
+                setVisibility((prev) => {
+                  if (prev[newSectionName]) {
                     hide();
                   } else {
                     unhide();
                   }
                   return {
                     ...prev,
-                    [props.sectionName]: !prev[props.sectionName],
+                    [newSectionName]: !prev[newSectionName],
                   };
                 });
               }}
             >
-              {props.visible ? (
-                <EyeIcon></EyeIcon>
-              ) : (
-                <EyeSlashIcon></EyeSlashIcon>
-              )}
+              {visible ? <EyeIcon></EyeIcon> : <EyeSlashIcon></EyeSlashIcon>}
             </div>
           )}
         </div>
       </div>
-      {!isPreview && props.section}
+      {!isPreview && section}
     </section>
   );
 }

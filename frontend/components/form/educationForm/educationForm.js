@@ -1,5 +1,8 @@
 import styles from "./educationForm.module.css";
 
+import UserInfoModel from "../../../models/UserInfoModel";
+import EducationBulletPointModel from "../../../models/EducationBulletPointModel";
+import { useState } from "react";
 import {
   PlusIcon,
   XMarkIcon,
@@ -8,11 +11,12 @@ import {
   ChevronDownIcon,
   ChevronUpIcon,
 } from "@heroicons/react/24/solid";
-import { useState } from "react";
-import UserInfoModel from "../../../../models/UserInfoModel";
-import EducationBulletPointModel from "../../../../models/EducationBulletPointModel";
 
-export default function EducationForm(props) {
+export default function EducationForm({
+  education,
+  educationIndex,
+  setUserInfo,
+}) {
   const [isPreview, setIsPreview] = useState(true);
 
   return (
@@ -29,12 +33,11 @@ export default function EducationForm(props) {
               <input
                 type="text"
                 placeholder="Ohio State University"
-                value={props.education.school}
+                value={education.school}
                 onChange={(event) => {
-                  props.setUserInfo((prev) => {
+                  setUserInfo((prev) => {
                     const copy = new UserInfoModel(prev);
-                    copy.educations[props.educationIndex].school =
-                      event.target.value;
+                    copy.educations[educationIndex].school = event.target.value;
                     return copy;
                   });
                 }}
@@ -45,12 +48,11 @@ export default function EducationForm(props) {
               <input
                 type="text"
                 placeholder="B.S. in Computer Science"
-                value={props.education.degree}
+                value={education.degree}
                 onChange={(event) => {
-                  props.setUserInfo((prev) => {
+                  setUserInfo((prev) => {
                     const copy = new UserInfoModel(prev);
-                    copy.educations[props.educationIndex].degree =
-                      event.target.value;
+                    copy.educations[educationIndex].degree = event.target.value;
                     return copy;
                   });
                 }}
@@ -62,11 +64,11 @@ export default function EducationForm(props) {
               <label>Start Date</label>
               <input
                 type="date"
-                value={props.education.startDate}
+                value={education.startDate}
                 onChange={(event) => {
-                  props.setUserInfo((prev) => {
+                  setUserInfo((prev) => {
                     const copy = new UserInfoModel(prev);
-                    copy.educations[props.educationIndex].startDate =
+                    copy.educations[educationIndex].startDate =
                       event.target.value;
                     return copy;
                   });
@@ -77,11 +79,11 @@ export default function EducationForm(props) {
               <label>End Date</label>
               <input
                 type="date"
-                value={props.education.endDate}
+                value={education.endDate}
                 onChange={(event) => {
-                  props.setUserInfo((prev) => {
+                  setUserInfo((prev) => {
                     const copy = new UserInfoModel(prev);
-                    copy.educations[props.educationIndex].endDate =
+                    copy.educations[educationIndex].endDate =
                       event.target.value;
                     return copy;
                   });
@@ -95,11 +97,11 @@ export default function EducationForm(props) {
               <input
                 type="text"
                 placeholder="Columbus, OH"
-                value={props.education.location}
+                value={education.location}
                 onChange={(event) => {
-                  props.setUserInfo((prev) => {
+                  setUserInfo((prev) => {
                     const copy = new UserInfoModel(prev);
-                    copy.educations[props.educationIndex].location =
+                    copy.educations[educationIndex].location =
                       event.target.value;
                     return copy;
                   });
@@ -110,7 +112,7 @@ export default function EducationForm(props) {
           <div className={styles.fourthRow}>
             <div className="primaryEmeraldInput">
               <label>Additional Details</label>
-              {props.education.description.map((detail, detailIndex) => {
+              {education.description.map((detail, detailIndex) => {
                 return (
                   <div
                     className={`${styles.detail} primaryEmeraldInput`}
@@ -121,9 +123,9 @@ export default function EducationForm(props) {
                       placeholder="4.0 GPA"
                       value={detail.point}
                       onChange={(event) => {
-                        props.setUserInfo((prev) => {
+                        setUserInfo((prev) => {
                           const copy = new UserInfoModel(prev);
-                          copy.educations[props.educationIndex].description[
+                          copy.educations[educationIndex].description[
                             detailIndex
                           ].point = event.target.value;
                           return copy;
@@ -133,11 +135,12 @@ export default function EducationForm(props) {
                     <XMarkIcon
                       className={styles.xMarkIcon}
                       onClick={() => {
-                        props.setUserInfo((prev) => {
+                        setUserInfo((prev) => {
                           const copy = new UserInfoModel(prev);
-                          copy.educations[
-                            props.educationIndex
-                          ].description.splice(detailIndex, 1);
+                          copy.educations[educationIndex].description.splice(
+                            detailIndex,
+                            1,
+                          );
                           return copy;
                         });
                       }}
@@ -146,11 +149,11 @@ export default function EducationForm(props) {
                 );
               })}
               <div
-                className={`${styles.addNewDetail} primaryGrayAddInput`}
+                className={`${styles.addNewDetail} secondaryGrayButton`}
                 onClick={() => {
-                  props.setUserInfo((prev) => {
+                  setUserInfo((prev) => {
                     const copy = new UserInfoModel(prev);
-                    copy.educations[props.educationIndex].description.push(
+                    copy.educations[educationIndex].description.push(
                       new EducationBulletPointModel(),
                     );
                     return copy;
@@ -165,16 +168,8 @@ export default function EducationForm(props) {
         </section>
       ) : (
         <section className={styles.previewContainer}>
-          <p>
-            {props.education.school
-              ? props.education.school
-              : "No school listed"}
-          </p>
-          <p>
-            {props.education.degree
-              ? props.education.degree
-              : "No degree listed"}
-          </p>
+          <p>{education.school ? education.school : "No school listed"}</p>
+          <p>{education.degree ? education.degree : "No degree listed"}</p>
         </section>
       )}
 
@@ -192,9 +187,9 @@ export default function EducationForm(props) {
         <div
           className={styles.trashIcon}
           onClick={() => {
-            props.setUserInfo((prev) => {
+            setUserInfo((prev) => {
               const copy = new UserInfoModel(prev);
-              copy.educations.splice(props.educationIndex, 1);
+              copy.educations.splice(educationIndex, 1);
               return copy;
             });
           }}

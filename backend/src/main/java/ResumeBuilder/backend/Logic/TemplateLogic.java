@@ -3,6 +3,7 @@ package ResumeBuilder.backend.Logic;
 import java.io.BufferedWriter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
@@ -13,7 +14,8 @@ import ResumeBuilder.backend.Models.DatabaseModels.LineModel;
 public class TemplateLogic {
 
     // Recursive algorithm to write user data to the output file
-    public void solve(List<LineModel> lines, Object data, int position, BufferedWriter writer) {
+    public void solve(List<LineModel> lines, Object data, int position, BufferedWriter writer,
+            Map<String, String> sectionMap) {
         try {
             List<IWriter> writerData = (List<IWriter>) data;
             IWriter writerInterface = writerData.get(position);
@@ -33,9 +35,7 @@ public class TemplateLogic {
 
                 if (line.isLoopStart) {
                     List<LineModel> newLines = fetchLoop(lines, index + 1);
-
-                    solve(newLines, writerInterface.get(line.key), 0, writer);
-
+                    solve(newLines, writerInterface.get(line.key), 0, writer, sectionMap);
                     index += newLines.size() + 1;
                 } else if (line.isWriteable) {
                     if (line.isDelimited) {
@@ -48,6 +48,9 @@ public class TemplateLogic {
                         }
                     } else {
                         String write = (String) writerInterface.get(line.key);
+                        if (line.isSectionName) {
+                            write = sectionMap.get(line.key.toLowerCase());
+                        }
                         if (write != "") {
                             writer.write(write);
                             writer.newLine();
@@ -58,7 +61,7 @@ public class TemplateLogic {
                     writer.newLine();
                 }
             }
-            solve(lines, data, position + 1, writer);
+            solve(lines, data, position + 1, writer, sectionMap);
         } catch (Exception error) {
             System.out.println(error.getMessage());
             return;
@@ -108,6 +111,17 @@ public class TemplateLogic {
         for (LineModel line : linesToAdd) {
             line.isHidden = false;
         }
+    }
+
+    // Fetch the section names
+    public ArrayList<String> fetchSectionNames(List<LineModel> lines) {
+        ArrayList<String> sectionNames = new ArrayList<>();
+        for (LineModel line : lines) {
+            if (line.isSectionName) {
+                sectionNames.add(line.key);
+            }
+        }
+        return sectionNames;
     }
 
     // Fetches a list of lines between the start and end of the section

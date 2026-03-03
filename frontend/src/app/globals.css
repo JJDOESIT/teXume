@@ -107,31 +107,6 @@ a {
   border: 1px solid var(--emerald-60) !important;
 }
 
-.primaryGrayAddInput{
-  display: flex;
-  justify-content: start;
-  height: fit-content;
-  padding: 5px 30px;
-  background-color: var(--gray-10);
-  border-radius: 10px;
-  transition: color 200ms ease-in;
-}
-
-.primaryGrayAddInput > p{
-  font-weight: 600;
-  font-size: 1.1rem;
-}
-
-.primaryGrayAddInput:hover{
-  background-color: var(--gray-20);
-  cursor: pointer;
-}
-
-.primaryGrayAddInput > svg{
-  height: 25px;
-  width: 25px;
-}
-
 .primaryEmeraldButton{
   display: flex;
   justify-content: center;
@@ -155,6 +130,33 @@ a {
   cursor: pointer;
 }
 
+.secondaryEmeraldButton{
+  display: flex;
+  justify-content: center;
+  height: fit-content;
+  background-color: var(--emerald-60);
+  border-radius: 10px;
+  padding: 5px 30px;
+  gap: 5px;
+  box-shadow: 1px 5px 20px var(--emerald-opaque-20);
+  transition: color 200ms ease-in;
+}
+
+.secondaryEmeraldButton > p{
+  color: white;
+  font-size: 1.1rem;
+  font-weight: bold;
+}
+
+.secondaryEmeraldButton:hover{
+  background-color: var(--emerald-70);
+  cursor: pointer;
+}
+
+.secondaryEmeraldButton > svg{
+  width: 25px;
+}
+
 .primaryGrayButton{
   display: flex;
   justify-content: center;
@@ -174,6 +176,31 @@ a {
 .primaryGrayButton:hover{
   background-color: var(--gray-20);
   cursor: pointer;
+}
+
+.secondaryGrayButton{
+  display: flex;
+  justify-content: start;
+  height: fit-content;
+  padding: 5px 30px;
+  gap: 5px;
+  background-color: var(--gray-10);
+  border-radius: 10px;
+  transition: color 200ms ease-in;
+}
+
+.secondaryGrayButton > p{
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+.secondaryGrayButton:hover{
+  background-color: var(--gray-20);
+  cursor: pointer;
+}
+
+.secondaryGrayButton > svg{
+  width: 25px;
 }
 
 .draggable:hover{

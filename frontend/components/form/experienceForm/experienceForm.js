@@ -1,5 +1,8 @@
 import styles from "./experienceForm.module.css";
 
+import UserInfoModel from "../../../models/UserInfoModel";
+import ExperienceBulletPointModel from "../../../models/ExperienceBulletPointModel";
+import { useState } from "react";
 import {
   PlusIcon,
   XMarkIcon,
@@ -8,11 +11,12 @@ import {
   ChevronDownIcon,
   ChevronUpIcon,
 } from "@heroicons/react/24/solid";
-import { useState } from "react";
-import UserInfoModel from "../../../../models/UserInfoModel";
-import ExperienceBulletPointModel from "../../../../models/ExperienceBulletPointModel";
 
-export default function ExperienceForm(props) {
+export default function ExperienceForm({
+  experience,
+  experienceIndex,
+  setUserInfo,
+}) {
   const [isPreview, setIsPreview] = useState(true);
 
   return (
@@ -29,11 +33,11 @@ export default function ExperienceForm(props) {
               <input
                 type="text"
                 placeholder="Software Engineer"
-                value={props.experience.title}
+                value={experience.title}
                 onChange={(event) => {
-                  props.setUserInfo((prev) => {
+                  setUserInfo((prev) => {
                     const copy = new UserInfoModel(prev);
-                    copy.experiences[props.experienceIndex].title =
+                    copy.experiences[experienceIndex].title =
                       event.target.value;
                     return copy;
                   });
@@ -45,11 +49,11 @@ export default function ExperienceForm(props) {
               <input
                 type="text"
                 placeholder="Microsoft"
-                value={props.experience.company}
+                value={experience.company}
                 onChange={(event) => {
-                  props.setUserInfo((prev) => {
+                  setUserInfo((prev) => {
                     const copy = new UserInfoModel(prev);
-                    copy.experiences[props.experienceIndex].company =
+                    copy.experiences[experienceIndex].company =
                       event.target.value;
                     return copy;
                   });
@@ -63,11 +67,11 @@ export default function ExperienceForm(props) {
               <label>Start Date</label>
               <input
                 type="date"
-                value={props.experience.startDate}
+                value={experience.startDate}
                 onChange={(event) => {
-                  props.setUserInfo((prev) => {
+                  setUserInfo((prev) => {
                     const copy = new UserInfoModel(prev);
-                    copy.experiences[props.experienceIndex].startDate =
+                    copy.experiences[experienceIndex].startDate =
                       event.target.value;
                     return copy;
                   });
@@ -78,11 +82,11 @@ export default function ExperienceForm(props) {
               <label>End Date</label>
               <input
                 type="date"
-                value={props.experience.endDate}
+                value={experience.endDate}
                 onChange={(event) => {
-                  props.setUserInfo((prev) => {
+                  setUserInfo((prev) => {
                     const copy = new UserInfoModel(prev);
-                    copy.experiences[props.experienceIndex].endDate =
+                    copy.experiences[experienceIndex].endDate =
                       event.target.value;
                     return copy;
                   });
@@ -97,11 +101,11 @@ export default function ExperienceForm(props) {
               <input
                 type="text"
                 placeholder="McLean, VA"
-                value={props.experience.location}
+                value={experience.location}
                 onChange={(event) => {
-                  props.setUserInfo((prev) => {
+                  setUserInfo((prev) => {
                     const copy = new UserInfoModel(prev);
-                    copy.experiences[props.experienceIndex].location =
+                    copy.experiences[experienceIndex].location =
                       event.target.value;
                     return copy;
                   });
@@ -113,7 +117,7 @@ export default function ExperienceForm(props) {
           <div className={styles.fourthRow}>
             <div className="primaryEmeraldInput">
               <label>Responsibilities</label>
-              {props.experience.description.map((detail, detailIndex) => {
+              {experience.description.map((detail, detailIndex) => {
                 return (
                   <div
                     className={`${styles.detail} primaryEmeraldInput`}
@@ -124,9 +128,9 @@ export default function ExperienceForm(props) {
                       placeholder="Worked in an agile environment developing software"
                       value={detail.point}
                       onChange={(event) => {
-                        props.setUserInfo((prev) => {
+                        setUserInfo((prev) => {
                           const copy = new UserInfoModel(prev);
-                          copy.experiences[props.experienceIndex].description[
+                          copy.experiences[experienceIndex].description[
                             detailIndex
                           ].point = event.target.value;
                           return copy;
@@ -136,11 +140,12 @@ export default function ExperienceForm(props) {
                     <XMarkIcon
                       className={styles.xMarkIcon}
                       onClick={() => {
-                        props.setUserInfo((prev) => {
+                        setUserInfo((prev) => {
                           const copy = new UserInfoModel(prev);
-                          copy.experiences[
-                            props.experienceIndex
-                          ].description.splice(detailIndex, 1);
+                          copy.experiences[experienceIndex].description.splice(
+                            detailIndex,
+                            1,
+                          );
                           return copy;
                         });
                       }}
@@ -149,11 +154,11 @@ export default function ExperienceForm(props) {
                 );
               })}
               <div
-                className={`${styles.addNewDetail} primaryGrayAddInput`}
+                className={`${styles.addNewDetail} secondaryGrayButton`}
                 onClick={() => {
-                  props.setUserInfo((prev) => {
+                  setUserInfo((prev) => {
                     const copy = new UserInfoModel(prev);
-                    copy.experiences[props.experienceIndex].description.push(
+                    copy.experiences[experienceIndex].description.push(
                       new ExperienceBulletPointModel(),
                     );
                     return copy;
@@ -168,16 +173,8 @@ export default function ExperienceForm(props) {
         </section>
       ) : (
         <section className={styles.previewContainer}>
-          <p>
-            {props.experience.title
-              ? props.experience.title
-              : "No title listed"}
-          </p>
-          <p>
-            {props.experience.company
-              ? props.experience.company
-              : "No company listed"}
-          </p>
+          <p>{experience.title ? experience.title : "No title listed"}</p>
+          <p>{experience.company ? experience.company : "No company listed"}</p>
         </section>
       )}
 
@@ -195,9 +192,9 @@ export default function ExperienceForm(props) {
         <div
           className={styles.trashIcon}
           onClick={() => {
-            props.setUserInfo((prev) => {
+            setUserInfo((prev) => {
               const copy = new UserInfoModel(prev);
-              copy.experiences.splice(props.experienceIndex, 1);
+              copy.experiences.splice(experienceIndex, 1);
               return copy;
             });
           }}

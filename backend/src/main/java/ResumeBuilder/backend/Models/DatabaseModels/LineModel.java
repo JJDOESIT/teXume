@@ -7,6 +7,7 @@ public class LineModel {
     public boolean isLoopEnd;
     public boolean isSectionStart;
     public boolean isSectionEnd;
+    public boolean isSectionName;
     public boolean isWriteable;
     public boolean isDelimited;
     public boolean isHidden;
@@ -33,6 +34,10 @@ public class LineModel {
             } else if (args[0].equals("section") && args[2].equals("end")) {
                 isSectionEnd = true;
                 key = args[1];
+            } else if (args[0].equals("section") && args[2].equals("name")) {
+                isSectionName = true;
+                key = args[1];
+                isWriteable = true;
             } else {
                 key = args[0];
                 isWriteable = true;

@@ -1,7 +1,7 @@
 import styles from "./userInfoProjects.module.css";
 
-import UserInfoModel from "../../../../models/UserInfoModel";
-import ProjectModel from "../../../../models/ProjectModel";
+import UserInfoModel from "../../../models/UserInfoModel";
+import ProjectModel from "../../../models/ProjectModel";
 import ProjectForm from "../projectForm/projectForm";
 import { PlusIcon } from "@heroicons/react/24/solid";
 import { DragDropProvider } from "@dnd-kit/react";
@@ -25,34 +25,33 @@ function DraggableSection({ section, index, setUserInfo }) {
   );
 }
 
-export default function UserInfoProjects(props) {
+export default function UserInfoProjects({ userInfo, setUserInfo }) {
   return (
     <section className={styles.container}>
       <DragDropProvider
         onDragOver={(event) => {
-          const copy = new UserInfoModel(props.userInfo);
+          const copy = new UserInfoModel(userInfo);
           copy.projects = move(copy.projects, event);
-          props.setUserInfo(copy);
+          setUserInfo(copy);
         }}
       >
-        {props.userInfo.projects.map((project, projectIndex) => {
+        {userInfo.projects.map((project, projectIndex) => {
           return (
             <DraggableSection
               section={project}
               index={projectIndex}
               key={project.id}
-              userInfo={props.userInfo}
-              setUserInfo={props.setUserInfo}
+              userInfo={userInfo}
+              setUserInfo={setUserInfo}
             ></DraggableSection>
           );
         })}
       </DragDropProvider>
 
       <div
-        className={`${styles.addNewProject} primaryGrayAddInput`}
-        style={props.userInfo.projects.length != 0 ? { marginTop: "20px" } : {}}
+        className="secondaryGrayButton"
         onClick={() => {
-          props.setUserInfo((prev) => {
+          setUserInfo((prev) => {
             const copy = new UserInfoModel(prev);
             copy.projects.push(new ProjectModel());
             return copy;

@@ -1,23 +1,18 @@
-import styles from "./userInfoSave.module.css";
-
-import {
-  getCookie,
-  setCookie,
-  deleteCookie,
-} from "../../../../utilities/cookies";
+import UserInfoModel from "../../../models/UserInfoModel";
+import { getCookie, setCookie, deleteCookie } from "../../../utilities/cookies";
 import { useContext } from "react";
-import { navbarAlertContext } from "../../../../components/navbarAlertProvider/navbarAlertProvider";
-import { updateUserInfo } from "../../../../api/account";
-import { signUpGuest } from "../../../../api/authentication";
-import { accountContext } from "../../../../components/accountProvider/accountProvider";
+import { navbarAlertContext } from "../../navbarAlertProvider/navbarAlertProvider";
+import { updateUserInfo } from "../../../api/account";
+import { signUpGuest } from "../../../api/authentication";
+import { accountContext } from "../../accountProvider/accountProvider";
 
-export default function UserInfoSave(props) {
+export default function UserInfoSave({ userInfo, setUserInfo, setIsLoading }) {
   const { showNavbarAlert } = useContext(navbarAlertContext);
   const { isLoggedIn, checkIfLoggedIn } = useContext(accountContext);
 
   // Create a guest acccount and populate with user info
   async function createGuestAccount() {
-    const response = await signUpGuest(props.userInfo);
+    const response = await signUpGuest(userInfo);
 
     if (!response.ok) {
       showNavbarAlert(
@@ -37,14 +32,15 @@ export default function UserInfoSave(props) {
     const cookie = await getCookie("token");
 
     const token = cookie["value"];
-    const response = await updateUserInfo(props.userInfo, token);
+    const response = await updateUserInfo(userInfo, token);
 
     if (!response.ok) {
       if (response.status == 403) {
         await deleteCookie("token");
         showNavbarAlert(
           "error",
-          "Oops! Your session expired. Refresh the page or log back in.",
+          "Oops! Your session expired. Please log back in.",
+          2000,
         );
       } else {
         showNavbarAlert(
@@ -56,7 +52,7 @@ export default function UserInfoSave(props) {
     }
 
     showNavbarAlert("success", "Success! Info saved.", 2000);
-    props.setIsLoading(false);
+    setIsLoading(false);
   }
 
   // When the user saves
@@ -65,10 +61,11 @@ export default function UserInfoSave(props) {
     const loggedInAfter = await checkIfLoggedIn();
 
     if (loggedInBefore && !loggedInAfter) {
+      setUserInfo(new UserInfoModel());
       return;
     }
 
-    props.setIsLoading(true);
+    setIsLoading(true);
     const cookie = await getCookie("token");
     if (cookie == null) {
       await createGuestAccount();
@@ -77,7 +74,7 @@ export default function UserInfoSave(props) {
   }
 
   return (
-    <div className={`${styles.save} primaryEmeraldButton`} onClick={submit}>
+    <div className="secondaryEmeraldButton" onClick={submit}>
       <p>Save</p>
     </div>
   );

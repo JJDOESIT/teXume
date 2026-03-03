@@ -1,5 +1,8 @@
 import styles from "./skillForm.module.css";
 
+import UserInfoModel from "../../../models/UserInfoModel";
+import SkillBulletPointModel from "../../../models/SkillBulletPointModel";
+import { useState } from "react";
 import {
   PlusIcon,
   XMarkIcon,
@@ -8,11 +11,8 @@ import {
   ChevronDownIcon,
   ChevronUpIcon,
 } from "@heroicons/react/24/solid";
-import { useState } from "react";
-import UserInfoModel from "../../../../models/UserInfoModel";
-import SkillBulletPointModel from "../../../../models/SkillBulletPointModel";
 
-export default function SkillForm(props) {
+export default function SkillForm({ skill, skillIndex, setUserInfo }) {
   const [isPreview, setIsPreview] = useState(true);
 
   return (
@@ -29,11 +29,11 @@ export default function SkillForm(props) {
               <input
                 type="text"
                 placeholder="Frameworks"
-                value={props.skill.category}
+                value={skill.category}
                 onChange={(event) => {
-                  props.setUserInfo((prev) => {
+                  setUserInfo((prev) => {
                     const copy = new UserInfoModel(prev);
-                    copy.skills[props.skillIndex].category = event.target.value;
+                    copy.skills[skillIndex].category = event.target.value;
                     return copy;
                   });
                 }}
@@ -44,7 +44,7 @@ export default function SkillForm(props) {
           <div className={styles.secondRow}>
             <div className="primaryEmeraldInput">
               <label>Details</label>
-              {props.skill.description.map((detail, detailIndex) => {
+              {skill.description.map((detail, detailIndex) => {
                 return (
                   <div
                     className={`${styles.detail} primaryEmeraldInput`}
@@ -55,9 +55,9 @@ export default function SkillForm(props) {
                       placeholder="Python"
                       value={detail.point}
                       onChange={(event) => {
-                        props.setUserInfo((prev) => {
+                        setUserInfo((prev) => {
                           const copy = new UserInfoModel(prev);
-                          copy.skills[props.skillIndex].description[
+                          copy.skills[skillIndex].description[
                             detailIndex
                           ].point = event.target.value;
                           return copy;
@@ -67,9 +67,9 @@ export default function SkillForm(props) {
                     <XMarkIcon
                       className={styles.xMarkIcon}
                       onClick={() => {
-                        props.setUserInfo((prev) => {
+                        setUserInfo((prev) => {
                           const copy = new UserInfoModel(prev);
-                          copy.skills[props.skillIndex].description.splice(
+                          copy.skills[skillIndex].description.splice(
                             detailIndex,
                             1,
                           );
@@ -81,11 +81,11 @@ export default function SkillForm(props) {
                 );
               })}
               <div
-                className={`${styles.addNewSkill} primaryGrayAddInput`}
+                className={`${styles.addNewSkill} secondaryGrayButton`}
                 onClick={() => {
-                  props.setUserInfo((prev) => {
+                  setUserInfo((prev) => {
                     const copy = new UserInfoModel(prev);
-                    copy.skills[props.skillIndex].description.push(
+                    copy.skills[skillIndex].description.push(
                       new SkillBulletPointModel(),
                     );
                     return copy;
@@ -100,9 +100,7 @@ export default function SkillForm(props) {
         </section>
       ) : (
         <section className={styles.previewContainer}>
-          <p>
-            {props.skill.category ? props.skill.category : "No skills listed"}
-          </p>
+          <p>{skill.category ? skill.category : "No skills listed"}</p>
         </section>
       )}
 
@@ -120,9 +118,9 @@ export default function SkillForm(props) {
         <div
           className={styles.trashIcon}
           onClick={() => {
-            props.setUserInfo((prev) => {
+            setUserInfo((prev) => {
               const copy = new UserInfoModel(prev);
-              copy.skills.splice(props.skillIndex, 1);
+              copy.skills.splice(skillIndex, 1);
               return copy;
             });
           }}

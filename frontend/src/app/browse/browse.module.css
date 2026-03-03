@@ -34,7 +34,6 @@
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    border-radius: 10px;
     opacity: 0;
 }
 

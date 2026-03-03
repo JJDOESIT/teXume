@@ -1,13 +1,13 @@
 import styles from "./sectionContainer.module.css";
 
 import UserInfoModel from "../../../../../models/UserInfoModel";
-import UserInfoProjects from "@/app/user-info/userInfoProjects/userInfoProjects";
-import UserInfoDetails from "@/app/user-info/userInfoDetails/userInfoDetails";
-import UserInfoEducation from "@/app/user-info/userInfoEducation/userInfoEducation";
-import UserInfoExperience from "@/app/user-info/userInfoExperience/userInfoExperience";
+import UserInfoProjects from "../../../../../components/form/userInfoProjects/userInfoProjects";
+import UserInfoDetails from "../../../../../components/form/userInfoDetails/userInfoDetails";
+import UserInfoEducation from "../../../../../components/form/userInfoEducation/userInfoEducation";
+import UserInfoExperience from "../../../../../components/form/userInfoExperience/userInfoExperience";
+import UserInfoSkills from "../../../../../components/form/userInfoSkills/userInfoSkills";
+import UserInfoAchievements from "../../../../../components/form/userInfoAchievements/userInfoAchievements";
 import SectionPreview from "./sectionPreview/sectionPreview";
-import UserInfoSkills from "@/app/user-info/userInfoSkills/userInfoSkills";
-import UserInfoAchievements from "@/app/user-info/userInfoAchievements/userInfoAchievements";
 import { useSortable } from "@dnd-kit/react/sortable";
 import { useEffect, useState } from "react";
 import { DragDropProvider } from "@dnd-kit/react";
@@ -25,7 +25,6 @@ import { swapMultipleSections } from "../../../../../api/template";
 function DraggableSection({
   section,
   index,
-  setSections,
   visibility,
   setVisibility,
   userInfo,
@@ -43,18 +42,13 @@ function DraggableSection({
         <SectionPreview
           visible={visibility[section]}
           setVisibility={setVisibility}
-          setSections={setSections}
           section={
             <UserInfoDetails
               userInfo={userInfo}
               setUserInfo={setUserInfo}
             ></UserInfoDetails>
           }
-          icon={
-            <IdentificationIcon
-              style={{ fill: "rgb(0, 0, 0" }}
-            ></IdentificationIcon>
-          }
+          icon={<IdentificationIcon></IdentificationIcon>}
           sectionName={section}
           session={session}
           userInfo={userInfo}
@@ -65,7 +59,6 @@ function DraggableSection({
         <SectionPreview
           visible={visibility[section]}
           setVisibility={setVisibility}
-          setSections={setSections}
           section={
             <UserInfoEducation
               userInfo={userInfo}
@@ -87,7 +80,6 @@ function DraggableSection({
         <SectionPreview
           visible={visibility[section]}
           setVisibility={setVisibility}
-          setSections={setSections}
           section={
             <UserInfoExperience
               userInfo={userInfo}
@@ -107,7 +99,6 @@ function DraggableSection({
         <SectionPreview
           visible={visibility[section]}
           setVisibility={setVisibility}
-          setSections={setSections}
           section={
             <UserInfoProjects
               userInfo={userInfo}
@@ -125,7 +116,6 @@ function DraggableSection({
         <SectionPreview
           visible={visibility[section]}
           setVisibility={setVisibility}
-          setSections={setSections}
           section={
             <UserInfoSkills
               userInfo={userInfo}
@@ -143,7 +133,6 @@ function DraggableSection({
         <SectionPreview
           visible={visibility[section]}
           setVisibility={setVisibility}
-          setSections={setSections}
           section={
             <UserInfoAchievements
               userInfo={userInfo}
@@ -161,15 +150,7 @@ function DraggableSection({
   );
 }
 
-export default function SectionContainer(props) {
-  const [sections, setSections] = useState([
-    "Details",
-    "Education",
-    "Experience",
-    "Projects",
-    "Skills",
-    "Achievements",
-  ]);
+export default function SectionContainer({ userInfo, setUserInfo, session }) {
   const [visibility, setVisibility] = useState({
     Details: true,
     Education: true,
@@ -178,6 +159,14 @@ export default function SectionContainer(props) {
     Skills: true,
     Achievements: true,
   });
+  const [sections, setSections] = useState([
+    "Details",
+    "Education",
+    "Experience",
+    "Projects",
+    "Skills",
+    "Achievements",
+  ]);
   const [previousSections, setPreviousSections] = useState(sections);
 
   // Handle swapping of sections and re-compiling
@@ -230,9 +219,10 @@ export default function SectionContainer(props) {
     if (reverse) {
       swapList.reverse();
     }
-    await swapMultipleSections(sectionChanged, swapList, props.session);
-    setPreviousSections(sections);
-    props.setUserInfo(new UserInfoModel(props.userInfo));
+
+    await swapMultipleSections(sectionChanged, swapList, session);
+    setPreviousSections([...sections]);
+    setUserInfo(new UserInfoModel(userInfo));
   }
 
   // Debounce for swapping sections
@@ -257,12 +247,11 @@ export default function SectionContainer(props) {
               key={section}
               section={section}
               index={sectionIndex}
-              setSections={setSections}
               visibility={visibility}
               setVisibility={setVisibility}
-              userInfo={props.userInfo}
-              setUserInfo={props.setUserInfo}
-              session={props.session}
+              userInfo={userInfo}
+              setUserInfo={setUserInfo}
+              session={session}
             ></DraggableSection>
           );
         })}

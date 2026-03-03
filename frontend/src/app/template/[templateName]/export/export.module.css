@@ -1,0 +1,87 @@
+.container{
+
+}
+
+.options{
+    width: 500px;
+    height: fit-content;
+    border-radius: 10px;
+    box-shadow: 0 0 5px var(--gray-40);
+}
+
+.optionsTitle{
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    background-color: white;
+    padding: 15px;
+}
+
+.optionsTitle > p{
+    text-align: center;
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+
+.exportOptions{
+    display: flex;
+    flex-direction: column;
+    background-color: var(--gray-10);
+    padding: 20px;
+    gap: 10px;
+}
+
+.exportOptions > div{
+    justify-content: space-between;
+    background-color: white;
+    box-shadow: 0 0 5px var(--gray-40);
+}
+
+.exportOptions > div:hover{
+    background-color: white;
+}
+
+.disabledOption{
+    opacity: 0.5;
+}
+
+.disabledDownload{
+    opacity: 0.5;
+}
+
+.disabledDownload:hover{
+    background-color: var(--emerald-60);
+    cursor: default;
+}
+
+.exportOptions svg{
+    fill: var(--emerald-80);
+}
+
+.exportPopupContainer{
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    padding: 20px;
+}
+
+.download{
+    display: flex;
+    background-color: var(--gray-10);
+    justify-content: center;
+    padding: 20px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+.line{
+    height: 2px;
+    background-color: var(--gray-40);
+    width: 90%;
+    justify-self: center;
+}
+
+@media only screen and (max-width: 700px) {
+    .options{
+        width: 300px;
+    }
+}

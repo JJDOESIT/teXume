@@ -1,7 +1,7 @@
 import styles from "./userInfoEducation.module.css";
 
-import UserInfoModel from "../../../../models/UserInfoModel";
-import EducationModel from "../../../../models/EducationModel";
+import UserInfoModel from "../../../models/UserInfoModel";
+import EducationModel from "../../../models/EducationModel";
 import EducationForm from "../educationForm/educationForm";
 import { PlusIcon } from "@heroicons/react/24/solid";
 import { DragDropProvider } from "@dnd-kit/react";
@@ -25,36 +25,33 @@ function DraggableSection({ section, index, setUserInfo }) {
   );
 }
 
-export default function UserInfoEducation(props) {
+export default function UserInfoEducation({ userInfo, setUserInfo }) {
   return (
     <section className={styles.container}>
       <DragDropProvider
         onDragOver={(event) => {
-          const copy = new UserInfoModel(props.userInfo);
+          const copy = new UserInfoModel(userInfo);
           copy.educations = move(copy.educations, event);
-          props.setUserInfo(copy);
+          setUserInfo(copy);
         }}
       >
-        {props.userInfo.educations.map((education, educationIndex) => {
+        {userInfo.educations.map((education, educationIndex) => {
           return (
             <DraggableSection
               section={education}
               index={educationIndex}
               key={education.id}
-              userInfo={props.userInfo}
-              setUserInfo={props.setUserInfo}
+              userInfo={userInfo}
+              setUserInfo={setUserInfo}
             ></DraggableSection>
           );
         })}
       </DragDropProvider>
 
       <div
-        className={`${styles.addNewEducation} primaryGrayAddInput`}
-        style={
-          props.userInfo.educations.length != 0 ? { marginTop: "20px" } : {}
-        }
+        className="secondaryGrayButton"
         onClick={() => {
-          props.setUserInfo((prev) => {
+          setUserInfo((prev) => {
             const copy = new UserInfoModel(prev);
             copy.educations.push(new EducationModel());
             return copy;

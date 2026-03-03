@@ -3,16 +3,15 @@
 import styles from "./user-info.module.css";
 
 import dynamic from "next/dynamic";
-import UserInfoEducation from "./userInfoEducation/userInfoEducation";
-import UserInfoDetails from "./userInfoDetails/userInfoDetails";
-import UserInfoExperience from "./userInfoExperience/userInfoExperience";
-import UserInfoProjects from "./userInfoProjects/userInfoProjects";
-import UserInfoSkills from "./userInfoSkills/userInfoSkills";
-import UserInfoAchievements from "./userInfoAchievements/userInfoAchievements";
-import UserInfoSave from "./userInfoSave/userInfoSave";
+import UserInfoEducation from "../../../components/form/userInfoEducation/userInfoEducation";
+import UserInfoDetails from "../../../components/form/userInfoDetails/userInfoDetails";
+import UserInfoExperience from "../../../components/form/userInfoExperience/userInfoExperience";
+import UserInfoProjects from "../../../components/form/userInfoProjects/userInfoProjects";
+import UserInfoSkills from "../../../components/form/userInfoSkills/userInfoSkills";
+import UserInfoAchievements from "../../../components/form/userInfoAchievements/userInfoAchievements";
+import UserInfoSave from "../../../components/form/userInfoSave/userInfoSave";
 import Loading from "../../../components/loading/loading";
 import Popup from "../../../components/popup/popup";
-
 import { useState, useEffect, useMemo, useContext, useRef } from "react";
 import {
   AcademicCapIcon,
@@ -30,7 +29,6 @@ import {
   fetchUserInfo,
   initializeTemplate,
 } from "../../../utilities/template";
-
 const PdfViewer = dynamic(
   () => import("../../../components/pdfViewer/pdfViewer"),
   { ssr: false },
@@ -38,7 +36,7 @@ const PdfViewer = dynamic(
 
 export default function UserInfo() {
   const { showNavbarAlert } = useContext(navbarAlertContext);
-  const { checkIfLoggedIn } = useContext(accountContext);
+  const { isLoggedIn, checkIfLoggedIn } = useContext(accountContext);
   const [userInfo, setUserInfo] = useState(null);
   const [session, setSession] = useState(null);
   const [sectionIndex, setSectionIndex] = useState(0);
@@ -67,7 +65,11 @@ export default function UserInfo() {
     },
     {
       name: "Education",
-      icon: <AcademicCapIcon></AcademicCapIcon>,
+      icon: (
+        <AcademicCapIcon
+          style={{ fill: "rgb(110, 110, 240" }}
+        ></AcademicCapIcon>
+      ),
       section: (
         <UserInfoEducation
           userInfo={userInfo}
@@ -77,7 +79,7 @@ export default function UserInfo() {
     },
     {
       name: "Experience",
-      icon: <BriefcaseIcon></BriefcaseIcon>,
+      icon: <BriefcaseIcon style={{ fill: "rgb(140, 70, 20" }}></BriefcaseIcon>,
       section: (
         <UserInfoExperience
           userInfo={userInfo}
@@ -87,7 +89,7 @@ export default function UserInfo() {
     },
     {
       name: "Projects",
-      icon: <BeakerIcon></BeakerIcon>,
+      icon: <BeakerIcon style={{ fill: "rgb(85, 160, 40" }}></BeakerIcon>,
       section: (
         <UserInfoProjects
           userInfo={userInfo}
@@ -97,7 +99,7 @@ export default function UserInfo() {
     },
     {
       name: "Skills",
-      icon: <BoltIcon></BoltIcon>,
+      icon: <BoltIcon style={{ fill: "rgb(230, 235, 25" }}></BoltIcon>,
       section: (
         <UserInfoSkills
           userInfo={userInfo}
@@ -107,7 +109,7 @@ export default function UserInfo() {
     },
     {
       name: "Achievements",
-      icon: <StarIcon></StarIcon>,
+      icon: <StarIcon style={{ fill: "rgb(255, 215, 10" }}></StarIcon>,
       section: (
         <UserInfoAchievements
           userInfo={userInfo}
@@ -160,9 +162,11 @@ export default function UserInfo() {
       if (userInfo != null && session != null) {
         compileTemplate(
           userInfo,
+          setUserInfo,
           session,
           pdfTimestamp,
           setPdfUrl,
+          isLoggedIn,
           checkIfLoggedIn,
           showNavbarAlert,
         );
@@ -193,6 +197,7 @@ export default function UserInfo() {
               </div>
               <UserInfoSave
                 userInfo={userInfo}
+                setUserInfo={setUserInfo}
                 setIsLoading={setIsSaving}
               ></UserInfoSave>
             </div>
@@ -224,6 +229,7 @@ export default function UserInfo() {
               <div className={styles.save}>
                 <UserInfoSave
                   userInfo={userInfo}
+                  setUserInfo={setUserInfo}
                   setIsLoading={setIsSaving}
                 ></UserInfoSave>
               </div>
