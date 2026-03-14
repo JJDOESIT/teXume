@@ -30,6 +30,27 @@
     height: 100%;
 }
 
+.previewAndExport{
+    display: flex;
+    gap: 20px;
+}
+
+.previewAndExport > div{
+    flex: 1;
+    border-radius: 10px;
+}
+
+.previewAndExport > div:first-child{
+    padding: 5px;
+}
+
+.pdfPopupContainer{
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    padding: 20px;
+}
+
 @media only screen and (max-width: 700px) {
     .bodyContainer{
         padding: 10px;

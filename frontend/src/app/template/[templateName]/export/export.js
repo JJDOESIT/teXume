@@ -1,15 +1,20 @@
 import styles from "./export.module.css";
 
+import Popup from "../../../../../components/popup/popup";
 import { useState } from "react";
 import { ArrowDownOnSquareStackIcon } from "@heroicons/react/24/solid";
-import Popup from "../../../../../components/popup/popup";
 
-export default function Export() {
+export default function Export({ download }) {
   const [optionsVisible, setOptionsVisible] = useState(false);
-  const [selectedOption, setSelectedOption] = useState(null);
+  const [selectedOption, setSelectedOption] = useState("pdf");
+
+  // Handle the download
+  async function handleDownload() {
+    download(selectedOption);
+  }
 
   return (
-    <section className={styles.container}>
+    <div className={styles.container}>
       <div
         className="secondaryEmeraldButton"
         onClick={() => {
@@ -28,7 +33,7 @@ export default function Export() {
           <div className={styles.exportPopupContainer}>
             <div className={styles.options}>
               <div className={styles.optionsTitle}>
-                <p>Export Resume</p>
+                <p>Select export type</p>
               </div>
               <div className={styles.exportOptions}>
                 <div
@@ -48,9 +53,7 @@ export default function Export() {
               </div>
               <div className={styles.line}></div>
               <div className={styles.download}>
-                <div
-                  className={`${selectedOption == null ? styles.disabledDownload : ""} primaryEmeraldButton`}
-                >
+                <div className="primaryEmeraldButton" onClick={handleDownload}>
                   <p>Download</p>
                 </div>
               </div>
@@ -58,6 +61,6 @@ export default function Export() {
           </div>
         </Popup>
       )}
-    </section>
+    </div>
   );
 }

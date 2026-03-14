@@ -1,0 +1,40 @@
+.container{
+    padding: 20px 10px;
+}
+
+.wrapper{
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    border-radius: 25px;
+    padding: 20px;
+    box-shadow: 0 0 10px var(--gray-30);
+    height: 100%;
+}
+
+.body{
+    flex: 1;
+}
+
+.name > p{
+    font-size: 1.1rem;
+    font-weight: bold;
+}
+
+.stars{
+    display: flex;
+    gap: 5px;
+    margin-top: 10px;
+}
+
+.message{
+    margin-top: 10px;
+}
+
+.date{
+    margin-top: 20px;
+}
+
+.date > p{
+    color: var(--gray-50);
+}

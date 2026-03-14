@@ -61,10 +61,8 @@ export async function initializeTemplate(
 // Compile template
 export async function compileTemplate(
   userInfo,
-  setUserInfo,
   session,
   pdfTimestamp,
-  setPdfUrl,
   isLoggedIn,
   checkIfLoggedIn,
   showNavbarAlert,
@@ -73,8 +71,7 @@ export async function compileTemplate(
   const loggedInAfter = await checkIfLoggedIn();
 
   if (loggedInBefore && !loggedInAfter) {
-    setUserInfo(new UserInfoModel());
-    return;
+    return null;
   }
 
   const timestamp = Date.now();
@@ -95,11 +92,11 @@ export async function compileTemplate(
     return;
   }
 
-  const blob = await response.blob();
-  const url = URL.createObjectURL(blob);
+  const data = await response.json();
 
   if (timestamp >= pdfTimestamp.current) {
     pdfTimestamp.current = timestamp;
-    setPdfUrl(url);
+    return data;
   }
+  return null;
 }

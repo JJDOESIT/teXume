@@ -1,141 +1,133 @@
-.page {
-  --background: #fafafa;
-  --foreground: #fff;
-
-  --text-primary: #000;
-  --text-secondary: #666;
-
-  --button-primary-hover: #383838;
-  --button-secondary-hover: #f2f2f2;
-  --button-secondary-border: #ebebeb;
-
-  display: flex;
-  min-height: 100vh;
-  align-items: center;
-  justify-content: center;
-  font-family: var(--font-geist-sans);
-  background-color: var(--background);
-}
-
-.main {
-  display: flex;
-  min-height: 100vh;
+.container{
   width: 100%;
-  max-width: 800px;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: space-between;
-  background-color: var(--foreground);
-  padding: 120px 60px;
+  height: 100%;
+  min-height: 0;
+  overflow-y: auto;
 }
 
-.intro {
+.wrapper{
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  text-align: left;
-  gap: 24px;
-}
-
-.intro h1 {
-  max-width: 320px;
-  font-size: 40px;
-  font-weight: 600;
-  line-height: 48px;
-  letter-spacing: -2.4px;
-  text-wrap: balance;
-  color: var(--text-primary);
-}
-
-.intro p {
-  max-width: 440px;
-  font-size: 18px;
-  line-height: 32px;
-  text-wrap: balance;
-  color: var(--text-secondary);
-}
-
-.intro a {
-  font-weight: 500;
-  color: var(--text-primary);
-}
-
-.ctas {
-  display: flex;
-  flex-direction: row;
-  width: 100%;
-  max-width: 440px;
-  gap: 16px;
-  font-size: 14px;
-}
-
-.ctas a {
-  display: flex;
-  justify-content: center;
+  height: 100%;
   align-items: center;
-  height: 40px;
-  padding: 0 16px;
-  border-radius: 128px;
-  border: 1px solid transparent;
-  transition: 0.2s;
-  cursor: pointer;
-  width: fit-content;
-  font-weight: 500;
 }
 
-a.primary {
-  background: var(--text-primary);
-  color: var(--background);
-  gap: 8px;
+.header{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  margin-top: 20px;
 }
 
-a.secondary {
-  border-color: var(--button-secondary-border);
+.headerText{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
 }
 
-/* Enable hover only on non-touch devices */
-@media (hover: hover) and (pointer: fine) {
-  a.primary:hover {
-    background: var(--button-primary-hover);
-    border-color: transparent;
-  }
-
-  a.secondary:hover {
-    background: var(--button-secondary-hover);
-    border-color: transparent;
-  }
+.headerText > p:first-child{
+  font-size: 3rem;
+  font-weight: bold;
+  max-width: 600px;
+  text-align: center;
 }
 
-@media (max-width: 600px) {
-  .main {
-    padding: 48px 24px;
-  }
-
-  .intro {
-    gap: 16px;
-  }
-
-  .intro h1 {
-    font-size: 32px;
-    line-height: 40px;
-    letter-spacing: -1.92px;
-  }
+.headerText > p:nth-child(2){
+  font-size: 1.25rem;
+  color: var(--gray-50);
+  text-align: center;
 }
 
-@media (prefers-color-scheme: dark) {
-  .logo {
-    filter: invert();
-  }
+.headerText span{
+  color: var(--emerald-60);
+}
 
-  .page {
-    --background: #000;
-    --foreground: #000;
+.headerButtons{
+  width: 100%;
+  display: flex;
+  gap: 20px;
+  max-width: 400px;
+  margin-top: 20px;
+}
 
-    --text-primary: #ededed;
-    --text-secondary: #999;
+.headerButtons > div{
+  flex: 1;
+}
 
-    --button-primary-hover: #ccc;
-    --button-secondary-hover: #1a1a1a;
-    --button-secondary-border: #1a1a1a;
-  }
+.headerButtons > div:nth-child(2){
+  justify-content: center;
+}
+
+.headerImages{
+  position: relative;
+  width: 100%;
+  margin-top: 50px;
+}
+
+.headerImages > img{
+  position: absolute;
+  border: 1px solid var(--gray-40);
+  border-radius: 10px;
+  max-width: 600px;
+  width: 70%;
+  box-shadow: 0 0 15px var(--gray-40);
+}
+
+.headerImages > img:first-child{
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+}
+
+.headerImages > img:nth-child(2){
+  left: 50%;
+  transform: translateX(-70%);
+  top: 30px;
+}
+
+.headerImages > img:nth-child(3){
+  left: 50%;
+  transform: translateX(-30%);
+  top: 30px;
+}
+
+.body{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  min-height: 500px;
+  background-color: var(--gray-5);
+  z-index: 4;
+}
+
+.slider{
+  width: 90%;
+  margin-top: 50px;
+}
+
+.slick-next{
+  background-color: red;
+}
+
+@media only screen and (max-width: 700px) {
+    .header{
+        width: 100%;
+    }
+
+    .headerText > p:first-child{
+      font-size: 2rem;
+    }
+
+    .headerText > p:nth-child(2){
+      font-size: 1rem;
+    }
+
+    .headerButtons{
+      flex-direction: column;
+      width: fit-content;
+      gap: 10px;
+    }
 }

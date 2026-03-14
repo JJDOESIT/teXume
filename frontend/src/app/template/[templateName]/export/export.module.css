@@ -44,17 +44,9 @@
     opacity: 0.5;
 }
 
-.disabledDownload{
-    opacity: 0.5;
-}
-
 .disabledDownload:hover{
     background-color: var(--emerald-60);
     cursor: default;
-}
-
-.exportOptions svg{
-    fill: var(--emerald-80);
 }
 
 .exportPopupContainer{

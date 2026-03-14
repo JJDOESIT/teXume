@@ -99,9 +99,9 @@ public class TemplateController {
             ModifyTemplateModel modifyTemplateModel = new ModifyTemplateModel();
             modifyTemplateModel.session = session;
             modifyTemplateModel.userInfoModel = userAccountModel.userInfoModel;
-            byte[] pdf = compile(modifyTemplateModel).getBody();
+            Map<String, byte[]> data = compile(modifyTemplateModel).getBody();
 
-            PDDocument document = Loader.loadPDF(pdf);
+            PDDocument document = Loader.loadPDF(data.get("pdf"));
             PDFRenderer renderer = new PDFRenderer(document);
             BufferedImage image = renderer.renderImage(0);
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -183,7 +183,7 @@ public class TemplateController {
 
     // Compile a template given user info and an existing template session
     @PostMapping("/compile")
-    public ResponseEntity<byte[]> compile(@RequestBody ModifyTemplateModel modifyTemplateModel) {
+    public ResponseEntity<Map<String, byte[]>> compile(@RequestBody ModifyTemplateModel modifyTemplateModel) {
         try {
             ArrayList<LineModel> lines = _linesCacheUtility.get(modifyTemplateModel.session);
             Map<String, String> sectionMap = _sectionMapUtility.get(modifyTemplateModel.session);
@@ -217,16 +217,14 @@ public class TemplateController {
                     "--output-directory=./backend/assets/outputs",
                     "--interaction=nonstopmode", formattedBase + ".tex");
 
-            System.out.println(System.getProperty("user.dir"));
-
             builder.redirectOutput(ProcessBuilder.Redirect.DISCARD);
             builder.redirectError(ProcessBuilder.Redirect.DISCARD);
 
             Process process = builder.start();
             process.waitFor();
 
-            Path pdfPath = Paths.get(base + ".pdf");
-            byte[] pdfBytes = Files.readAllBytes(pdfPath);
+            byte[] pdfBytes = Files.readAllBytes(Paths.get(base + ".pdf"));
+            byte[] latexBytes = Files.readAllBytes(Paths.get(base + ".tex"));
 
             Files.deleteIfExists(Paths.get(base + ".tex"));
             Files.deleteIfExists(Paths.get(base + ".out"));
@@ -234,7 +232,7 @@ public class TemplateController {
             Files.deleteIfExists(Paths.get(base + ".aux"));
             Files.deleteIfExists(Paths.get(base + ".pdf"));
 
-            return ResponseEntity.ok().body(pdfBytes);
+            return ResponseEntity.ok().body(Map.of("pdf", pdfBytes, "latex", latexBytes));
         } catch (Exception error) {
             System.out.println(error.getMessage());
             return ResponseEntity.status(500).build();

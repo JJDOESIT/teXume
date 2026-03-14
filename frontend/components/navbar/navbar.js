@@ -44,9 +44,11 @@ export default function Navbar() {
         <nav className={styles.container}>
           <NavbarAlert></NavbarAlert>
 
-          <section className={styles.titleWrapper}>
-            <img src="/logo.png" alt="Logo"></img>
-            <p>TeXume</p>
+          <section className={styles.titleContainer}>
+            <Link className={styles.title} href="/">
+              <img src="/logo.png" alt="Logo"></img>
+              <p>TeXume</p>
+            </Link>
           </section>
 
           <section className={styles.linkContainer}>
@@ -89,8 +91,13 @@ export default function Navbar() {
             )}
           </section>
 
-          {menuOpen && (
-            <section className={styles.menuContainer}>
+          <section
+            className={styles.menuContainer}
+            style={
+              menuOpen ? { height: "calc(100vh - 100%)" } : { height: "0" }
+            }
+          >
+            <section className={styles.menu}>
               <div className={styles.menuBody}>
                 <p className={styles.menuTitle}>Menu</p>
 
@@ -131,7 +138,7 @@ export default function Navbar() {
                 <a>Contact</a>
               </div>
             </section>
-          )}
+          </section>
         </nav>
       )}
     </>

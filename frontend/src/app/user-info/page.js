@@ -158,23 +158,44 @@ export default function UserInfo() {
 
   // Compile template when the user types using debouncing
   useEffect(() => {
-    const id = setTimeout(() => {
+    const id = setTimeout(async () => {
       if (userInfo != null && session != null) {
-        compileTemplate(
+        const response = await compileTemplate(
           userInfo,
-          setUserInfo,
           session,
           pdfTimestamp,
-          setPdfUrl,
           isLoggedIn,
           checkIfLoggedIn,
           showNavbarAlert,
         );
+
+        if (response == null) {
+          setUserInfo(new UserInfoModel());
+          return;
+        }
+
+        const pdfBinary = atob(response["pdf"]);
+        const pdfBytes = new Uint8Array(pdfBinary.length);
+        for (let index = 0; index < pdfBinary.length; index++) {
+          pdfBytes[index] = pdfBinary.charCodeAt(index);
+        }
+        const blob = new Blob([pdfBytes], {
+          type: "application/pdf",
+        });
+        const url = URL.createObjectURL(blob);
+        setPdfUrl(url);
       }
     }, debounceTime);
 
     return () => clearTimeout(id);
   }, [userInfo, session]);
+
+  // Determine when the page loads
+  useEffect(() => {
+    if (userInfo != null && session != null && pdfUrl != null) {
+      setIsLoading(false);
+    }
+  }, [userInfo, session, pdfUrl]);
 
   // Determine when the page loads
   useEffect(() => {
