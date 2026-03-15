@@ -1,8 +1,8 @@
 import styles from "./review.module.css";
 
-export default function Review({ name, message, date, width, height }) {
+export default function Review({ name, message, date }) {
   return (
-    <div className={styles.container} style={{ width: width, height: height }}>
+    <div className={styles.container}>
       <div className={styles.wrapper}>
         <div className={styles.body}>
           <div className={styles.name}>

@@ -98,18 +98,139 @@
   flex-direction: column;
   align-items: center;
   width: 100%;
-  min-height: 500px;
   background-color: var(--gray-5);
   z-index: 4;
 }
 
 .slider{
-  width: 90%;
+  width: calc(100% - 50px);
   margin-top: 50px;
 }
 
-.slick-next{
-  background-color: red;
+.testimonial{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.testimonial > p{
+  font-size: 1.75rem;
+  font-weight: bold;
+  text-align: center;
+}
+
+.logos{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 30px;
+  margin-top: 20px;
+}
+
+.logos > img{
+  height: 25px;
+}
+
+.questions{
+  width: 80%;
+  margin-top: 30px;
+}
+
+.questionsTitle{
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.questionsTitle > p{
+  font-size: 2.5rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+.lineSpacer{
+  height: 1px;
+  min-height: 1px;
+  background-color: var(--gray-20);
+  margin-bottom: 20px;
+  margin-top: 20px;
+}
+
+.footer{
+  width: 100%;
+  background-color: var(--gray-10);
+  padding: 20px;
+  margin-top: 50px;
+}
+
+.rowOne{
+  display: flex;
+  margin-top: 20px;
+}
+
+.columnOne{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+}
+
+.columnOneText{
+  margin-top: 10px;
+}
+
+.columnOneText > p:last-child{
+  margin-top: 50px;
+}
+
+.footerLogo{
+  display: flex;
+  align-items: center;
+}
+
+.footerLogo > img{
+  width: 50px;
+}
+
+.footerLogo > p{
+  font-weight: 600;
+  font-size: 1.5rem;
+}
+
+.columnTwo{
+  display: flex;
+  justify-content: center;
+  flex: 1;
+}
+
+.columnTwo > div{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.columnTwo > div > p:first-child{
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.columnThree{
+  display: flex;
+  justify-content: center;
+  flex: 1;
+}
+
+.columnThree > div{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.columnThree > div > p:first-child{
+  font-size: 1.4rem;
+  font-weight: 600;
 }
 
 @media only screen and (max-width: 700px) {

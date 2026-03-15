@@ -1,0 +1,40 @@
+.container{
+    width: 100%;
+    overflow: hidden;
+}
+
+.preview{
+    display: flex;
+}
+
+.preview:hover{
+    cursor: pointer;
+}
+
+.preview:hover .question > p{
+    color: var(--emerald-60);
+}
+
+.question{
+    flex: 1;
+}
+
+.question > p{
+    font-size: 1.3rem;
+    transition: color 200ms ease;
+}
+
+.preview > svg{
+    width: 20px;
+    fill: var(--emerald-70);
+}
+
+.answer{
+    margin-top: 10px;
+    transition: max-height 500ms ease;
+}
+
+.answer > p{
+    font-size: 1rem;
+    color: var(--gray-60);
+}

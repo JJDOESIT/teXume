@@ -29,6 +29,7 @@ import {
   fetchUserInfo,
   initializeTemplate,
 } from "../../../utilities/template";
+import UserInfoModel from "../../../models/UserInfoModel";
 const PdfViewer = dynamic(
   () => import("../../../components/pdfViewer/pdfViewer"),
   { ssr: false },
