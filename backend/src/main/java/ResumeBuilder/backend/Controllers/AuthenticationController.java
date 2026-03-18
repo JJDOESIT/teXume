@@ -6,7 +6,6 @@ import java.util.UUID;
 
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,7 +15,6 @@ import org.springframework.web.bind.annotation.RestController;
 import ResumeBuilder.backend.Models.ApiModels.Authentication.LoginModel;
 import ResumeBuilder.backend.Models.ApiModels.Authentication.SignUpGuestModel;
 import ResumeBuilder.backend.Models.ApiModels.Authentication.SignUpModel;
-import ResumeBuilder.backend.Models.AuthenticationModels.AuthenticationPrincipalModel;
 import ResumeBuilder.backend.Models.DatabaseModels.GuestAccountModel;
 import ResumeBuilder.backend.Models.DatabaseModels.UserAccountModel;
 import ResumeBuilder.backend.Models.DatabaseModels.UserInfoModel;
@@ -25,6 +23,7 @@ import ResumeBuilder.backend.Repositories.UserAccountRepository;
 import ResumeBuilder.backend.Utilities.BCryptUtility;
 import ResumeBuilder.backend.Utilities.HmacUtility;
 import ResumeBuilder.backend.Utilities.JwtUtility;
+import jakarta.servlet.http.HttpServletRequest;
 
 @RestController
 @RequestMapping("/api/authentication")
@@ -121,15 +120,15 @@ public class AuthenticationController {
 
     // Return whether the user is logged in or not
     @GetMapping("/is-logged-in")
-    public ResponseEntity<Boolean> isLoggedIn(Authentication authentication) {
+    public ResponseEntity<Boolean> isLoggedIn(HttpServletRequest request) {
         try {
-            AuthenticationPrincipalModel authenticationPrincipalModel = (AuthenticationPrincipalModel) authentication
-                    .getPrincipal();
-            if (authenticationPrincipalModel.isSession) {
+            String identity = request.getHeader("identity");
+            String isSession = request.getHeader("isSession");
+            if (isSession != null) {
                 return ResponseEntity.ok().body(false);
             }
             Optional<UserAccountModel> optionalUserAccountModel = _userAccountRepository
-                    .findByUsername(authenticationPrincipalModel.identity);
+                    .findByUsername(identity);
             if (!optionalUserAccountModel.isPresent()) {
                 return ResponseEntity.status(500).build();
             }

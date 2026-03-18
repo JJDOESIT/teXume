@@ -1,5 +1,5 @@
 export async function add(name, token) {
-  return await fetch("http://localhost:8080/api/template/add", {
+  return await fetch("http://localhost:8081/api/template/add", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -12,7 +12,7 @@ export async function add(name, token) {
 }
 
 export async function getAll() {
-  return await fetch("http://localhost:8080/api/template/get-all", {
+  return await fetch("http://localhost:8081/api/template/get-all", {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -21,7 +21,7 @@ export async function getAll() {
 }
 
 export async function initialize(name) {
-  return await fetch("http://localhost:8080/api/template/initialize", {
+  return await fetch("http://localhost:8081/api/template/initialize", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -33,7 +33,7 @@ export async function initialize(name) {
 }
 
 export async function compile(userInfoModel, session) {
-  return await fetch("http://localhost:8080/api/template/compile", {
+  return await fetch("http://localhost:8081/api/template/compile", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -46,7 +46,7 @@ export async function compile(userInfoModel, session) {
 }
 
 export async function updateSectionName(section, newSection, session) {
-  return await fetch("http://localhost:8080/api/template/update-section-name", {
+  return await fetch("http://localhost:8081/api/template/update-section-name", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -60,7 +60,7 @@ export async function updateSectionName(section, newSection, session) {
 }
 
 export async function hideSection(section, session) {
-  return await fetch("http://localhost:8080/api/template/hide-section", {
+  return await fetch("http://localhost:8081/api/template/hide-section", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -73,7 +73,7 @@ export async function hideSection(section, session) {
 }
 
 export async function unhideSection(section, session) {
-  return await fetch("http://localhost:8080/api/template/unhide-section", {
+  return await fetch("http://localhost:8081/api/template/unhide-section", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -87,7 +87,7 @@ export async function unhideSection(section, session) {
 
 export async function swapMultipleSections(section, targets, session) {
   return await fetch(
-    "http://localhost:8080/api/template/swap-multiple-sections",
+    "http://localhost:8081/api/template/swap-multiple-sections",
     {
       method: "POST",
       headers: {

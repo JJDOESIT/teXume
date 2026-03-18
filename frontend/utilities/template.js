@@ -71,7 +71,7 @@ export async function compileTemplate(
   const loggedInAfter = await checkIfLoggedIn();
 
   if (loggedInBefore && !loggedInAfter) {
-    return null;
+    return;
   }
 
   const timestamp = Date.now();

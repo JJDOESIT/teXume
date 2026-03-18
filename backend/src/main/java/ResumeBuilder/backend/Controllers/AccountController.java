@@ -4,19 +4,18 @@ import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import ResumeBuilder.backend.Models.AuthenticationModels.AuthenticationPrincipalModel;
 import ResumeBuilder.backend.Models.DatabaseModels.GuestAccountModel;
 import ResumeBuilder.backend.Models.DatabaseModels.UserAccountModel;
 import ResumeBuilder.backend.Models.DatabaseModels.UserInfoModel;
 import ResumeBuilder.backend.Repositories.GuestAccountRepository;
 import ResumeBuilder.backend.Repositories.UserAccountRepository;
+import jakarta.servlet.http.HttpServletRequest;
 
 @RestController
 @RequestMapping("/api/account")
@@ -32,18 +31,17 @@ public class AccountController {
 
     // Get user info
     @GetMapping("/get-user-info")
-    public ResponseEntity<Map<String, UserInfoModel>> getUserInfo(Authentication authentication) {
+    public ResponseEntity<Map<String, UserInfoModel>> getUserInfo(HttpServletRequest request) {
         try {
-            AuthenticationPrincipalModel authenticationPrincipalModel = (AuthenticationPrincipalModel) authentication
-                    .getPrincipal();
-
-            if (!authenticationPrincipalModel.isSession) {
+            String identity = request.getHeader("identity");
+            String isSession = request.getHeader("isSession");
+            if (isSession == null) {
                 Optional<UserAccountModel> userAccountModel = _userAccountRepository
-                        .findByUsername(authenticationPrincipalModel.identity);
+                        .findByUsername(identity);
                 return ResponseEntity.ok().body(Map.of("userInfo", userAccountModel.get().userInfoModel));
             } else {
                 Optional<GuestAccountModel> optionalGuestAccountModel = _guestAccountRepository
-                        .findBySession(authenticationPrincipalModel.identity);
+                        .findBySession(identity);
                 GuestAccountModel guestAccountModel = optionalGuestAccountModel.get();
                 return ResponseEntity.ok().body(Map.of("userInfo", guestAccountModel.userAccountModel.userInfoModel));
             }
@@ -55,20 +53,19 @@ public class AccountController {
     // Update user info
     @PostMapping("/update-user-info")
     public ResponseEntity<Void> updateUserInfo(@RequestBody UserInfoModel userInfoModel,
-            Authentication authentication) {
+            HttpServletRequest request) {
         try {
-            AuthenticationPrincipalModel authenticationPrincipalModel = (AuthenticationPrincipalModel) authentication
-                    .getPrincipal();
-
-            if (!authenticationPrincipalModel.isSession) {
+            String identity = request.getHeader("identity");
+            String isSession = request.getHeader("isSession");
+            if (isSession == null) {
                 Optional<UserAccountModel> optionalUserAccountModel = _userAccountRepository
-                        .findByUsername(authenticationPrincipalModel.identity);
+                        .findByUsername(identity);
                 UserAccountModel userAccountModel = optionalUserAccountModel.get();
                 userAccountModel.userInfoModel = userInfoModel;
                 _userAccountRepository.save(userAccountModel);
             } else {
                 Optional<GuestAccountModel> optionalGuestAccountModel = _guestAccountRepository
-                        .findBySession(authenticationPrincipalModel.identity);
+                        .findBySession(identity);
                 GuestAccountModel guestAccountModel = optionalGuestAccountModel.get();
                 guestAccountModel.userAccountModel.userInfoModel = userInfoModel;
                 _guestAccountRepository.save(guestAccountModel);

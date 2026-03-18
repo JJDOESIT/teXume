@@ -4,7 +4,6 @@ import org.apache.pdfbox.Loader;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.rendering.PDFRenderer;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -19,7 +18,6 @@ import ResumeBuilder.backend.Models.ApiModels.Template.ModifyTemplateModel;
 import ResumeBuilder.backend.Models.ApiModels.Template.SwapMultipleSectionsModel;
 import ResumeBuilder.backend.Models.ApiModels.Template.UnhideSectionModel;
 import ResumeBuilder.backend.Models.ApiModels.Template.UpdateSectionNameModel;
-import ResumeBuilder.backend.Models.AuthenticationModels.AuthenticationPrincipalModel;
 import ResumeBuilder.backend.Models.DatabaseModels.LineModel;
 import ResumeBuilder.backend.Models.DatabaseModels.TemplateModel;
 import ResumeBuilder.backend.Models.DatabaseModels.UserAccountModel;
@@ -28,6 +26,7 @@ import ResumeBuilder.backend.Repositories.TemplateRepository;
 import ResumeBuilder.backend.Repositories.UserAccountRepository;
 import ResumeBuilder.backend.Utilities.LinesCacheUtility;
 import ResumeBuilder.backend.Utilities.SectionMapUtility;
+import jakarta.servlet.http.HttpServletRequest;
 
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
@@ -68,18 +67,15 @@ public class TemplateController {
 
     // Add a latex template to the database
     @PostMapping("/add")
-    public ResponseEntity<Void> add(@RequestBody AddTemplateModel addTemplateModel, Authentication authentication) {
+    public ResponseEntity<Void> add(@RequestBody AddTemplateModel addTemplateModel, HttpServletRequest request) {
         try {
-            if (authentication == null) {
-                return ResponseEntity.status(403).build();
-            }
-            AuthenticationPrincipalModel authenticationPrincipalModel = (AuthenticationPrincipalModel) authentication
-                    .getPrincipal();
-            if (authenticationPrincipalModel.isSession) {
+            String identity = request.getHeader("identity");
+            String isSession = request.getHeader("isSession");
+            if (isSession != null) {
                 return ResponseEntity.status(403).build();
             }
             UserAccountModel userAccountModel = _userAccountRepository
-                    .findByUsername(authenticationPrincipalModel.identity).get();
+                    .findByUsername(identity).get();
             if (!userAccountModel.admin) {
                 return ResponseEntity.status(403).build();
             }

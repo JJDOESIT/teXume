@@ -1,5 +1,5 @@
 export async function getUserInfo(token) {
-  return await fetch("http://localhost:8080/api/account/get-user-info", {
+  return await fetch("http://localhost:8081/api/account/get-user-info", {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -9,7 +9,7 @@ export async function getUserInfo(token) {
 }
 
 export async function updateUserInfo(userInfo, token) {
-  return await fetch("http://localhost:8080/api/account/update-user-info", {
+  return await fetch("http://localhost:8081/api/account/update-user-info", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
