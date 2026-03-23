@@ -99,7 +99,7 @@ export default function Login() {
             <p>Submit</p>
           </div>
 
-          <span className={styles.lineSpacer}></span>
+          <div className="lineSpacer"></div>
 
           <div className={styles.noAccountText}>
             <p>Don't have an account?</p>

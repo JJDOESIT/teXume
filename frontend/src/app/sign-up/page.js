@@ -85,7 +85,7 @@ export default function SignUp() {
           <p>Making a resume is as easy as 123!</p>
         </div>
 
-        <span className={styles.lineSpacer}></span>
+        <div className="lineSpacer"></div>
 
         <div className={styles.firstRow}>
           <div className="primaryEmeraldInput">

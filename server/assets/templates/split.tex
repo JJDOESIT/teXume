@@ -1,0 +1,152 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[english]{babel}
+\usepackage{geometry}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{tabularx}
+\usepackage{titlesec}
+\usepackage{fontawesome5}
+\usepackage{multicol}
+
+\geometry{hmargin=1.75cm, vmargin=2.5cm}
+\pagestyle{empty}
+
+\titleformat{\section}{\scshape\LARGE\raggedright}{}{0em}{}[\titlerule]
+\titlespacing{\section}{0pt}{12pt plus 2pt minus 2pt}{6pt plus 2pt minus 2pt}
+
+\newcommand{\entry}[4]{
+    \item{\bfseries #1} \hfill #4\\
+    \textit{#2} \hfill \textit{#3}
+}
+
+\newenvironment{myitemize}{
+    \begin{itemize}[leftmargin=10mm, label=\textbullet, itemsep=2pt, topsep=2pt]
+}{
+    \end{itemize}
+}
+
+\newcommand{\header}[3]{
+    {\centering
+        \Huge #1\\
+        \large #2\\
+        \small #3
+    \par\vspace{10pt}}
+}
+
+\begin{document}
+
+%section-details-start
+\header{
+    %name
+}{
+    \faPhone~ 
+    %phone
+    \quad
+    \faEnvelope~ 
+    %email
+}
+%section-details-end
+
+\begin{multicols}{2}
+
+%section-education-start
+\section{\noindent
+%section-Education-name
+}
+%loop-education-start
+\entry{
+    %school
+}{
+    %degree
+}{
+    %location
+}{
+    %startDate 
+    -- 
+    %endDate
+}
+\begin{myitemize}
+    %loop-description-start
+    \item{
+        %point
+    }
+    %loop-description-end
+\end{myitemize}
+%loop-education-end
+%section-education-end
+
+%section-experience-start
+\section{\noindent
+%section-Experience-name
+}
+%loop-experience-start
+\entry{
+    %company
+}{
+    %title
+}{
+    %location
+}{
+    %startDate 
+    -- 
+    %endDate
+}
+\begin{myitemize}
+    %loop-description-start
+    \item{
+        %point
+    }
+    %loop-description-end
+\end{myitemize}
+%loop-experience-end
+%section-experience-end
+
+%section-projects-start
+\section{\noindent
+%section-Projects-name
+}
+%loop-projects-start
+\item{\bfseries{
+    %title
+}}
+\begin{myitemize}
+    %loop-description-start
+    \item{
+        %point
+    }
+    %loop-description-end
+\end{myitemize}
+%loop-projects-end
+%section-projects-end
+
+%section-skills-start
+\section{\noindent
+%section-Skills-name
+}
+%loop-skills-start
+\item{\bfseries{
+    %category
+}}---
+%loop-description-start
+    %delimited-point-,
+%loop-description-end
+%loop-skills-end
+%section-skills-end
+
+%section-achievements-start
+\section{\noindent
+%section-Achievements-name
+}
+%loop-achievements-start
+\item{\bfseries{
+    %title
+}}---
+%description
+%loop-achievements-end
+%section-achievements-end
+
+\end{multicols}
+
+\end{document}

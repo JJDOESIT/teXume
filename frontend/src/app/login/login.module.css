@@ -37,13 +37,6 @@
     text-align: center;
 }
 
-.lineSpacer{
-    height: 1px;
-    min-height: 1px;
-    background-color: var(--gray-20);
-    margin-bottom: 20px;
-}
-
 .firstRow{
     margin-bottom: 10px;
 }
@@ -61,6 +54,7 @@
 .noAccountText{
     display: flex;
     justify-content: center;
+    margin-top: 20px;
     margin-bottom: 20px;
     gap: 5px;
 }

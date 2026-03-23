@@ -3,8 +3,11 @@
 import styles from "./template.module.css";
 
 import Loading from "../../../../components/loading/loading";
-import SectionContainer from "./sectionContainer/sectionContainer";
+import SectionContainer from "./components/sectionContainer/sectionContainer";
 import dynamic from "next/dynamic";
+import Export from "./components/export/export";
+import Popup from "../../../../components/popup/popup";
+import UserInfoModel from "../../../../models/UserInfoModel";
 import { use, useState, useEffect, useContext, useMemo, useRef } from "react";
 import { navbarAlertContext } from "../../../../components/navbarAlertProvider/navbarAlertProvider";
 import { accountContext } from "../../../../components/accountProvider/accountProvider";
@@ -13,9 +16,6 @@ import {
   fetchUserInfo,
   initializeTemplate,
 } from "../../../../utilities/template";
-import Export from "./export/export";
-import Popup from "../../../../components/popup/popup";
-import UserInfoModel from "../../../../models/UserInfoModel";
 const PdfViewer = dynamic(
   () => import("../../../../components/pdfViewer/pdfViewer"),
   { ssr: false },

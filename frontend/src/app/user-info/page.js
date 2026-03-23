@@ -20,6 +20,7 @@ import {
   BriefcaseIcon,
   IdentificationIcon,
   MinusCircleIcon,
+  QuestionMarkCircleIcon,
   StarIcon,
 } from "@heroicons/react/24/solid";
 import { navbarAlertContext } from "../../../components/navbarAlertProvider/navbarAlertProvider";
@@ -30,6 +31,7 @@ import {
   initializeTemplate,
 } from "../../../utilities/template";
 import UserInfoModel from "../../../models/UserInfoModel";
+import UserInfoIntro from "./components/userInfoIntro";
 const PdfViewer = dynamic(
   () => import("../../../components/pdfViewer/pdfViewer"),
   { ssr: false },
@@ -54,6 +56,11 @@ export default function UserInfo() {
   const debounceTime = 500;
   const defaultTemplate = "formal";
   const sections = [
+    {
+      name: "Getting Started",
+      icon: null,
+      section: <UserInfoIntro></UserInfoIntro>,
+    },
     {
       name: "Details",
       icon: <IdentificationIcon></IdentificationIcon>,
@@ -212,7 +219,7 @@ export default function UserInfo() {
           {!pdfVisible && (
             <div className={styles.previewAndSave}>
               <div
-                className="primaryGrayButton"
+                className="secondaryGrayButton"
                 onClick={() => setPopupVisible(true)}
               >
                 <p>Preview</p>
@@ -261,7 +268,9 @@ export default function UserInfo() {
           {userInfo != null && (
             <div className={styles.sectionContainer}>
               <div className={styles.sectionHeader}>
-                <div>{sections[sectionIndex]["icon"]}</div>
+                {sections[sectionIndex]["icon"] != null && (
+                  <div>{sections[sectionIndex]["icon"]}</div>
+                )}
                 <p>{sections[sectionIndex]["name"]}</p>
               </div>
 

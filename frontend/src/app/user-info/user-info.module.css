@@ -157,22 +157,17 @@
     display: flex;
     align-items: center;
     gap: 20px;
-    margin-bottom: 20px;
 }
 
 .previewAndSave > div{
     flex: 1;
-    border-radius: 10px;
+    justify-content: center;
 }
 
 @media only screen and (max-width: 1200px) {
     .bodyContainer{
         flex-direction: column;
         height: fit-content;
-    }
-
-    .sectionContainer{
-        margin: 20px 0 0 0;
     }
 }
 

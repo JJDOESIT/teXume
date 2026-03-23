@@ -1,0 +1,6 @@
+rootProject.name = 'server'
+
+include 'gateway'
+include 'backend'
+include 'template'
+include 'common'

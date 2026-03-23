@@ -5,6 +5,17 @@
     overflow-y: scroll;
 }
 
+.filter{
+    justify-self: center;
+    width: 70%;
+    margin-top: 20px;
+}
+
+.filter > input{
+    width: 100%;
+    border-radius: 3rem;
+}
+
 .gridContainer{
     display: grid;
     justify-content: center;
@@ -16,35 +27,50 @@
 
 .template{
     display: flex;
+    flex-direction: column;
     justify-content: center;
     width: 100%;
     position: relative;
-    border-radius: 10px;
-    border: 1px solid var(--gray-40);
     transition: all 200ms ease;
-
 }
 
 .template > img{
     max-width: 100%;
     border-radius: 10px;
+    height: 100%;
+    border: 1px solid var(--gray-40);
+    transition: all 200ms ease;
+}
+
+.template:hover{
+    cursor: pointer;
+    transform: translateY(-10px);
+}
+
+.template:hover > img{
+    border: 1px solid var(--emerald-60);
+    border-top-width: 4px;
+}
+
+.template:hover > p{
+    color: var(--emerald-60);
+    transition: all 200ms 200ms ease;
+}
+
+.template > p{
+    text-align: center;
+    font-size: 1.2rem;
+    font-weight: 400;
 }
 
 .useTemplate{
     position: absolute;
     top: 50%;
-    transform: translateY(-50%);
+    left: 50%;
+    transform: translate(-50%, -50%);
+    white-space: nowrap;
     opacity: 0;
-}
-
-.template:hover{
-    cursor: pointer;
-    border: 1px solid var(--emerald-60);
-    border-top-width: 4px;
-}
-
-.template:hover{
-    transform: translateY(-10px);
+    transition: all 200ms 100ms ease;
 }
 
 .template:hover .useTemplate{
