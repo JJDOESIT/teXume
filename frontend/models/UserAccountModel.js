@@ -12,7 +12,7 @@ export default class UserAccountModel {
       this.id = data.id;
       this.username = data.username;
       this.password = data.password;
-      this.userInfoModel = data.userInfoModel;
+      this.userInfoModel = new UserInfoModel(data.userInfoModel);
     }
   }
 }

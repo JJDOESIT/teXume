@@ -42,75 +42,55 @@ export default function Login() {
   return (
     <section className={styles.container}>
       <div className={styles.wrapper}>
-        <button
-          onClick={async () => {
-            const cookie = await getCookie("token");
-            const token = cookie["value"];
-            add("Calm", token);
-            add("Formal", token);
-            add("Italic", token);
-            add("Minimal", token);
-            add("Professional", token);
-            add("Split", token);
-            add("Stripped", token);
-          }}
-        >
-          Herro
-        </button>
-        <div className={styles.wrapper}>
-          <div className={styles.titleText}>
-            <p>Sign in</p>
-          </div>
-          <div className={styles.welcomeText}>
-            <p>Welcome back! It is nice to see you again.</p>
-          </div>
-
-          <div className={styles.firstRow}>
-            <div className="primaryEmeraldInput">
-              <label>Username</label>
-              <input
-                type="text"
-                placeholder="Enter username"
-                onChange={(event) => {
-                  setUsername(event.target.value);
-                }}
-              ></input>
-            </div>
-          </div>
-
-          <div className={styles.secondRow}>
-            <div className="primaryEmeraldInput">
-              <label>Password</label>
-              <input
-                type="password"
-                placeholder="Enter password"
-                value={password}
-                onChange={(event) => {
-                  setPassword(event.target.value);
-                }}
-              ></input>
-            </div>
-          </div>
-
-          <div
-            className={`${styles.submit} primaryEmeraldButton`}
-            onClick={submit}
-          >
-            <p>Submit</p>
-          </div>
-
-          <div className="lineSpacer"></div>
-
-          <div className={styles.noAccountText}>
-            <p>Don't have an account?</p>
-          </div>
-          <Link
-            className={`${styles.signUp} primaryGrayButton`}
-            href="/sign-up"
-          >
-            <p>Sign up now</p>
-          </Link>
+        <div className={styles.titleText}>
+          <p>Sign in</p>
         </div>
+        <div className={styles.welcomeText}>
+          <p>Welcome back! It is nice to see you again.</p>
+        </div>
+
+        <div className={styles.firstRow}>
+          <div className="primaryEmeraldInput">
+            <label>Username</label>
+            <input
+              type="text"
+              placeholder="Enter username"
+              onChange={(event) => {
+                setUsername(event.target.value);
+              }}
+            ></input>
+          </div>
+        </div>
+
+        <div className={styles.secondRow}>
+          <div className="primaryEmeraldInput">
+            <label>Password</label>
+            <input
+              type="password"
+              placeholder="Enter password"
+              value={password}
+              onChange={(event) => {
+                setPassword(event.target.value);
+              }}
+            ></input>
+          </div>
+        </div>
+
+        <div
+          className={`${styles.submit} primaryEmeraldButton`}
+          onClick={submit}
+        >
+          <p>Submit</p>
+        </div>
+
+        <div className="lineSpacer"></div>
+
+        <div className={styles.noAccountText}>
+          <p>Don't have an account?</p>
+        </div>
+        <Link className={`${styles.signUp} primaryGrayButton`} href="/sign-up">
+          <p>Sign up now</p>
+        </Link>
       </div>
     </section>
   );

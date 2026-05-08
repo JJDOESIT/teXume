@@ -1,0 +1,110 @@
+.container {
+  height: 100%;
+  min-height: 0;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.wrapper {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+}
+
+.info{
+  width: 600px;
+}
+
+.pageTitle {
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+.details {
+  background-color: var(--gray-10);
+  border-radius: 10px;
+  padding: 20px;
+}
+
+.detailsHeader {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.detailsHeader > p {
+  font-size: 2rem;
+  font-weight: 600;
+  flex: 1;
+}
+
+.configure {
+  background-color: var(--gray-20);
+  border-radius: 3rem;
+  transition: background-color 200ms ease;
+}
+
+.configure:hover {
+  background-color: var(--gray-30);
+}
+
+.save {
+  padding: 5px 64px;
+}
+
+.fields {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.fieldRow {
+  display: flex;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--gray-20);
+}
+
+.fieldRow:last-child {
+  border-bottom: none;
+}
+
+.fieldLabel {
+  flex: 1;
+  font-weight: 500;
+  color: var(--gray-60);
+}
+
+.fieldValue {
+  color: var(--gray-90);
+}
+
+.fieldInput {
+  width: 100%;
+}
+
+.logout {
+  margin-top: 12px;
+  background-color: var(--gray-10);
+  border-radius: 10px;
+  padding: 16px 20px;
+  cursor: pointer;
+  transition: background-color 200ms ease;
+}
+
+.logout:hover {
+  background-color: var(--gray-20);
+}
+
+.logout > p {
+  color: #e05252;
+  font-weight: 500;
+}
+
+@media only screen and (max-width: 700px) {
+    .detailsHeader{
+        flex-direction: column;
+        gap: 10px;
+    }
+}

@@ -20,7 +20,7 @@ export default function AccountProvider({ children }) {
 
     if (cookie == null) {
       setIsLoggedIn(false);
-      return;
+      return false;
     }
 
     const token = cookie["value"];
@@ -29,7 +29,7 @@ export default function AccountProvider({ children }) {
     if (!response.ok) {
       deleteCookie("token");
       setIsLoggedIn(false);
-      return;
+      return false;
     }
 
     const data = await response.json();

@@ -104,6 +104,9 @@ export default function Navbar() {
                 <Link
                   className={`${styles.menuBrowseLink} ${pathname == "/browse" ? styles.active : ""}`}
                   href="/browse"
+                  onClick={() => {
+                    setMenuOpen(false);
+                  }}
                 >
                   <p>Browse Templates</p>
                   <ChevronRightIcon />
@@ -113,6 +116,9 @@ export default function Navbar() {
                   <Link
                     className={`${styles.menuLoginLink} ${pathname == "/login" ? styles.active : ""}`}
                     href="/login"
+                    onClick={() => {
+                      setMenuOpen(false);
+                    }}
                   >
                     <p>Login</p>
                     <ChevronRightIcon />
@@ -121,12 +127,20 @@ export default function Navbar() {
                   <Link
                     className={`${styles.menuAccountLink} ${pathname == "/account" ? styles.active : ""}`}
                     href="/account"
+                    onClick={() => {
+                      setMenuOpen(false);
+                    }}
                   >
                     <p>Account</p>
                     <ChevronRightIcon />
                   </Link>
                 )}
-                <Link href="/user-info">
+                <Link
+                  href="/user-info"
+                  onClick={() => {
+                    setMenuOpen(false);
+                  }}
+                >
                   <div className={styles.menuResumeLink}>
                     <p>Build my resume</p>
                   </div>
@@ -134,8 +148,12 @@ export default function Navbar() {
               </div>
 
               <div className={styles.menuFooter}>
-                <a>Support</a>
-                <a>Contact</a>
+                <Link
+                  href="https://www.linkedin.com/in/james-gaboriault-whitcomb/"
+                  target="_blank"
+                >
+                  Contact
+                </Link>
               </div>
             </section>
           </section>

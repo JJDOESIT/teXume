@@ -68,6 +68,7 @@
     field-sizing: content;
     padding: 5px 10px;
     transition: none;
+    max-width: 125px;
 }
 
 .eyeIcon:hover, .editIcon:hover{

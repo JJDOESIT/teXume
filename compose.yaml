@@ -1,0 +1,49 @@
+services:
+  template:
+    image: texume/template
+    build:
+      context: ./server/
+      dockerfile: template/Dockerfile
+      args:
+        DOCKER_BUILDKIT: 1
+    ports:
+      - 8083:8083
+    volumes:
+      - ./assets/:/app/assets/
+    networks:
+      - texume-network
+
+  gateway:
+    image: texume/gateway
+    build:
+      context: ./server/
+      dockerfile: gateway/Dockerfile
+    ports:
+      - 8081:8081
+    networks:
+      - texume-network
+
+  backend:
+    image: texume/backend
+    build:
+      context: ./server/
+      dockerfile: backend/Dockerfile
+    ports:
+      - 8082:8082
+    networks:
+      - texume-network
+
+  frontend:
+    image: texume/frontend
+    build:
+      context: ./frontend/
+    ports:
+      - 3000:3000
+    env_file:
+      - /frontend/.env
+    networks:
+      - texume-network
+
+networks:
+  texume-network:
+    driver: bridge

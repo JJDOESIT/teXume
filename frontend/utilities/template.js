@@ -8,9 +8,11 @@ import { compile, initialize } from "../api/template";
 
 // Fetch user info
 export async function fetchUserInfo(setUserInfo, showNavbarAlert) {
+  console.log("Fetch user info");
   const cookie = await getCookie("token");
 
   if (cookie == null) {
+    console.log("No cookie. Reset user info.");
     setUserInfo(new UserInfoModel());
     return;
   }
@@ -21,10 +23,8 @@ export async function fetchUserInfo(setUserInfo, showNavbarAlert) {
   if (!response.ok) {
     await deleteCookie("token");
     if (response.status == 403) {
-      showNavbarAlert(
-        "error",
-        "Oops! Your session expired. Refresh the page or log back in.",
-      );
+      showNavbarAlert("warning", "You have been logged out.", 2000);
+      setUserInfo(new UserInfoModel());
     } else {
       showNavbarAlert(
         "error",
@@ -44,6 +44,7 @@ export async function initializeTemplate(
   setSession,
   showNavbarAlert,
 ) {
+  console.log("Initialize template");
   const response = await initialize(template);
 
   if (!response.ok) {
@@ -98,5 +99,5 @@ export async function compileTemplate(
     pdfTimestamp.current = timestamp;
     return data;
   }
-  return null;
+  return -1;
 }

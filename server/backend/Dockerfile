@@ -1,4 +1,9 @@
-FROM eclipse-temurin:21
-ARG JAR_FILE=build/libs/template-0.0.1-SNAPSHOT.jar
-COPY ${JAR_FILE} app.jar
-ENTRYPOINT ["java","-jar","/app.jar"]
+FROM eclipse-temurin:21-jdk AS builder
+WORKDIR /workspace
+COPY . .
+RUN ./gradlew :backend:bootJar
+
+FROM eclipse-temurin:21-jre
+WORKDIR /app
+COPY --from=builder /workspace/backend/build/libs/*.jar app.jar
+ENTRYPOINT ["java","-jar","app.jar"]

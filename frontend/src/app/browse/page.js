@@ -38,11 +38,13 @@ export default function Browse() {
     <section className={styles.container}>
       {!isLoading ? (
         <div>
-          <div className={`${styles.filter} primaryEmeraldInput`}>
-            <input
-              onChange={(event) => filter(event.target.value)}
-              placeholder="Filter"
-            ></input>
+          <div className={styles.filter}>
+            <div className={`primaryEmeraldInput`}>
+              <input
+                onChange={(event) => filter(event.target.value)}
+                placeholder="Filter"
+              ></input>
+            </div>
           </div>
 
           <div className={styles.gridContainer}>

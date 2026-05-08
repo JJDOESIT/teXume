@@ -1,5 +1,5 @@
 export async function login(username, password) {
-  return await fetch("http://localhost:8081/api/authentication/login", {
+  return await fetch("/api/gateway/api/authentication/login", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -12,7 +12,7 @@ export async function login(username, password) {
 }
 
 export async function signUp(username, password, firstName, lastName) {
-  return await fetch("http://localhost:8081/api/authentication/sign-up", {
+  return await fetch("/api/gateway/api/authentication/sign-up", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -27,7 +27,7 @@ export async function signUp(username, password, firstName, lastName) {
 }
 
 export async function signUpGuest(userInfo) {
-  return await fetch("http://localhost:8081/api/authentication/sign-up-guest", {
+  return await fetch("/api/gateway/api/authentication/sign-up-guest", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -39,7 +39,7 @@ export async function signUpGuest(userInfo) {
 }
 
 export async function isLoggedIn(token) {
-  return await fetch("http://localhost:8081/api/authentication/is-logged-in", {
+  return await fetch("/api/gateway/api/authentication/is-logged-in", {
     method: "GET",
     headers: {
       "Content-Type": "application/json",

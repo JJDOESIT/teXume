@@ -147,7 +147,7 @@ export default function Template({ params }) {
                 >
                   <p>Preview</p>
                 </div>
-                <Export></Export>
+                <Export download={download}></Export>
               </div>
             )}
           </div>

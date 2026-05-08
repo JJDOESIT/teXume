@@ -25,7 +25,11 @@ export default function SignUp() {
     const response = await signUp(username, password, firstName, lastName);
 
     if (response.ok) {
-      showNavbarAlert("success", `Welcome to TeXume ${firstName}!`, 2000);
+      showNavbarAlert(
+        "success",
+        `Welcome to TeXume ${firstName}! Please log in.`,
+        2000,
+      );
       router.push("/login");
     } else if (response.status == 409) {
       showNavbarAlert(

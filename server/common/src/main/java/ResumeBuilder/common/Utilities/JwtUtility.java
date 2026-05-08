@@ -26,7 +26,7 @@ public class JwtUtility {
         return Jwts.builder()
                 .subject(username)
                 .issuedAt(new Date())
-                .expiration(new Date((new Date()).getTime() + _expiration * 60 * 60 * 1000))
+                .expiration(new Date((new Date()).getTime() + _expiration * 1000 * 60 * 60))
                 .signWith(_key)
                 .compact();
     }

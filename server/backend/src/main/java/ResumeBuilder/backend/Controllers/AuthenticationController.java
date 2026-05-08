@@ -123,7 +123,13 @@ public class AuthenticationController {
     public ResponseEntity<Boolean> isLoggedIn(HttpServletRequest request) {
         try {
             String identity = request.getHeader("identity");
-            boolean isSession = request.getHeader("role") == "guest";
+            String session = request.getHeader("role");
+
+            if (identity == null) {
+                return ResponseEntity.status(500).build();
+            }
+
+            boolean isSession = session.equals("guest");
 
             if (isSession) {
                 return ResponseEntity.ok().body(false);

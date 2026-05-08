@@ -6,12 +6,17 @@
 }
 
 .filter{
-    justify-self: center;
-    width: 70%;
+    display: flex;
+    justify-content: center;
+    width: 100%;
     margin-top: 20px;
 }
 
-.filter > input{
+.filter > div{
+    max-width: 70%;
+}
+
+.filter > div > input{
     width: 100%;
     border-radius: 3rem;
 }

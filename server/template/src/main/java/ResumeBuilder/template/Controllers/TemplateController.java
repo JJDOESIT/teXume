@@ -32,14 +32,11 @@ import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FilenameFilter;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -73,7 +70,7 @@ public class TemplateController {
     public ResponseEntity<Void> add(@RequestBody AddTemplateModel addTemplateModel, HttpServletRequest request) {
         try {
             String identity = request.getHeader("identity");
-            boolean isAdmin = request.getHeader("role") == "admin";
+            boolean isAdmin = request.getHeader("role").equals("admin");
 
             if (!isAdmin) {
                 return ResponseEntity.status(403).build();
@@ -82,7 +79,8 @@ public class TemplateController {
             UserAccountModel userAccountModel = _userAccountRepository
                     .findByUsername(identity).get();
 
-            Path directory = Paths.get("./server/template/assets/templates/");
+            String session = UUID.randomUUID().toString();
+            Path directory = Paths.get("assets/templates/");
             Path path = directory.resolve(addTemplateModel.name + ".tex");
 
             ArrayList<LineModel> lines = new ArrayList<>();
@@ -93,8 +91,16 @@ public class TemplateController {
                 lines.add(lineModel);
             }
             reader.close();
-            String session = UUID.randomUUID().toString();
+
+            HashMap<String, String> sectionMap = new HashMap<>();
+            ArrayList<String> sectionNames = _templateLogic.fetchSectionNames(lines);
+            sectionMap.put("education", sectionNames.get(0));
+            sectionMap.put("experience", sectionNames.get(1));
+            sectionMap.put("projects", sectionNames.get(2));
+            sectionMap.put("skills", sectionNames.get(3));
+            sectionMap.put("achievements", sectionNames.get(4));
             _linesCacheUtility.put(session, lines);
+            _sectionMapUtility.put(session, sectionMap);
 
             ModifyTemplateModel modifyTemplateModel = new ModifyTemplateModel();
             modifyTemplateModel.session = session;
@@ -154,18 +160,7 @@ public class TemplateController {
                 return ResponseEntity.status(500).build();
             }
 
-            Path cwd = Path.of("").toAbsolutePath();
-            System.out.println(cwd);
-            File file = new File(cwd.toString());
-            String[] directories = file.list(new FilenameFilter() {
-                @Override
-                public boolean accept(File current, String name) {
-                    return new File(current, name).isDirectory();
-                }
-            });
-            System.out.println(Arrays.toString(directories));
-            Path directory = Paths.get("server/template/assets/templates/").toAbsolutePath();
-            System.out.println(directory);
+            Path directory = Paths.get("assets/templates/").toAbsolutePath();
             Path path = directory.resolve(initializeTemplateModel.name + ".tex");
 
             BufferedReader reader = Files.newBufferedReader(path);
@@ -173,7 +168,6 @@ public class TemplateController {
                 LineModel lineModel = new LineModel(line);
                 lines.add(lineModel);
             }
-
             reader.close();
 
             HashMap<String, String> sectionMap = new HashMap<>();
@@ -206,7 +200,7 @@ public class TemplateController {
             ArrayList<UserInfoModel> userModels = new ArrayList<>();
             userModels.add(modifyTemplateModel.userInfoModel);
 
-            Path directory = Paths.get("./server/template/assets/outputs/");
+            Path directory = Paths.get("assets/outputs/");
             Files.createDirectories(directory);
             Path standard = directory.resolve(modifyTemplateModel.session);
             Path base = directory.resolve(modifyTemplateModel.session);
