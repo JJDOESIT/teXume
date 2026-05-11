@@ -8,11 +8,9 @@ import { compile, initialize } from "../api/template";
 
 // Fetch user info
 export async function fetchUserInfo(setUserInfo, showNavbarAlert) {
-  console.log("Fetch user info");
   const cookie = await getCookie("token");
 
   if (cookie == null) {
-    console.log("No cookie. Reset user info.");
     setUserInfo(new UserInfoModel());
     return;
   }
@@ -44,7 +42,6 @@ export async function initializeTemplate(
   setSession,
   showNavbarAlert,
 ) {
-  console.log("Initialize template");
   const response = await initialize(template);
 
   if (!response.ok) {

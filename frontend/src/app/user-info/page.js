@@ -146,7 +146,6 @@ export default function UserInfo() {
 
   // On render, fetch user info and initialize template
   useEffect(() => {
-    console.log("First load");
     const desktopQuery = window.matchMedia("(min-width: 1201px)");
     const mobileQuery = window.matchMedia("(max-width: 1200px)");
 
@@ -179,7 +178,6 @@ export default function UserInfo() {
         );
 
         if (response == null) {
-          setUserInfo(new UserInfoModel());
           return;
         }
 

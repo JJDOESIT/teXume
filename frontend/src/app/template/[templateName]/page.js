@@ -54,13 +54,25 @@ export default function Template({ params }) {
   }
 
   // Download a given file
-  function download(selectedOption) {
-    const link = document.createElement("a");
-    link.href = selectedOption == "pdf" ? pdfUrl : latexUrl;
-    link.download = selectedOption == "pdf" ? "texume.pdf" : "texume.tex";
+  async function download(selectedOption) {
+    const path = selectedOption === "pdf" ? pdfUrl : latexUrl;
+    const filename = selectedOption === "pdf" ? "texume.pdf" : "texume.tex";
 
-    link.click();
-    link.remove();
+    const response = await fetch(path);
+    const blob = await response.blob();
+    const octetStreamBlob = new Blob([blob], {
+      type: "application/octet-stream",
+    });
+
+    const url = URL.createObjectURL(octetStreamBlob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = filename;
+
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
   }
 
   // On render, fetch user info and initialize template
@@ -97,7 +109,6 @@ export default function Template({ params }) {
         );
 
         if (response == null) {
-          setUserInfo(new UserInfoModel());
           return;
         }
 
